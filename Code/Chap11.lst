@@ -1,0 +1,1395 @@
+listing 1
+// A simple class hierarchy. 
+ 
+using System; 
+ 
+// A class for two-dimensional objects. 
+class TwoDShape { 
+  public double Width; 
+  public double Height; 
+ 
+  public void ShowDim() { 
+    Console.WriteLine("Width and height are " + 
+                       Width + " and " + Height); 
+  } 
+} 
+ 
+// Triangle is derived from TwoDShape. 
+class Triangle : TwoDShape { 
+  public string Style; // style of triangle 
+   
+  // Return area of triangle. 
+  public double Area() { 
+    return Width * Height / 2; 
+  } 
+ 
+  // Display a triangle's style. 
+  public void ShowStyle() { 
+    Console.WriteLine("Triangle is " + Style); 
+  } 
+} 
+ 
+class Shapes { 
+  static void Main() { 
+    Triangle t1 = new Triangle(); 
+    Triangle t2 = new Triangle(); 
+ 
+    t1.Width = 4.0; 
+    t1.Height = 4.0; 
+    t1.Style = "isosceles"; 
+ 
+    t2.Width = 8.0; 
+    t2.Height = 12.0; 
+    t2.Style = "right"; 
+ 
+    Console.WriteLine("Info for t1: "); 
+    t1.ShowStyle(); 
+    t1.ShowDim(); 
+    Console.WriteLine("Area is " + t1.Area()); 
+ 
+    Console.WriteLine(); 
+ 
+    Console.WriteLine("Info for t2: "); 
+    t2.ShowStyle(); 
+    t2.ShowDim(); 
+    Console.WriteLine("Area is " + t2.Area()); 
+  } 
+}
+
+listing 2
+// Access to private members are not inherited.  
+ 
+// This example will not compile. 
+using System; 
+ 
+// A class for two-dimensional objects. 
+class TwoDShape { 
+  double Width;  // now private 
+  double Height; // now private 
+ 
+  public void ShowDim() { 
+    Console.WriteLine("Width and height are " + 
+                       Width + " and " + Height); 
+  } 
+} 
+ 
+// Triangle is derived from TwoDShape. 
+class Triangle : TwoDShape { 
+  public string Style; // style of triangle 
+   
+  // Return area of triangle. 
+  public double Area() { 
+    return Width * Height / 2; // Error, can't access private member 
+  } 
+ 
+  // Display a triangle's style. 
+  public void ShowStyle() { 
+    Console.WriteLine("Triangle is " + Style); 
+  } 
+}
+
+listing 3
+// Use public properties to set and get private members. 
+ 
+using System; 
+ 
+// A class for two-dimensional objects. 
+class TwoDShape { 
+  double pri_width;  // now private 
+  double pri_height; // now private  
+ 
+  // Properties for width and height. 
+  public double Width { 
+     get { return pri_width; } 
+     set { pri_width = value < 0 ? -value : value; } 
+  } 
+ 
+  public double Height { 
+     get { return pri_height; } 
+     set { pri_height = value < 0 ? -value : value; } 
+  } 
+ 
+  public void ShowDim() { 
+    Console.WriteLine("Width and height are " + 
+                       Width + " and " + Height); 
+  } 
+} 
+ 
+// A derived class of TwoDShape for triangles. 
+class Triangle : TwoDShape { 
+  public string Style; // style of triangle 
+   
+  // Return area of triangle. 
+  public double Area() { 
+    return Width * Height / 2;  
+  } 
+ 
+  // Display a triangle's style. 
+  public void ShowStyle() { 
+    Console.WriteLine("Triangle is " + Style); 
+  } 
+} 
+ 
+class Shapes2 { 
+  static void Main() { 
+    Triangle t1 = new Triangle(); 
+    Triangle t2 = new Triangle(); 
+ 
+    t1.Width = 4.0; 
+    t1.Height = 4.0; 
+    t1.Style = "isosceles"; 
+ 
+    t2.Width = 8.0; 
+    t2.Height = 12.0; 
+    t2.Style = "right"; 
+ 
+    Console.WriteLine("Info for t1: "); 
+    t1.ShowStyle(); 
+    t1.ShowDim(); 
+    Console.WriteLine("Area is " + t1.Area()); 
+ 
+    Console.WriteLine(); 
+ 
+    Console.WriteLine("Info for t2: "); 
+    t2.ShowStyle(); 
+    t2.ShowDim(); 
+    Console.WriteLine("Area is " + t2.Area()); 
+  } 
+}
+
+listing 4
+// Demonstrate protected. 
+ 
+using System; 
+ 
+class B { 
+  protected int i, j; // private to B, but accessible by D 
+ 
+  public void Set(int a, int b) { 
+    i = a; 
+    j = b; 
+  } 
+ 
+  public void Show() { 
+    Console.WriteLine(i + " " + j); 
+ } 
+} 
+ 
+class D : B { 
+  int k; // private 
+ 
+  // D can access B's i and j 
+  public void Setk() { 
+     k = i * j; 
+  } 
+ 
+  public void Showk() { 
+    Console.WriteLine(k); 
+  } 
+} 
+ 
+class ProtectedDemo { 
+  static void Main() { 
+    D ob = new D(); 
+ 
+    ob.Set(2, 3); // OK, known to D 
+    ob.Show();    // OK, known to D 
+ 
+    ob.Setk();  // OK, part of D 
+    ob.Showk(); // OK, part of D 
+  } 
+}
+
+listing 5
+// Add a constructor to Triangle. 
+ 
+using System; 
+ 
+// A class for two-dimensional objects. 
+class TwoDShape { 
+  double pri_width;  
+  double pri_height;  
+ 
+  // Properties for Width and Height. 
+  public double Width { 
+     get { return pri_width; } 
+     set { pri_width = value < 0 ? -value : value; } 
+  } 
+ 
+  public double Height { 
+     get { return pri_height; } 
+     set { pri_height = value < 0 ? -value : value; } 
+  } 
+ 
+  public void ShowDim() { 
+    Console.WriteLine("Width and height are " + 
+                       Width + " and " + Height); 
+  } 
+} 
+ 
+// A derived class of TwoDShape for triangles. 
+class Triangle : TwoDShape { 
+  string Style; 
+   
+  // Constructor. 
+  public Triangle(string s, double w, double h) { 
+    Width = w;  // init the base class 
+    Height = h; // init the base class 
+ 
+    Style = s;  // init the derived class 
+  } 
+ 
+  // Return area of triangle. 
+  public double Area() { 
+    return Width * Height / 2;  
+  } 
+ 
+  // Display a triangle's style. 
+  public void ShowStyle() { 
+    Console.WriteLine("Triangle is " + Style); 
+  } 
+} 
+ 
+class Shapes3 { 
+  static void Main() { 
+    Triangle t1 = new Triangle("isosceles", 4.0, 4.0); 
+    Triangle t2 = new Triangle("right", 8.0, 12.0); 
+ 
+    Console.WriteLine("Info for t1: "); 
+    t1.ShowStyle(); 
+    t1.ShowDim(); 
+    Console.WriteLine("Area is " + t1.Area()); 
+ 
+    Console.WriteLine(); 
+ 
+    Console.WriteLine("Info for t2: "); 
+    t2.ShowStyle(); 
+    t2.ShowDim(); 
+    Console.WriteLine("Area is " + t2.Area()); 
+  } 
+}
+
+listing 6
+// Add constructor to TwoDShape. 
+ 
+using System; 
+ 
+// A class for two-dimensional objects. 
+class TwoDShape { 
+  double pri_width;   
+  double pri_height;  
+ 
+  // Constructor for TwoDShape. 
+  public TwoDShape(double w, double h) { 
+    Width = w; 
+    Height = h; 
+  } 
+ 
+  // Properties for Width and Height. 
+  public double Width { 
+     get { return pri_width; } 
+     set { pri_width = value < 0 ? -value : value; } 
+  } 
+ 
+  public double Height { 
+     get { return pri_height; } 
+     set { pri_height = value < 0 ? -value : value; } 
+  } 
+ 
+  public void ShowDim() { 
+    Console.WriteLine("Width and height are " + 
+                       Width + " and " + Height); 
+  } 
+} 
+ 
+ // A derived class of TwoDShape for triangles. 
+class Triangle : TwoDShape { 
+  string Style;  
+   
+  // Call the base class constructor. 
+  public Triangle(string s, double w, double h) : base(w, h) { 
+    Style = s;  
+  } 
+ 
+  // Return area of triangle. 
+  public double Area() { 
+    return Width * Height / 2; 
+  } 
+ 
+  // Display a triangle's style. 
+  public void ShowStyle() { 
+    Console.WriteLine("Triangle is " + Style); 
+  } 
+} 
+ 
+class Shapes4 { 
+  static void Main() { 
+    Triangle t1 = new Triangle("isosceles", 4.0, 4.0); 
+    Triangle t2 = new Triangle("right", 8.0, 12.0); 
+ 
+    Console.WriteLine("Info for t1: "); 
+    t1.ShowStyle(); 
+    t1.ShowDim(); 
+    Console.WriteLine("Area is " + t1.Area()); 
+ 
+    Console.WriteLine(); 
+ 
+    Console.WriteLine("Info for t2: "); 
+    t2.ShowStyle(); 
+    t2.ShowDim(); 
+    Console.WriteLine("Area is " + t2.Area()); 
+  } 
+}
+
+listing 7
+// Add more constructors to TwoDShape. 
+ 
+using System; 
+ 
+class TwoDShape { 
+  double pri_width;  
+  double pri_height;  
+ 
+  // Default constructor. 
+  public TwoDShape() { 
+    Width = Height = 0.0; 
+  } 
+ 
+  // Constructor for TwoDShape. 
+  public TwoDShape(double w, double h) { 
+    Width = w; 
+    Height = h; 
+  } 
+ 
+  // Construct object with equal width and height. 
+  public TwoDShape(double x) { 
+    Width = Height = x; 
+  } 
+ 
+  // Properties for Width and Height. 
+  public double Width { 
+     get { return pri_width; } 
+     set { pri_width = value < 0 ? -value : value; } 
+  } 
+ 
+  public double Height { 
+     get { return pri_height; } 
+     set { pri_height = value < 0 ? -value : value; } 
+  } 
+ 
+  public void ShowDim() { 
+    Console.WriteLine("Width and height are " + 
+                       Width + " and " + Height); 
+  } 
+} 
+ 
+// A derived class of TwoDShape for triangles. 
+class Triangle : TwoDShape { 
+  string Style;  
+   
+  /* A default constructor. This automatically invokes 
+     the default constructor of TwoDShape. */ 
+  public Triangle() { 
+    Style = "null"; 
+  } 
+ 
+  // Constructor that takes three arguments. 
+  public Triangle(string s, double w, double h) : base(w, h) { 
+    Style = s;  
+  } 
+ 
+  // Construct an isosceles triangle. 
+  public Triangle(double x) : base(x) { 
+    Style = "isosceles";  
+  } 
+ 
+  // Return area of triangle. 
+  public double Area() { 
+    return Width * Height / 2; 
+  } 
+ 
+  // Display a triangle's style. 
+  public void ShowStyle() { 
+    Console.WriteLine("Triangle is " + Style); 
+  } 
+} 
+ 
+class Shapes5 { 
+  static void Main() { 
+    Triangle t1 = new Triangle(); 
+    Triangle t2 = new Triangle("right", 8.0, 12.0); 
+    Triangle t3 = new Triangle(4.0); 
+ 
+    t1 = t2; 
+ 
+    Console.WriteLine("Info for t1: "); 
+    t1.ShowStyle(); 
+    t1.ShowDim(); 
+    Console.WriteLine("Area is " + t1.Area()); 
+ 
+    Console.WriteLine(); 
+ 
+    Console.WriteLine("Info for t2: "); 
+    t2.ShowStyle(); 
+    t2.ShowDim(); 
+    Console.WriteLine("Area is " + t2.Area()); 
+ 
+    Console.WriteLine(); 
+ 
+    Console.WriteLine("Info for t3: "); 
+    t3.ShowStyle(); 
+    t3.ShowDim(); 
+    Console.WriteLine("Area is " + t3.Area()); 
+ 
+    Console.WriteLine(); 
+  } 
+}
+
+listing 8
+// An example of inheritance-related name hiding. 
+ 
+using System; 
+ 
+class A { 
+  public int i = 0; 
+} 
+ 
+// Create a derived class. 
+class B : A { 
+  new int i; // this i hides the i in A 
+ 
+  public B(int b) { 
+    i = b; // i in B 
+  } 
+ 
+  public void Show() { 
+    Console.WriteLine("i in derived class: " + i); 
+  } 
+} 
+ 
+class NameHiding { 
+  static void Main() { 
+    B ob = new B(2); 
+ 
+    ob.Show(); 
+  } 
+}
+
+listing 9
+// Using base to overcome name hiding. 
+ 
+using System; 
+ 
+class A { 
+  public int i = 0; 
+} 
+ 
+// Create a derived class. 
+class B : A { 
+  new int i; // this i hides the i in A 
+ 
+  public B(int a, int b) { 
+    base.i = a; // this uncovers the i in A 
+    i = b; // i in B 
+  } 
+ 
+  public void Show() { 
+    // This displays the i in A. 
+    Console.WriteLine("i in base class: " + base.i); 
+ 
+    // This displays the i in B. 
+    Console.WriteLine("i in derived class: " + i); 
+  } 
+} 
+ 
+class UncoverName { 
+  static void Main() { 
+    B ob = new B(1, 2); 
+ 
+    ob.Show(); 
+  } 
+}
+
+listing 10
+// Call a hidden method. 
+ 
+using System; 
+ 
+class A { 
+  public int i = 0; 
+ 
+  // Show() in A 
+  public void Show() { 
+    Console.WriteLine("i in base class: " + i); 
+  } 
+} 
+ 
+// Create a derived class. 
+class B : A { 
+  new int i; // this i hides the i in A 
+ 
+  public B(int a, int b) { 
+    base.i = a; // this uncovers the i in A 
+    i = b; // i in B 
+  } 
+ 
+  // This hides Show() in A. Notice the use of new. 
+  new public void Show() { 
+    base.Show(); // this calls Show() in A 
+ 
+    // this displays the i in B 
+    Console.WriteLine("i in derived class: " + i); 
+  } 
+} 
+ 
+class UncoverName { 
+  static void Main() { 
+    B ob = new B(1, 2); 
+ 
+    ob.Show(); 
+  } 
+}
+
+listing 11
+// A multilevel hierarchy. 
+ 
+using System; 
+ 
+class TwoDShape { 
+  double pri_width; 
+  double pri_height;  
+ 
+  // Default constructor. 
+  public TwoDShape() { 
+    Width = Height = 0.0; 
+  } 
+ 
+  // Constructor for TwoDShape. 
+  public TwoDShape(double w, double h) { 
+    Width = w; 
+    Height = h; 
+  } 
+ 
+  // Construct object with equal width and height. 
+  public TwoDShape(double x) { 
+    Width = Height = x; 
+  } 
+ 
+  // Properties for Width and Height. 
+  public double Width { 
+     get { return pri_width; } 
+     set { pri_width = value < 0 ? -value : value; } 
+  } 
+ 
+  public double Height { 
+     get { return pri_height; } 
+     set { pri_height = value < 0 ? -value : value; } 
+  } 
+ 
+  public void ShowDim() { 
+    Console.WriteLine("Width and height are " + 
+                       Width + " and " + Height); 
+  } 
+} 
+ 
+// A derived class of TwoDShape for triangles. 
+class Triangle : TwoDShape { 
+  string Style; // private 
+   
+  /* A default constructor. This invokes the default 
+     constructor of TwoDShape. */ 
+  public Triangle() { 
+    Style = "null"; 
+  } 
+ 
+  // Constructor. 
+  public Triangle(string s, double w, double h) : base(w, h) { 
+    Style = s;  
+  } 
+ 
+  // Construct an isosceles triangle. 
+  public Triangle(double x) : base(x) { 
+    Style = "isosceles";  
+  } 
+ 
+  // Return area of triangle. 
+  public double Area() { 
+    return Width * Height / 2; 
+  } 
+ 
+  // Display a triangle's style. 
+  public void ShowStyle() { 
+    Console.WriteLine("Triangle is " + Style); 
+  } 
+} 
+ 
+// Extend Triangle. 
+class ColorTriangle : Triangle { 
+  string color; 
+ 
+  public ColorTriangle(string c, string s, 
+                       double w, double h) : base(s, w, h) { 
+    color = c; 
+  } 
+ 
+  // Display the color. 
+  public void ShowColor() { 
+    Console.WriteLine("Color is " + color); 
+  } 
+} 
+ 
+class Shapes6 { 
+  static void Main() { 
+    ColorTriangle t1 =  
+         new ColorTriangle("Blue", "right", 8.0, 12.0); 
+    ColorTriangle t2 =  
+         new ColorTriangle("Red", "isosceles", 2.0, 2.0); 
+ 
+    Console.WriteLine("Info for t1: "); 
+    t1.ShowStyle(); 
+    t1.ShowDim(); 
+    t1.ShowColor(); 
+    Console.WriteLine("Area is " + t1.Area()); 
+ 
+    Console.WriteLine(); 
+ 
+    Console.WriteLine("Info for t2: "); 
+    t2.ShowStyle(); 
+    t2.ShowDim(); 
+    t2.ShowColor(); 
+    Console.WriteLine("Area is " + t2.Area()); 
+  } 
+}
+
+listing 12
+// Demonstrate when constructors are called. 
+ 
+using System; 
+ 
+// Create a base class. 
+class A { 
+  public A() {  
+    Console.WriteLine("Constructing A."); 
+  } 
+} 
+ 
+// Create a class derived from A. 
+class B : A { 
+  public B() { 
+    Console.WriteLine("Constructing B."); 
+  } 
+} 
+ 
+// Create a class derived from B. 
+class C : B { 
+  public C() { 
+    Console.WriteLine("Constructing C."); 
+  } 
+} 
+ 
+class OrderOfConstruction { 
+  static void Main() { 
+    C c = new C(); 
+  } 
+}
+
+listing 13
+// This program will not compile. 
+ 
+class X { 
+  int a; 
+ 
+  public X(int i) { a = i; } 
+} 
+ 
+class Y { 
+  int a; 
+ 
+  public Y(int i) { a = i; } 
+} 
+ 
+class IncompatibleRef { 
+  static void Main() { 
+    X x = new X(10); 
+    X x2;  
+    Y y = new Y(5); 
+ 
+    x2 = x; // OK, both of same type 
+ 
+    x2 = y; // Error, not of same type 
+  } 
+}
+
+listing 14
+// A base class reference can refer to a derived class object. 
+ 
+using System; 
+ 
+class X { 
+  public int a; 
+ 
+  public X(int i) { 
+    a = i; 
+  } 
+} 
+ 
+class Y : X { 
+  public int b; 
+ 
+  public Y(int i, int j) : base(j) { 
+    b = i; 
+  } 
+} 
+ 
+class BaseRef { 
+  static void Main() { 
+    X x = new X(10); 
+    X x2;  
+    Y y = new Y(5, 6); 
+ 
+    x2 = x; // OK, both of same type 
+    Console.WriteLine("x2.a: " + x2.a); 
+ 
+    x2 = y; // Ok because Y is derived from X 
+    Console.WriteLine("x2.a: " + x2.a); 
+ 
+    // X references know only about X members 
+    x2.a = 19; // OK 
+//    x2.b = 27; // Error, X doesn't have a b member 
+  } 
+}
+
+listing 15
+// Pass a derived class reference to a base class reference. 
+ 
+using System; 
+ 
+class TwoDShape { 
+  double pri_width;  
+  double pri_height;  
+ 
+  // Default constructor. 
+  public TwoDShape() { 
+    Width = Height = 0.0; 
+  } 
+ 
+  // Constructor for TwoDShape. 
+  public TwoDShape(double w, double h) { 
+    Width = w; 
+    Height = h; 
+  } 
+ 
+  // Construct object with equal width and height. 
+  public TwoDShape(double x) { 
+    Width = Height = x; 
+  } 
+ 
+  // Construct a copy of a TwoDShape object. 
+  public TwoDShape(TwoDShape ob) { 
+    Width = ob.Width; 
+    Height = ob.Height; 
+  } 
+ 
+  // Properties for Width and Height. 
+  public double Width { 
+     get { return pri_width; } 
+     set { pri_width = value < 0 ? -value : value; } 
+  } 
+ 
+  public double Height { 
+     get { return pri_height; } 
+     set { pri_height = value < 0 ? -value : value; } 
+  } 
+ 
+  public void ShowDim() { 
+    Console.WriteLine("Width and height are " + 
+                       Width + " and " + Height); 
+  } 
+} 
+ 
+// A derived class of TwoDShape for triangles. 
+class Triangle : TwoDShape { 
+  string Style;  
+   
+  // A default constructor. 
+  public Triangle() { 
+    Style = "null"; 
+  } 
+ 
+  // Constructor for Triangle. 
+  public Triangle(string s, double w, double h) : base(w, h) { 
+    Style = s;  
+  } 
+ 
+  // Construct an isosceles triangle. 
+  public Triangle(double x) : base(x) { 
+    Style = "isosceles";  
+  } 
+ 
+  // Construct a copy of a Triangle object. 
+  public Triangle(Triangle ob) : base(ob) { 
+    Style = ob.Style; 
+  } 
+ 
+  // Return area of triangle. 
+  public double Area() { 
+    return Width * Height / 2; 
+  } 
+ 
+  // Display a triangle's style. 
+  public void ShowStyle() { 
+    Console.WriteLine("Triangle is " + Style); 
+  } 
+} 
+ 
+class Shapes7 { 
+  static void Main() { 
+    Triangle t1 = new Triangle("right", 8.0, 12.0); 
+ 
+    // Make a copy of t1. 
+    Triangle t2 = new Triangle(t1); 
+ 
+    Console.WriteLine("Info for t1: "); 
+    t1.ShowStyle(); 
+    t1.ShowDim(); 
+    Console.WriteLine("Area is " + t1.Area()); 
+ 
+    Console.WriteLine(); 
+ 
+    Console.WriteLine("Info for t2: "); 
+    t2.ShowStyle(); 
+    t2.ShowDim(); 
+    Console.WriteLine("Area is " + t2.Area()); 
+  } 
+}
+
+listing 16
+// Demonstrate a virtual method. 
+ 
+using System; 
+ 
+class Base { 
+  // Create virtual method in the base class.  
+  public virtual void Who() { 
+    Console.WriteLine("Who() in Base"); 
+  } 
+} 
+ 
+class Derived1 : Base { 
+  // Override Who() in a derived class. 
+  public override void Who() { 
+    Console.WriteLine("Who() in Derived1"); 
+  } 
+} 
+ 
+class Derived2 : Base { 
+  // Override Who() again in another derived class. 
+  public override void Who() { 
+    Console.WriteLine("Who() in Derived2"); 
+  } 
+} 
+ 
+class OverrideDemo { 
+  static void Main() { 
+    Base baseOb = new Base(); 
+    Derived1 dOb1 = new Derived1(); 
+    Derived2 dOb2 = new Derived2(); 
+ 
+    Base baseRef; // a base-class reference 
+ 
+    baseRef = baseOb;  
+    baseRef.Who(); 
+ 
+    baseRef = dOb1;  
+    baseRef.Who(); 
+ 
+    baseRef = dOb2;  
+    baseRef.Who(); 
+  } 
+}
+
+listing 17
+/* When a virtual method is not overridden, 
+   the base class method is used. */ 
+ 
+using System; 
+ 
+class Base { 
+  // Create virtual method in the base class.  
+  public virtual void Who() { 
+    Console.WriteLine("Who() in Base"); 
+  } 
+} 
+ 
+class Derived1 : Base { 
+  // Override Who() in a derived class. 
+  public override void Who() { 
+    Console.WriteLine("Who() in Derived1"); 
+  } 
+} 
+ 
+class Derived2 : Base { 
+  // This class does not override Who(). 
+} 
+ 
+class NoOverrideDemo { 
+  static void Main() { 
+    Base baseOb = new Base(); 
+    Derived1 dOb1 = new Derived1(); 
+    Derived2 dOb2 = new Derived2(); 
+ 
+    Base baseRef; // a base-class reference 
+ 
+    baseRef = baseOb;  
+    baseRef.Who(); 
+ 
+    baseRef = dOb1;  
+    baseRef.Who(); 
+ 
+    baseRef = dOb2;  
+    baseRef.Who(); // calls Base's Who() 
+  } 
+}
+
+listing 18
+/*  In a multilevel hierarchy, the first override of a virtual 
+    method that is found while moving up the hierarchy is the 
+    one executed. */ 
+  
+using System;  
+  
+class Base {  
+  // Create virtual method in the base class.   
+  public virtual void Who() {  
+    Console.WriteLine("Who() in Base");  
+  }  
+}  
+  
+class Derived1 : Base {  
+  // Override Who() in a derived class.  
+  public override void Who() {  
+    Console.WriteLine("Who() in Derived1");  
+  }  
+}  
+  
+class Derived2 : Derived1 {  
+  // This class also does not override Who().  
+}  
+ 
+class Derived3 : Derived2 {  
+  // This class does not override Who().  
+}  
+ 
+class NoOverrideDemo2 {  
+  static void Main() {  
+    Derived3 dOb = new Derived3();  
+    Base baseRef; // a base-class reference  
+  
+    baseRef = dOb;   
+    baseRef.Who(); // calls Derived1's Who()  
+  }  
+}
+
+listing 19
+// Use virtual methods and polymorphism. 
+ 
+using System; 
+ 
+class TwoDShape {  
+  double pri_width;  
+  double pri_height;  
+  
+  // A default constructor.  
+  public TwoDShape() {  
+    Width = Height = 0.0;  
+    name = "null";  
+  }  
+  
+  // Parameterized constructor.  
+  public TwoDShape(double w, double h, string n) {  
+    Width = w;  
+    Height = h;  
+    name = n;  
+  }  
+  
+  // Construct object with equal width and height.  
+  public TwoDShape(double x, string n) {  
+    Width = Height = x;  
+    name = n;  
+  }  
+  
+  // Construct a copy of a TwoDShape object. 
+  public TwoDShape(TwoDShape ob) {  
+    Width = ob.Width;  
+    Height = ob.Height;  
+    name = ob.name;  
+  }  
+  
+  // Properties for Width and Height. 
+  public double Width { 
+     get { return pri_width; } 
+     set { pri_width = value < 0 ? -value : value; } 
+  } 
+ 
+  public double Height { 
+     get { return pri_height; } 
+     set { pri_height = value < 0 ? -value : value; } 
+  } 
+ 
+  public string name { get; set; } 
+  
+  public void ShowDim() {  
+    Console.WriteLine("Width and height are " +  
+                       Width + " and " + Height);  
+  }  
+  
+  public virtual double Area() {   
+    Console.WriteLine("Area() must be overridden");  
+    return 0.0;  
+  }   
+}  
+  
+// A derived class of TwoDShape for triangles. 
+class Triangle : TwoDShape {  
+  string Style; 
+    
+  // A default constructor.  
+  public Triangle() {  
+    Style = "null";  
+  }  
+  
+  // Constructor for Triangle.  
+  public Triangle(string s, double w, double h) : 
+    base(w, h, "triangle") {  
+      Style = s;   
+  }  
+  
+  // Construct an isosceles triangle.  
+  public Triangle(double x) : base(x, "triangle") {  
+    Style = "isosceles";   
+  }  
+  
+  // Construct a copy of a Triangle object. 
+  public Triangle(Triangle ob) : base(ob) {  
+    Style = ob.Style;  
+  }  
+  
+  // Override Area() for Triangle. 
+  public override double Area() {  
+    return Width * Height / 2;  
+  }  
+  
+  // Display a triangle's style. 
+  public void ShowStyle() {  
+    Console.WriteLine("Triangle is " + Style);  
+  }  
+}  
+  
+// A derived class of TwoDShape for rectangles.   
+class Rectangle : TwoDShape {   
+  // Constructor for Rectangle.  
+  public Rectangle(double w, double h) :  
+    base(w, h, "rectangle"){ }  
+  
+  // Construct a square.  
+  public Rectangle(double x) :  
+    base(x, "rectangle") { }  
+  
+  // Construct a copy of a Rectangle object. 
+  public Rectangle(Rectangle ob) : base(ob) { }  
+  
+  // Return true if the rectangle is square. 
+  public bool IsSquare() {   
+    if(Width == Height) return true;   
+    return false;   
+  }   
+     
+  // Override Area() for Rectangle. 
+  public override double Area() {   
+    return Width * Height;   
+  }   
+}  
+  
+class DynShapes {  
+  static void Main() {  
+    TwoDShape[] shapes = new TwoDShape[5];  
+  
+    shapes[0] = new Triangle("right", 8.0, 12.0);  
+    shapes[1] = new Rectangle(10);  
+    shapes[2] = new Rectangle(10, 4);  
+    shapes[3] = new Triangle(7.0);  
+    shapes[4] = new TwoDShape(10, 20, "generic"); 
+  
+    for(int i=0; i < shapes.Length; i++) {  
+      Console.WriteLine("object is " + shapes[i].name);  
+      Console.WriteLine("Area is " + shapes[i].Area());  
+  
+      Console.WriteLine();    
+    }  
+  }  
+}
+
+listing 20
+// Create an abstract class. 
+ 
+using System; 
+ 
+abstract class TwoDShape {  
+  double pri_width;  
+  double pri_height;  
+  
+  // A default constructor.  
+  public TwoDShape() {  
+    Width = Height = 0.0;  
+    name = "null";  
+  }  
+  
+  // Parameterized constructor.  
+  public TwoDShape(double w, double h, string n) {  
+    Width = w;  
+    Height = h;  
+    name = n;  
+  }  
+  
+  // Construct object with equal width and height.  
+  public TwoDShape(double x, string n) {  
+    Width = Height = x;  
+    name = n;  
+  }  
+  
+  // Construct a copy of a TwoDShape object. 
+  public TwoDShape(TwoDShape ob) {  
+    Width = ob.Width;  
+    Height = ob.Height;  
+    name = ob.name;  
+  }  
+  
+  // Properties for Width and Height. 
+  public double Width { 
+     get { return pri_width; } 
+     set { pri_width = value < 0 ? -value : value; } 
+  } 
+ 
+  public double Height { 
+     get { return pri_height; } 
+     set { pri_height = value < 0 ? -value : value; } 
+  } 
+ 
+  public string name { get; set; } 
+  
+  public void ShowDim() {  
+    Console.WriteLine("Width and height are " +  
+                       Width + " and " + Height);  
+  }  
+  
+  // Now, Area() is abstract. 
+  public abstract double Area(); 
+}  
+  
+// A derived class of TwoDShape for triangles. 
+class Triangle : TwoDShape {  
+  string Style;  
+    
+  // A default constructor.  
+  public Triangle() {  
+    Style = "null";  
+  }  
+  
+  // Constructor for Triangle.  
+  public Triangle(string s, double w, double h) : 
+    base(w, h, "triangle") {  
+      Style = s;   
+  }  
+  
+  // Construct an isosceles triangle.  
+  public Triangle(double x) : base(x, "triangle") {  
+    Style = "isosceles";   
+  }  
+  
+  // Construct a copy of a Triangle object. 
+  public Triangle(Triangle ob) : base(ob) {  
+    Style = ob.Style;  
+  }  
+  
+  // Override Area() for Triangle. 
+  public override double Area() {  
+    return Width * Height / 2;  
+  }  
+  
+  // Display a triangle's style. 
+  public void ShowStyle() {  
+    Console.WriteLine("Triangle is " + Style);  
+  }  
+}  
+  
+// A derived class of TwoDShape for rectangles.   
+class Rectangle : TwoDShape {   
+  // Constructor for Rectangle.  
+  public Rectangle(double w, double h) :  
+    base(w, h, "rectangle"){ }  
+  
+  // Construct a square.  
+  public Rectangle(double x) :  
+    base(x, "rectangle") { }  
+  
+  // Construct a copy of a Rectangle object. 
+  public Rectangle(Rectangle ob) : base(ob) { }  
+  
+  // Return true if the rectangle is square. 
+  public bool IsSquare() {   
+    if(Width == Height) return true;   
+    return false;   
+  }   
+     
+  // Override Area() for Rectangle. 
+  public override double Area() {   
+    return Width * Height;   
+  }   
+}  
+  
+class AbsShape {  
+  static void Main() {  
+    TwoDShape[] shapes = new TwoDShape[4];  
+  
+    shapes[0] = new Triangle("right", 8.0, 12.0);  
+    shapes[1] = new Rectangle(10);  
+    shapes[2] = new Rectangle(10, 4);  
+    shapes[3] = new Triangle(7.0);  
+  
+    for(int i=0; i < shapes.Length; i++) {  
+      Console.WriteLine("object is " + shapes[i].name);  
+      Console.WriteLine("Area is " + shapes[i].Area());  
+  
+      Console.WriteLine();    
+    }  
+  }  
+}
+
+listing 21
+class B { 
+  public virtual void MyMethod() { /* ... */ } 
+} 
+ 
+class D : B { 
+  // This seals MyMethod() and prevents further overrides. 
+  sealed public override void MyMethod() { /* ... */ } 
+} 
+ 
+class X : D { 
+  // Error! MyMethod() is sealed! 
+  public override void MyMethod() { /* ... */ } 
+}
+
+listing 22
+// Demonstrate ToString() 
+ 
+using System; 
+ 
+class MyClass { 
+  static int count = 0; 
+  int id; 
+ 
+  public MyClass() { 
+    id = count; 
+    count++; 
+  } 
+ 
+  public override string ToString() { 
+    return "MyClass object #" + id; 
+  } 
+} 
+ 
+class Test { 
+  static void Main() { 
+    MyClass ob1 = new MyClass(); 
+    MyClass ob2 = new MyClass(); 
+    MyClass ob3 = new MyClass(); 
+ 
+    Console.WriteLine(ob1); 
+    Console.WriteLine(ob2); 
+    Console.WriteLine(ob3); 
+  } 
+}
+
+listing 23
+// A simple boxing/unboxing example. 
+ 
+using System; 
+ 
+class BoxingDemo { 
+  static void Main() { 
+    int x; 
+    object obj; 
+ 
+    x = 10; 
+    obj = x; // box x into an object 
+ 
+    int y = (int)obj; // unbox obj into an int 
+    Console.WriteLine(y); 
+  } 
+}
+
+listing 24
+// Boxing also occurs when passing values. 
+ 
+using System; 
+ 
+class BoxingDemo { 
+  static void Main() { 
+    int x; 
+    
+    x = 10; 
+    Console.WriteLine("Here is x: " + x); 
+ 
+    // x is automatically boxed when passed to Sqr(). 
+    x = BoxingDemo.Sqr(x); 
+    Console.WriteLine("Here is x squared: " + x); 
+  } 
+ 
+  static int Sqr(object o) { 
+    return (int)o * (int)o; 
+  } 
+}
+
+listing 25
+// Boxing makes it possible to call methods on a value! 
+ 
+using System; 
+ 
+class MethOnValue { 
+  static void Main() { 
+ 
+    Console.WriteLine(10.ToString()); 
+ 
+  } 
+}
+
+listing 26
+// Use object to create a "generic" array. 
+ 
+using System; 
+ 
+class GenericDemo {   
+  static void Main() {   
+    object[] ga = new object[10]; 
+  
+    // Store ints. 
+    for(int i=0; i < 3; i++) 
+      ga[i] = i; 
+  
+    // Store doubles. 
+    for(int i=3; i < 6; i++) 
+      ga[i] = (double) i / 2;  
+ 
+ 
+    // Store two strings, a bool, and a char. 
+    ga[6] = "Hello"; 
+    ga[7] = true; 
+    ga[8] = 'X'; 
+    ga[9] = "end"; 
+ 
+    for(int i = 0; i < ga.Length; i++) 
+      Console.WriteLine("ga[" + i + "]: " + ga[i] + " "); 
+  }  
+}
+

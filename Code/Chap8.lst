@@ -1,0 +1,1495 @@
+listing 1
+// Public vs private access. 
+ 
+using System; 
+ 
+class MyClass {  
+  private int alpha; // private access explicitly specified 
+  int beta;          // private access by default 
+  public int gamma;  // public access 
+ 
+  // Methods to access alpha and beta.  It is OK for a member 
+  // of a class to access a private member of the same class. 
+ 
+  public void SetAlpha(int a) { 
+    alpha = a;  
+  } 
+ 
+  public int GetAlpha() { 
+    return alpha; 
+  } 
+ 
+  public void SetBeta(int a) { 
+    beta = a;  
+  } 
+ 
+  public int GetBeta() { 
+    return beta; 
+  } 
+}  
+  
+class AccessDemo {  
+  static void Main() {  
+    MyClass ob = new MyClass();  
+  
+    // Access to alpha and beta is allowed only through methods. 
+    ob.SetAlpha(-99); 
+    ob.SetBeta(19); 
+    Console.WriteLine("ob.alpha is " + ob.GetAlpha()); 
+    Console.WriteLine("ob.beta is " + ob.GetBeta()); 
+ 
+    // You cannot access alpha or beta like this: 
+//  ob.alpha = 10; // Wrong! alpha is private! 
+//  ob.beta = 9;   // Wrong! beta is private! 
+ 
+    // It is OK to directly access gamma because it is public. 
+    ob.gamma = 99;  
+   }  
+}
+
+listing 2
+// A stack class for characters.   
+  
+using System;  
+  
+class Stack {   
+  // These members are private. 
+  char[] stck; // holds the stack  
+  int tos;     // index of the top of the stack  
+   
+  // Construct an empty Stack given its size.  
+  public Stack(int size) {   
+    stck = new char[size]; // allocate memory for stack   
+    tos = 0;   
+  }   
+  
+  // Push characters onto the stack.  
+  public void Push(char ch) {   
+    if(tos==stck.Length) {   
+      Console.WriteLine(" -- Stack is full.");   
+      return;   
+    }   
+       
+    stck[tos] = ch;  
+    tos++;  
+  }   
+   
+  // Pop a character from the stack.  
+  public char Pop() {   
+    if(tos==0) {   
+      Console.WriteLine(" -- Stack is empty.");   
+      return (char) 0;    
+    }   
+     
+    tos--;   
+    return stck[tos];   
+  } 
+ 
+  // Return true if the stack is full. 
+  public bool IsFull() { 
+    return tos==stck.Length;    
+  } 
+ 
+  // Return true if the stack is empty. 
+  public bool IsEmpty() { 
+    return tos==0; 
+  } 
+ 
+  // Return total capacity of the stack. 
+  public int Capacity() { 
+    return stck.Length; 
+  } 
+ 
+  // Return number of objects currently on the stack. 
+  public int GetNum() { 
+    return tos; 
+  } 
+}  
+
+listing 2-1
+// Demonstrate the Stack class.   
+ 
+using System; 
+ 
+class StackDemo {   
+  static void Main() {   
+    Stack stk1 = new Stack(10);   
+    Stack stk2 = new Stack(10);   
+    Stack stk3 = new Stack(10);   
+    char ch;   
+    int i;   
+   
+    // Put some characters into stk1. 
+    Console.WriteLine("Push A through J onto stk1."); 
+    for(i=0; !stk1.IsFull(); i++)   
+      stk1.Push((char) ('A' + i));   
+  
+    if(stk1.IsFull()) Console.WriteLine("stk1 is full."); 
+ 
+    // Display the contents of stk1. 
+    Console.Write("Contents of stk1: ");   
+    while( !stk1.IsEmpty() ) {    
+      ch = stk1.Pop();   
+      Console.Write(ch);   
+    }   
+   
+    Console.WriteLine();   
+ 
+    if(stk1.IsEmpty()) Console.WriteLine("stk1 is empty.\n"); 
+   
+    // Put more characters into stk1. 
+    Console.WriteLine("Again push A through J onto stk1."); 
+    for(i=0; !stk1.IsFull(); i++)   
+      stk1.Push((char) ('A' + i));   
+ 
+    // Now, pop from stk1 and push the element in stk2. 
+    // This causes stk2 to hold the elements in reverse order. 
+    Console.WriteLine("Now, pop chars from stk1 and push " + 
+                      "them onto stk2."); 
+    while( !stk1.IsEmpty() ) {    
+      ch = stk1.Pop();   
+      stk2.Push(ch); 
+    }   
+ 
+    Console.Write("Contents of stk2: ");   
+    while( !stk2.IsEmpty() ) {    
+      ch = stk2.Pop();   
+      Console.Write(ch);   
+    }   
+ 
+    Console.WriteLine("\n"); 
+ 
+    // Put 5 characters into stack. 
+    Console.WriteLine("Put 5 characters on stk3."); 
+    for(i=0; i < 5; i++)   
+      stk3.Push((char) ('A' + i));   
+ 
+    Console.WriteLine("Capacity of stk3: " + stk3.Capacity()); 
+    Console.WriteLine("Number of objects in stk3: " + 
+                      stk3.GetNum()); 
+  }   
+}
+
+listing 3
+// References can be passed to methods.  
+ 
+using System; 
+ 
+class MyClass {  
+  int alpha, beta; 
+  
+  public MyClass(int i, int j) {  
+    alpha = i;  
+    beta = j;  
+  }  
+  
+  // Return true if ob contains the same values as the invoking object. 
+  public bool SameAs(MyClass ob) {  
+    if((ob.alpha == alpha) & (ob.beta == beta)) 
+       return true;  
+    else return false;  
+  }  
+ 
+  // Make a copy of ob. 
+  public void Copy(MyClass ob) { 
+    alpha = ob.alpha; 
+    beta  = ob.beta; 
+  } 
+ 
+  public void Show() { 
+    Console.WriteLine("alpha: {0}, beta: {1}", 
+                      alpha, beta); 
+  } 
+}  
+  
+class PassOb {  
+  static void Main() { 
+    MyClass ob1 = new MyClass(4, 5);  
+    MyClass ob2 = new MyClass(6, 7);  
+  
+    Console.Write("ob1: "); 
+    ob1.Show(); 
+ 
+    Console.Write("ob2: "); 
+    ob2.Show(); 
+ 
+    if(ob1.SameAs(ob2))  
+      Console.WriteLine("ob1 and ob2 have the same values."); 
+    else 
+      Console.WriteLine("ob1 and ob2 have different values."); 
+ 
+    Console.WriteLine(); 
+ 
+    // Now, make ob1 a copy of ob2. 
+    ob1.Copy(ob2); 
+ 
+    Console.Write("ob1 after copy: "); 
+    ob1.Show(); 
+ 
+    if(ob1.SameAs(ob2))  
+      Console.WriteLine("ob1 and ob2 have the same values."); 
+    else 
+      Console.WriteLine("ob1 and ob2 have different values."); 
+  }  
+}
+
+listing 4
+// Value types are passed by value. 
+ 
+using System; 
+ 
+class Test { 
+  /* This method causes no change to the arguments 
+     used in the call. */ 
+  public void NoChange(int i, int j) { 
+    i = i + j; 
+    j = -j; 
+  } 
+} 
+ 
+class CallByValue { 
+  static void Main() { 
+    Test ob = new Test(); 
+ 
+    int a = 15, b = 20; 
+ 
+    Console.WriteLine("a and b before call: " + 
+                       a + " " + b); 
+ 
+    ob.NoChange(a, b);  
+ 
+    Console.WriteLine("a and b after call: " + 
+                       a + " " + b); 
+  } 
+}
+
+listing 5
+// Objects are passed by reference. 
+ 
+using System; 
+ 
+class Test { 
+  public int a, b; 
+ 
+  public Test(int i, int j) { 
+    a = i; 
+    b = j; 
+  } 
+ 
+  /* Pass an object. Now, ob.a and ob.b in object 
+     used in the call will be changed. */ 
+  public void Change(Test ob) { 
+    ob.a = ob.a + ob.b; 
+    ob.b = -ob.b; 
+  } 
+} 
+ 
+class CallByRef { 
+  static void Main() { 
+    Test ob = new Test(15, 20); 
+ 
+    Console.WriteLine("ob.a and ob.b before call: " + 
+                       ob.a + " " + ob.b); 
+ 
+    ob.Change(ob); 
+ 
+    Console.WriteLine("ob.a and ob.b after call: " + 
+                       ob.a + " " + ob.b); 
+  } 
+}
+
+listing 6
+// Use ref to pass a value type by reference. 
+ 
+using System; 
+ 
+class RefTest { 
+  // This method changes its argument. Notice the use of ref. 
+  public void Sqr(ref int i) { 
+    i = i * i; 
+  } 
+} 
+ 
+class RefDemo { 
+  static void Main() { 
+    RefTest ob = new RefTest(); 
+ 
+    int a = 10; 
+ 
+    Console.WriteLine("a before call: " + a); 
+ 
+    ob.Sqr(ref a); // notice the use of ref 
+ 
+    Console.WriteLine("a after call: " + a); 
+  } 
+}
+
+listing 7
+// Swap two values. 
+ 
+using System; 
+ 
+class ValueSwap { 
+  // This method now changes its arguments. 
+  public void Swap(ref int a, ref int b) { 
+    int t; 
+  
+    t = a; 
+    a = b; 
+    b = t; 
+  } 
+} 
+ 
+class ValueSwapDemo { 
+  static void Main() { 
+    ValueSwap ob = new ValueSwap(); 
+ 
+    int x = 10, y = 20; 
+ 
+    Console.WriteLine("x and y before call: " + x + " " + y); 
+ 
+    ob.Swap(ref x, ref y);  
+ 
+    Console.WriteLine("x and y after call: " + x + " " + y); 
+  } 
+}
+
+listing 8
+// Use out. 
+ 
+using System; 
+ 
+class Decompose { 
+ 
+  /* Decompose a floating-point value into its 
+     integer and fractional parts. */ 
+  public int GetParts(double n, out double frac) { 
+    int whole; 
+ 
+    whole = (int) n; 
+    frac = n - whole; // pass fractional part back through frac 
+    return whole; // return integer portion 
+  } 
+} 
+  
+class UseOut { 
+  static void Main() {   
+   Decompose ob = new Decompose(); 
+    int i; 
+    double f; 
+ 
+    i = ob.GetParts(10.125, out f); 
+ 
+    Console.WriteLine("Integer portion is " + i); 
+    Console.WriteLine("Fractional part is " + f); 
+  } 
+}
+
+listing 9
+// Use two out parameters. 
+ 
+using System; 
+ 
+class Num { 
+  /* Determine if x and v have a common divisor. 
+     If so, return least and greatest common factors in  
+     the out parameters. */ 
+  public bool HasComFactor(int x, int y, 
+                           out int least, out int greatest) { 
+    int i; 
+    int max = x < y ? x : y; 
+    bool first = true; 
+ 
+    least = 1; 
+    greatest = 1;  
+ 
+    // Find least and greatest common factors. 
+    for(i=2; i <= max/2 + 1; i++) { 
+      if( ((y%i)==0) & ((x%i)==0) ) { 
+        if(first) { 
+          least = i; 
+          first = false; 
+        } 
+        greatest = i; 
+      } 
+    } 
+ 
+    if(least != 1) return true; 
+    else return false; 
+  } 
+} 
+  
+class DemoOut { 
+  static void Main() {   
+    Num ob = new Num(); 
+    int lcf, gcf; 
+ 
+    if(ob.HasComFactor(231, 105, out lcf, out gcf)) { 
+      Console.WriteLine("Lcf of 231 and 105 is " + lcf); 
+      Console.WriteLine("Gcf of 231 and 105 is " + gcf); 
+    } 
+    else 
+      Console.WriteLine("No common factor for 35 and 49."); 
+ 
+    if(ob.HasComFactor(35, 51, out lcf, out gcf)) { 
+      Console.WriteLine("Lcf of 35 and 51 " + lcf); 
+      Console.WriteLine("Gcf of 35 and 51 is " + gcf); 
+    } 
+    else 
+      Console.WriteLine("No common factor for 35 and 51."); 
+  } 
+}
+
+listing 10
+// Swap two references. 
+ 
+using System; 
+ 
+class RefSwap { 
+  int a, b; 
+   
+  public RefSwap(int i, int j) { 
+    a = i; 
+    b = j; 
+  } 
+ 
+  public void Show() { 
+    Console.WriteLine("a: {0}, b: {1}", a, b); 
+  } 
+ 
+  // This method changes its arguments. 
+  public void Swap(ref RefSwap ob1, ref RefSwap ob2) { 
+    RefSwap t; 
+  
+    t = ob1; 
+    ob1 = ob2; 
+    ob2 = t; 
+  } 
+} 
+ 
+class RefSwapDemo { 
+  static void Main() { 
+    RefSwap x = new RefSwap(1, 2); 
+    RefSwap y = new RefSwap(3, 4); 
+ 
+    Console.Write("x before call: "); 
+    x.Show(); 
+ 
+    Console.Write("y before call: "); 
+    y.Show(); 
+ 
+    Console.WriteLine(); 
+ 
+    // Exchange the objects to which x and y refer. 
+    x.Swap(ref x, ref y);  
+ 
+    Console.Write("x after call: "); 
+    x.Show(); 
+ 
+    Console.Write("y after call: "); 
+    y.Show(); 
+ 
+  } 
+}
+
+listing 11
+// Demonstrate params. 
+ 
+using System; 
+ 
+class Min { 
+  public int MinVal(params int[] nums) { 
+    int m; 
+ 
+    if(nums.Length == 0) { 
+      Console.WriteLine("Error: no arguments."); 
+      return 0; 
+    } 
+ 
+    m = nums[0]; 
+    for(int i=1; i < nums.Length; i++)  
+      if(nums[i] < m) m = nums[i]; 
+ 
+    return m; 
+  } 
+} 
+ 
+class ParamsDemo { 
+  static void Main() { 
+    Min ob = new Min(); 
+    int min; 
+    int a = 10, b = 20; 
+ 
+    // Call with two values. 
+    min = ob.MinVal(a, b); 
+    Console.WriteLine("Minimum is " + min); 
+ 
+    // Call with 3 values. 
+    min = ob.MinVal(a, b, -1); 
+    Console.WriteLine("Minimum is " + min); 
+ 
+    // Call with 5 values. 
+    min = ob.MinVal(18, 23, 3, 14, 25); 
+    Console.WriteLine("Minimum is " + min); 
+ 
+    // Can call with an int array, too. 
+    int[] args = { 45, 67, 34, 9, 112, 8 }; 
+    min = ob.MinVal(args); 
+    Console.WriteLine("Minimum is " + min); 
+  } 
+}
+
+listing 12
+// Use regular parameter with a params parameter. 
+ 
+using System; 
+ 
+class MyClass { 
+  public void ShowArgs(string msg, params int[] nums) { 
+    Console.Write(msg + ": "); 
+ 
+    foreach(int i in nums) 
+      Console.Write(i + " "); 
+ 
+    Console.WriteLine(); 
+  } 
+} 
+ 
+class ParamsDemo2 { 
+  static void Main() { 
+    MyClass ob = new MyClass(); 
+ 
+    ob.ShowArgs("Here are some integers",  
+                1, 2, 3, 4, 5); 
+ 
+    ob.ShowArgs("Here are two more",  
+                17, 20); 
+  } 
+}
+
+listing 13
+// Return an object. 
+ 
+using System; 
+ 
+class Rect { 
+  int width; 
+  int height; 
+ 
+  public Rect(int w, int h) { 
+    width = w; 
+    height = h; 
+  } 
+ 
+  public int Area() { 
+    return width * height; 
+  } 
+ 
+  public void Show() { 
+    Console.WriteLine(width + " " + height); 
+  } 
+ 
+  /* Return a rectangle that is a specified 
+     factor larger than the invoking rectangle. */ 
+  public Rect Enlarge(int factor) { 
+    return new Rect(width * factor, height * factor); 
+  } 
+} 
+  
+class RetObj { 
+  static void Main() {   
+    Rect r1 = new Rect(4, 5); 
+ 
+    Console.Write("Dimensions of r1: "); 
+    r1.Show(); 
+    Console.WriteLine("Area of r1: " + r1.Area()); 
+ 
+    Console.WriteLine(); 
+ 
+    // Create a rectangle that is twice as big as r1. 
+    Rect r2 = r1.Enlarge(2); 
+ 
+    Console.Write("Dimensions of r2: "); 
+    r2.Show(); 
+    Console.WriteLine("Area of r2 " + r2.Area()); 
+  } 
+}
+
+listing 14
+// Use a class factory. 
+ 
+using System; 
+ 
+class MyClass { 
+  int a, b; // private 
+ 
+  // Create a class factory for MyClass. 
+  public MyClass Factory(int i, int j) { 
+    MyClass t = new MyClass(); 
+    
+    t.a = i; 
+    t.b = j; 
+ 
+    return t; // return an object 
+  } 
+ 
+  public void Show() { 
+    Console.WriteLine("a and b: " + a + " " + b); 
+  } 
+ 
+} 
+  
+class MakeObjects { 
+  static void Main() {   
+    MyClass ob = new MyClass(); 
+    int i, j; 
+ 
+    // Generate objects using the factory. 
+    for(i=0, j=10; i < 10; i++, j--) { 
+      MyClass anotherOb = ob.Factory(i, j); // make an object 
+      anotherOb.Show(); 
+    } 
+       
+    Console.WriteLine();    
+  } 
+}
+
+listing 15
+// Return an array. 
+ 
+using System; 
+ 
+class Factor { 
+  /* Return an array containing the factors of num. 
+     On return, numfactors will contain the number of 
+     factors found. */ 
+  public int[] FindFactors(int num, out int numfactors) { 
+    int[] facts = new int[80]; // size of 80 is arbitrary 
+    int i, j; 
+ 
+    // Find factors and put them in the facts array. 
+    for(i=2, j=0; i < num/2 + 1; i++)  
+      if( (num%i)==0 ) { 
+        facts[j] = i; 
+        j++; 
+      } 
+     
+    numfactors = j; 
+    return facts; 
+  } 
+} 
+  
+class FindFactors { 
+  static void Main() {   
+    Factor f = new Factor(); 
+    int numfactors; 
+    int[] factors; 
+ 
+    factors = f.FindFactors(1000, out numfactors); 
+ 
+    Console.WriteLine("Factors for 1000 are: "); 
+    for(int i=0; i < numfactors; i++) 
+      Console.Write(factors[i] + " "); 
+       
+    Console.WriteLine();    
+  } 
+}
+
+listing 16
+// Demonstrate method overloading.  
+ 
+using System; 
+ 
+class Overload {  
+  public void OvlDemo() {  
+    Console.WriteLine("No parameters");  
+  }  
+  
+  // Overload OvlDemo for one integer parameter.  
+  public void OvlDemo(int a) {  
+    Console.WriteLine("One parameter: " + a);  
+  }  
+  
+  // Overload OvlDemo for two integer parameters.  
+  public int OvlDemo(int a, int b) {  
+    Console.WriteLine("Two parameters: " + a + " " + b);  
+    return a + b; 
+  }  
+  
+  // Overload OvlDemo for two double parameters.  
+  public double OvlDemo(double a, double b) { 
+    Console.WriteLine("Two double parameters: " + 
+                       a + " "+ b);  
+    return a + b;  
+  }  
+}  
+  
+class OverloadDemo {  
+  static void Main() {  
+    Overload ob = new Overload();  
+    int resI; 
+    double resD;      
+  
+    // Call all versions of OvlDemo(). 
+    ob.OvlDemo();   
+    Console.WriteLine(); 
+ 
+    ob.OvlDemo(2);  
+    Console.WriteLine(); 
+ 
+    resI = ob.OvlDemo(4, 6);  
+    Console.WriteLine("Result of ob.OvlDemo(4, 6): " + resI); 
+    Console.WriteLine(); 
+ 
+    resD = ob.OvlDemo(1.1, 2.32);  
+    Console.WriteLine("Result of ob.OvlDemo(1.1, 2.32): " + resD);  
+  }  
+}
+
+listing 17
+// Implicit type conversions can affect overloaded method resolution. 
+ 
+using System; 
+ 
+class Overload2 { 
+  public void MyMeth(int x) { 
+    Console.WriteLine("Inside MyMeth(int): " + x); 
+  } 
+ 
+  public void MyMeth(double x) { 
+    Console.WriteLine("Inside MyMeth(double): " + x); 
+  } 
+} 
+ 
+class TypeConv { 
+  static void Main() { 
+    Overload2 ob = new Overload2(); 
+ 
+    int i = 10; 
+    double d = 10.1; 
+ 
+    byte b = 99; 
+    short s = 10; 
+    float f = 11.5F; 
+ 
+ 
+    ob.MyMeth(i); // calls ob.MyMeth(int) 
+    ob.MyMeth(d); // calls ob.MyMeth(double) 
+ 
+    ob.MyMeth(b); // calls ob.MyMeth(int) -- type conversion 
+    ob.MyMeth(s); // calls ob.MyMeth(int) -- type conversion 
+    ob.MyMeth(f); // calls ob.MyMeth(double) -- type conversion 
+  } 
+}
+
+listing 18
+// Add MyMeth(byte). 
+ 
+using System; 
+ 
+class Overload2 { 
+  public void MyMeth(byte x) { 
+    Console.WriteLine("Inside MyMeth(byte): " + x); 
+  } 
+ 
+  public void MyMeth(int x) { 
+    Console.WriteLine("Inside MyMeth(int): " + x); 
+  } 
+ 
+  public void MyMeth(double x) { 
+    Console.WriteLine("Inside MyMeth(double): " + x); 
+  } 
+} 
+ 
+class TypeConv { 
+  static void Main() { 
+    Overload2 ob = new Overload2(); 
+ 
+    int i = 10; 
+    double d = 10.1; 
+ 
+    byte b = 99; 
+    short s = 10; 
+    float f = 11.5F; 
+ 
+ 
+    ob.MyMeth(i); // calls ob.MyMeth(int) 
+    ob.MyMeth(d); // calls ob.MyMeth(double) 
+ 
+    ob.MyMeth(b); // calls ob.MyMeth(byte) -- now, no type conversion 
+ 
+    ob.MyMeth(s); // calls ob.MyMeth(int) -- type conversion 
+    ob.MyMeth(f); // calls ob.MyMeth(double) -- type conversion 
+  } 
+}
+
+listing 19
+// Demonstrate an overloaded constructor. 
+ 
+using System; 
+ 
+class MyClass {  
+  public int x;  
+  
+  public MyClass() { 
+    Console.WriteLine("Inside MyClass()."); 
+    x = 0; 
+  } 
+ 
+  public MyClass(int i) {  
+    Console.WriteLine("Inside MyClass(int)."); 
+    x = i;  
+  } 
+ 
+  public MyClass(double d) { 
+    Console.WriteLine("Inside MyClass(double)."); 
+    x = (int) d; 
+  } 
+ 
+  public MyClass(int i, int j) { 
+    Console.WriteLine("Inside MyClass(int, int)."); 
+    x = i * j; 
+  }    
+}    
+    
+class OverloadConsDemo {    
+  static void Main() {    
+    MyClass t1 = new MyClass();  
+    MyClass t2 = new MyClass(88);  
+    MyClass t3 = new MyClass(17.23);  
+    MyClass t4 = new MyClass(2, 4);  
+  
+    Console.WriteLine("t1.x: " + t1.x); 
+    Console.WriteLine("t2.x: " + t2.x); 
+    Console.WriteLine("t3.x: " + t3.x); 
+    Console.WriteLine("t4.x: " + t4.x); 
+  } 
+}
+
+listing 20
+// A stack class for characters.   
+  
+using System;  
+  
+class Stack {   
+  // These members are private. 
+  char[] stck; // holds the stack  
+  int tos;     // index of the top of the stack  
+   
+  // Construct an empty Stack given its size.  
+  public Stack(int size) {   
+    stck = new char[size]; // allocate memory for stack  
+    tos = 0;   
+  }   
+  
+  // Construct a Stack from a stack. 
+  public Stack(Stack ob) {   
+    // Allocate memory for stack. 
+    stck = new char[ob.stck.Length]; 
+ 
+    // Copy elements to new stack. 
+    for(int i=0; i < ob.tos; i++)  
+      stck[i] = ob.stck[i]; 
+ 
+    // Set tos for new stack. 
+    tos = ob.tos; 
+  }   
+  
+  // Push characters onto the stack.  
+  public void Push(char ch) {   
+    if(tos==stck.Length) {   
+      Console.WriteLine(" -- Stack is full.");   
+      return;   
+    }   
+       
+    stck[tos] = ch;  
+    tos++;  
+  }   
+   
+  // Pop a character from the stack.  
+  public char Pop() {   
+    if(tos==0) {   
+      Console.WriteLine(" -- Stack is empty.");   
+      return (char) 0;    
+    }   
+     
+    tos--;   
+    return stck[tos];   
+  } 
+ 
+  // Return true if the stack is full. 
+  public bool IsFull() { 
+    return tos==stck.Length;    
+  } 
+ 
+  // Return true if the stack is empty. 
+  public bool IsEmpty() { 
+    return tos==0; 
+  } 
+ 
+  // Return total capacity of the stack. 
+  public int Capacity() { 
+    return stck.Length; 
+  } 
+ 
+  // Return number of objects currently on the stack. 
+  public int GetNum() { 
+    return tos; 
+  } 
+} 
+ 
+// Demonstrate the Stack class.   
+class StackDemo {   
+  static void Main() {   
+    Stack stk1 = new Stack(10);   
+    char ch;   
+    int i;   
+   
+    // Put some characters into stk1. 
+    Console.WriteLine("Push A through J onto stk1."); 
+    for(i=0; !stk1.IsFull(); i++)   
+      stk1.Push((char) ('A' + i));   
+ 
+    // Create a copy of stck1. 
+    Stack stk2 = new Stack(stk1); 
+  
+    // Display the contents of stk1. 
+    Console.Write("Contents of stk1: ");   
+    while( !stk1.IsEmpty() ) {    
+      ch = stk1.Pop();   
+      Console.Write(ch);   
+    }   
+ 
+    Console.WriteLine(); 
+   
+    Console.Write("Contents of stk2: ");   
+    while ( !stk2.IsEmpty() ) {    
+      ch = stk2.Pop();   
+      Console.Write(ch);   
+    }   
+ 
+    Console.WriteLine("\n"); 
+    
+  }   
+}
+
+listing 21
+// Demonstrate invoking a constructor through this. 
+  
+using System;  
+  
+class XYCoord {   
+  public int x, y;   
+   
+  public XYCoord() : this(0, 0) { 
+    Console.WriteLine("Inside XYCoord()"); 
+  }  
+ 
+  public XYCoord(XYCoord obj) : this(obj.x, obj.y) { 
+    Console.WriteLine("Inside XYCoord(obj)"); 
+  }  
+ 
+  public XYCoord(int i, int j) {  
+    Console.WriteLine("Inside XYCoord(int, int)"); 
+    x = i; 
+    y = j; 
+  }     
+}     
+     
+class OverloadConsDemo {     
+  static void Main() {     
+    XYCoord t1 = new XYCoord();   
+    XYCoord t2 = new XYCoord(8, 9);   
+    XYCoord t3 = new XYCoord(t2);   
+   
+    Console.WriteLine("t1.x, t1.y: " + t1.x + ", " + t1.y);  
+    Console.WriteLine("t2.x, t2.y: " + t2.x + ", " + t2.y);  
+    Console.WriteLine("t3.x, t3.y: " + t3.x + ", " + t3.y);  
+  }     
+}
+
+listing 22
+// A simple demonstrate that uses object initializers. 
+  
+using System;  
+  
+class MyClass { 
+  public int Count; 
+  public string Str; 
+} 
+ 
+class ObjInitDemo {   
+  static void Main() { 
+    // Construct a MyClass object by using object initializers. 
+    MyClass obj = new MyClass { Count = 100, Str = "Testing" }; 
+ 
+    Console.WriteLine(obj.Count + " " + obj.Str); 
+  }   
+}
+
+listing 23
+// Продемонстрировать необязательные аргументы.
+
+using System;
+
+class OptionArgDemo
+{
+    static void OptArgMeth(int alpha, int beta = 10, int gamma = 20)
+    {
+        Console.WriteLine("Это аргументы alpha, beta и gamma: " + alpha + " " + beta + " " + gamma);
+    }
+
+    static void Main()
+    {
+        //Передать все аргументы явным образом.
+        OptArgMeth(1, 2, 3);
+
+        //Сделать аргумент gamma необязательным.
+        OptArgMeth(1, 2);
+
+        //Сделать оба аргумента beta и gamma необязательными.
+        OptArgMeth(1);
+
+        //Задержка программы.
+        Console.ReadKey();
+    }
+}
+
+
+listing 24
+//Использовать необязательный аргумент, чтобы упростить вызов метода.
+
+using System;
+
+class UseOptArgs
+{
+    //Вывести на экран символьную строку полностью или частично.
+    static void Display(string str, int start = 0, int stop = -1)
+    {
+        if (stop < 0)
+        {
+            stop = str.Length;
+        }
+
+        //Проверить условие выхода за заданные пределы.
+        if (stop > str.Length | start > stop | start < 0)
+        {
+            return;
+        }
+
+        for (int i = start; i < stop; i++)
+        {
+            Console.Write(str[i]);
+        }
+
+        Console.WriteLine();
+    }
+
+    static void Main()
+    {
+        Display("это простой тест");
+        Display("это простой тест", 12);
+        Display("это простой тест", 4, 14);
+
+        //Задержка программы.
+        Console.ReadKey();
+    }
+}
+
+listing 25
+//Применить именованные аргументы.
+using System;
+
+class NamedArgsDemo
+{
+    //Выяснить, делится ли одно значение нацело на другое.
+    static bool IsFactor(int val, int divisor)
+    {
+        if ((val % divisor == 0))
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    static void Main()
+    {
+        //Ниже демонстрируются разные способы вызова метода IsFactor().
+
+        //Вызов с использованием позиционных аргументов.
+        if (IsFactor(10, 2))
+        {
+            Console.WriteLine("2 - множитель 10.");
+        }
+
+        //Вызов с использованием именованных аргументов.
+        if (IsFactor(val: 10, divisor: 2))
+        {
+            Console.WriteLine("2 - множитель 10.");
+        }
+
+        //Для именованного аргумента порядок указания не имеет значения.
+        if (IsFactor(divisor: 2, val: 10))
+        {
+            Console.WriteLine("2 - множитель 10.");
+        }
+
+        //Применить как позиционный, так и именованный аргумент.
+        if (IsFactor(10,divisor: 2))
+        {
+            Console.WriteLine("2 - множитель 10.");
+        }
+
+        //Задержка программы.
+        Console.ReadKey();
+    }
+}
+
+listing 26
+// Display all command-line information. 
+ 
+using System; 
+ 
+class CLDemo {  
+  static void Main(string[] args) { 
+    Console.WriteLine("There are " + args.Length + 
+                       " command-line arguments."); 
+ 
+    Console.WriteLine("They are: "); 
+    for(int i=0; i < args.Length; i++)  
+      Console.WriteLine(args[i]);  
+  }  
+}
+
+listing 27
+// Encode or decode a message using a simple substitution cipher. 
+ 
+using System; 
+  
+class Cipher { 
+  public static int Main(string[] args) {   
+ 
+    // See if arguments are present. 
+    if(args.Length < 2) { 
+      Console.WriteLine("Usage: encode/decode word1 [word2...wordN]"); 
+      return 1; // return failure code 
+    } 
+ 
+    // If args present, first arg must be encode or decode. 
+    if(args[0] != "encode" & args[0] != "decode") { 
+      Console.WriteLine("First arg must be encode or decode."); 
+      return 1; // return failure code 
+    } 
+ 
+    // Encode or decode message. 
+    for(int n=1; n < args.Length; n++) { 
+      for(int i=0; i < args[n].Length; i++) { 
+        if(args[0] == "encode") 
+          Console.Write((char) (args[n][i] + 1) ); 
+        else  
+          Console.Write((char) (args[n][i] - 1) ); 
+      } 
+      Console.Write(" "); 
+    } 
+ 
+    Console.WriteLine(); 
+ 
+    return 0; 
+  } 
+}
+
+listing 28
+// A simple example of recursion.  
+ 
+using System; 
+ 
+class Factorial {  
+  // This is a recursive method.  
+  public int FactR(int n) {  
+    int result;  
+  
+    if(n==1) return 1;  
+    result = FactR(n-1) * n;  
+    return result;  
+  }  
+  
+  // This is an iterative equivalent.  
+  public int FactI(int n) {  
+    int t, result;  
+  
+    result = 1;  
+    for(t=1; t <= n; t++) result *= t;  
+    return result;  
+  }  
+}  
+  
+class Recursion {  
+  static void Main() {  
+    Factorial f = new Factorial();  
+  
+    Console.WriteLine("Factorials using recursive method.");  
+    Console.WriteLine("Factorial of 3 is " + f.FactR(3));  
+    Console.WriteLine("Factorial of 4 is " + f.FactR(4));  
+    Console.WriteLine("Factorial of 5 is " + f.FactR(5));  
+    Console.WriteLine();  
+ 
+    Console.WriteLine("Factorials using iterative method.");  
+    Console.WriteLine("Factorial of 3 is " + f.FactI(3));  
+    Console.WriteLine("Factorial of 4 is " + f.FactI(4));  
+    Console.WriteLine("Factorial of 5 is " + f.FactI(5));  
+  }  
+}
+
+listing 29
+// Display a string in reverse by using recursion. 
+ 
+using System; 
+  
+class RevStr { 
+ 
+  // Display a string backwards. 
+  public void DisplayRev(string str) { 
+    if(str.Length > 0)  
+      DisplayRev(str.Substring(1, str.Length-1)); 
+    else  
+      return; 
+ 
+    Console.Write(str[0]); 
+  } 
+} 
+ 
+class RevStrDemo { 
+  static void Main() {   
+    string s = "this is a test"; 
+    RevStr rsOb = new RevStr(); 
+ 
+    Console.WriteLine("Original string: " + s); 
+ 
+    Console.Write("Reversed string: "); 
+    rsOb.DisplayRev(s); 
+ 
+    Console.WriteLine(); 
+  } 
+}
+
+listing 30
+// Use static. 
+ 
+using System; 
+ 
+class StaticDemo { 
+  // A static variable. 
+  public static int Val = 100;  
+ 
+  // A static method. 
+  public static int ValDiv2() { 
+    return Val/2; 
+  } 
+} 
+ 
+class SDemo { 
+  static void Main() { 
+ 
+    Console.WriteLine("Initial value of StaticDemo.Val is " 
+                      + StaticDemo.Val); 
+ 
+    StaticDemo.Val = 8; 
+    Console.WriteLine("StaticDemo.Val is " + StaticDemo.Val); 
+    Console.WriteLine("StaticDemo.ValDiv2(): " + 
+                       StaticDemo.ValDiv2()); 
+  } 
+}
+
+listing 31
+class StaticError { 
+  public int Denom = 3; // a normal instance variable 
+  public static int Val = 1024; // a static variable 
+ 
+  /* Error! Can't directly access a non-static variable 
+     from within a static method. */ 
+  static int ValDivDenom() { 
+    return Val/Denom; // won't compile! 
+  } 
+}
+
+listing 32
+using System; 
+ 
+class AnotherStaticError { 
+  // A non-static method. 
+  void NonStaticMeth() { 
+     Console.WriteLine("Inside NonStaticMeth()."); 
+  } 
+ 
+  /* Error! Can't directly call a non-static method 
+     from within a static method. */ 
+  static void staticMeth() { 
+    NonStaticMeth(); // won't compile 
+  } 
+}
+
+listing 33
+class MyClass { 
+  // A non-static method. 
+  void NonStaticMeth() { 
+     Console.WriteLine("Inside NonStaticMeth()."); 
+  } 
+ 
+  /* Can call a non-static method through an 
+     object reference from within a static method. */ 
+  public static void staticMeth(MyClass ob) { 
+    ob.NonStaticMeth(); // this is OK 
+  } 
+}
+
+listing 34
+// Use a static field to count instances. 
+ 
+using System; 
+ 
+class CountInst {  
+  static int count = 0; 
+  
+  // Increment count when object is created 
+  public CountInst() {  
+    count++; 
+  }  
+ 
+  // Decrement count when object is destroyed. 
+  ~CountInst() { 
+    count--; 
+  } 
+  
+  public static int GetCount() { 
+    return count; 
+  } 
+}  
+  
+class CountDemo {  
+  static void Main() { 
+    CountInst ob; 
+ 
+ 
+    for(int i=0; i < 10; i++) { 
+      ob = new CountInst(); 
+      Console.WriteLine("Current count: " + CountInst.GetCount()); 
+    } 
+  }  
+}
+
+listing 35
+// Use a static class factory. 
+ 
+using System; 
+ 
+class MyClass { 
+  int a, b; 
+ 
+  // Create a class factory for MyClass. 
+  static public MyClass Factory(int i, int j) { 
+    MyClass t = new MyClass(); 
+    
+    t.a = i; 
+    t.b = j; 
+ 
+    return t; // return an object 
+  } 
+ 
+  public void Show() { 
+    Console.WriteLine("a and b: " + a + " " + b); 
+  } 
+} 
+  
+class MakeObjects { 
+  static void Main() {   
+    int i, j; 
+ 
+    // Generate objects using the factory. 
+    for(i=0, j=10; i < 10; i++, j--) { 
+      MyClass ob = MyClass.Factory(i, j); // get an object 
+      ob.Show(); 
+    } 
+       
+    Console.WriteLine();    
+  } 
+}
+
+listing 36
+// Use a static constructor. 
+ 
+using System; 
+ 
+class Cons { 
+  public static int alpha; 
+  public int beta; 
+ 
+  // A static constructor. 
+  static Cons() { 
+    alpha = 99; 
+    Console.WriteLine("Inside static constructor."); 
+  } 
+ 
+  // An instance constructor. 
+  public Cons() { 
+    beta = 100; 
+    Console.WriteLine("Inside instance constructor."); 
+  } 
+} 
+  
+class ConsDemo { 
+  static void Main() {   
+    Cons ob = new Cons(); 
+ 
+    Console.WriteLine("Cons.alpha: " + Cons.alpha); 
+    Console.WriteLine("ob.beta: " + ob.beta); 
+  } 
+}
+
+listing 37
+// Demonstrate a static class. 
+  
+using System;  
+  
+static class NumericFn {  
+  // Return the reciprocal of a value. 
+  static public double Reciprocal(double num) { 
+    return 1/num; 
+  } 
+ 
+  // Return the fractional part of a value. 
+  static public double FracPart(double num) { 
+    return num - (int) num; 
+  } 
+ 
+  // Return true if num is even. 
+  static public bool IsEven(double num) { 
+    return (num % 2) == 0 ? true : false; 
+  } 
+ 
+  // Return true of num is odd. 
+  static public bool IsOdd(double num) { 
+    return !IsEven(num); 
+  } 
+ 
+}  
+ 
+class StaticClassDemo {  
+  static void Main() {    
+    Console.WriteLine("Reciprocal of 5 is " + 
+                      NumericFn.Reciprocal(5.0)); 
+ 
+    Console.WriteLine("Fractional part of 4.234 is " + 
+                      NumericFn.FracPart(4.234)); 
+ 
+    if(NumericFn.IsEven(10)) 
+      Console.WriteLine("10 is even."); 
+ 
+    if(NumericFn.IsOdd(5)) 
+      Console.WriteLine("5 is odd."); 
+ 
+    // The following attempt to create an instance of  
+    // NumericFn will cause an error.  
+//  NumericFn ob = new NumericFn(); // Wrong! 
+  }  
+}

@@ -1,0 +1,1003 @@
+listing 1
+// A simple delegate example.  
+  
+using System; 
+ 
+// Declare a delegate type.  
+delegate string StrMod(string str); 
+ 
+class DelegateTest { 
+  // Replaces spaces with hyphens. 
+  static string ReplaceSpaces(string s) { 
+    Console.WriteLine("Replacing spaces with hyphens."); 
+    return s.Replace(' ', '-'); 
+  }  
+ 
+  // Remove spaces. 
+  static string RemoveSpaces(string s) { 
+    string temp = ""; 
+    int i; 
+ 
+    Console.WriteLine("Removing spaces."); 
+    for(i=0; i < s.Length; i++) 
+      if(s[i] != ' ') temp += s[i]; 
+ 
+    return temp; 
+  }  
+ 
+  // Reverse a string. 
+  static string Reverse(string s) { 
+    string temp = ""; 
+    int i, j; 
+ 
+    Console.WriteLine("Reversing string."); 
+    for(j=0, i=s.Length-1; i >= 0; i--, j++) 
+      temp += s[i]; 
+ 
+    return temp; 
+  } 
+     
+  static void Main() {  
+    // Construct a delegate. 
+    StrMod strOp = new StrMod(ReplaceSpaces); 
+    string str; 
+ 
+    // Call methods through the delegate. 
+    str = strOp("This is a test."); 
+    Console.WriteLine("Resulting string: " + str); 
+    Console.WriteLine(); 
+      
+    strOp = new StrMod(RemoveSpaces); 
+    str = strOp("This is a test."); 
+    Console.WriteLine("Resulting string: " + str); 
+    Console.WriteLine(); 
+ 
+    strOp = new StrMod(Reverse); 
+    str = strOp("This is a test."); 
+    Console.WriteLine("Resulting string: " + str); 
+  } 
+}
+
+listing 2
+static void Main() {  
+  // Construct a delegate using method group conversion. 
+  StrMod strOp = ReplaceSpaces; // use method group conversion 
+  string str; 
+ 
+  // Call methods through the delegate. 
+  str = strOp("This is a test."); 
+  Console.WriteLine("Resulting string: " + str); 
+  Console.WriteLine(); 
+      
+  strOp = RemoveSpaces; // use method group conversion 
+  str = strOp("This is a test."); 
+  Console.WriteLine("Resulting string: " + str); 
+  Console.WriteLine(); 
+ 
+  strOp = Reverse; // use method group converison 
+  str = strOp("This is a test."); 
+  Console.WriteLine("Resulting string: " + str); 
+}
+
+listing 3
+// Delegates can refer to instance methods, too. 
+  
+using System; 
+ 
+// Declare a delegate type.  
+delegate string StrMod(string str); 
+ 
+class StringOps { 
+  // Replaces spaces with hyphens. 
+  public string ReplaceSpaces(string s) { 
+    Console.WriteLine("Replacing spaces with hyphens."); 
+    return s.Replace(' ', '-'); 
+  }  
+ 
+  // Remove spaces. 
+  public string RemoveSpaces(string s) { 
+    string temp = ""; 
+    int i; 
+ 
+    Console.WriteLine("Removing spaces."); 
+    for(i=0; i < s.Length; i++) 
+      if(s[i] != ' ') temp += s[i]; 
+ 
+    return temp; 
+  }  
+ 
+  // Reverse a string. 
+  public string Reverse(string s) { 
+    string temp = ""; 
+    int i, j; 
+ 
+    Console.WriteLine("Reversing string."); 
+    for(j=0, i=s.Length-1; i >= 0; i--, j++) 
+      temp += s[i]; 
+ 
+    return temp; 
+  } 
+} 
+ 
+class DelegateTest {   
+  static void Main() {  
+    StringOps so = new StringOps(); // create an instance of StringOps 
+ 
+    // Initialize a delegate. 
+    StrMod strOp = so.ReplaceSpaces; 
+    string str; 
+ 
+    // Call methods through delegates. 
+    str = strOp("This is a test."); 
+    Console.WriteLine("Resulting string: " + str); 
+    Console.WriteLine(); 
+      
+    strOp = so.RemoveSpaces; 
+    str = strOp("This is a test."); 
+    Console.WriteLine("Resulting string: " + str); 
+    Console.WriteLine(); 
+ 
+    strOp = so.Reverse; 
+    str = strOp("This is a test."); 
+    Console.WriteLine("Resulting string: " + str); 
+  } 
+}
+
+listing 4
+// Demonstrate multicasting.  
+  
+using System; 
+ 
+// Declare a delegate type.  
+delegate void StrMod(ref string str); 
+ 
+class MultiCastDemo { 
+  // Replaces spaces with hyphens. 
+  static void ReplaceSpaces(ref string s) { 
+    Console.WriteLine("Replacing spaces with hyphens."); 
+    s = s.Replace(' ', '-'); 
+  }  
+ 
+  // Remove spaces. 
+  static void RemoveSpaces(ref string s) { 
+    string temp = ""; 
+    int i; 
+ 
+    Console.WriteLine("Removing spaces."); 
+    for(i=0; i < s.Length; i++) 
+      if(s[i] != ' ') temp += s[i]; 
+ 
+    s = temp; 
+  }  
+ 
+  // Reverse a string. 
+  static void Reverse(ref string s) { 
+    string temp = ""; 
+    int i, j; 
+ 
+    Console.WriteLine("Reversing string."); 
+    for(j=0, i=s.Length-1; i >= 0; i--, j++) 
+      temp += s[i]; 
+ 
+    s = temp; 
+  } 
+     
+  static void Main() {  
+    // Construct delegates. 
+    StrMod strOp; 
+    StrMod replaceSp = ReplaceSpaces; 
+    StrMod removeSp = RemoveSpaces; 
+    StrMod reverseStr = Reverse; 
+    string str = "This is a test"; 
+ 
+    // Set up multicast. 
+    strOp = replaceSp; 
+    strOp += reverseStr; 
+ 
+    // Call multicast. 
+    strOp(ref str); 
+    Console.WriteLine("Resulting string: " + str); 
+    Console.WriteLine(); 
+     
+    // Remove replace and add remove. 
+    strOp -= replaceSp; 
+    strOp += removeSp; 
+ 
+    str = "This is a test."; // reset string 
+ 
+    // Call multicast. 
+    strOp(ref str); 
+    Console.WriteLine("Resulting string: " + str); 
+    Console.WriteLine(); 
+  } 
+}
+
+listing 5
+// Demonstrate covariance and contravariance. 
+   
+using System;  
+  
+class X { 
+  public int Val; 
+} 
+ 
+// Y is derived from X. 
+class Y : X { } 
+ 
+// This delegate returns X and takes a Y argument. 
+delegate X ChangeIt(Y obj);  
+  
+class CoContraVariance {  
+ 
+  // This method returns X and has an X parameter. 
+  static X IncrA(X obj) { 
+    X temp = new X(); 
+    temp.Val = obj.Val + 1; 
+    return temp; 
+  } 
+ 
+  // This method returns Y and has an Y parameter. 
+  static Y IncrB(Y obj) { 
+    Y temp = new Y(); 
+    temp.Val = obj.Val + 1; 
+    return temp; 
+  } 
+ 
+  static void Main() {   
+    Y Yob = new Y(); 
+ 
+    // In this case, the parameter to IncrA 
+    // is X and the parameter to ChangeIt is Y. 
+    // Because of contravariance, the following 
+    // line is OK. 
+    ChangeIt change = IncrA; 
+ 
+    X Xob = change(Yob); 
+ 
+    Console.WriteLine("Xob: " + Xob.Val); 
+ 
+    // In the next case, the return type of 
+    // IncrB is Y and the return type of  
+    // ChangeIt is X. Because of covariance, 
+    // the following line is OK. 
+    change = IncrB; 
+ 
+    Yob = (Y) change(Yob); 
+ 
+    Console.WriteLine("Yob: " + Yob.Val); 
+  } 
+}
+
+listing 6
+// Demonstrate an anonymous method. 
+   
+using System;  
+  
+// Declare a delegate type. 
+delegate void CountIt();  
+  
+class AnonMethDemo {  
+ 
+  static void Main() {   
+ 
+    // Here, the code for counting is passed 
+    // as an anonymous method.     
+     CountIt count = delegate {  
+        // This is the block of code passed to the delegate. 
+      for(int i=0; i <= 5; i++)  
+        Console.WriteLine(i); 
+    }; // notice the semicolon 
+ 
+    count();  
+  } 
+}
+
+listing 7
+// Demonstrate an anonymous method that takes an argument. 
+   
+using System;  
+  
+// Notice that CountIt now has a parameter. 
+delegate void CountIt(int end);  
+  
+class AnonMethDemo2 {  
+ 
+  static void Main() {   
+ 
+    // Here, the ending value for the count 
+    // is passed to the anonymous method. 
+    CountIt count = delegate (int end) { 
+      for(int i=0; i <= end; i++)  
+        Console.WriteLine(i); 
+    }; 
+ 
+    count(3); 
+    Console.WriteLine(); 
+    count(5);  
+  } 
+}
+
+listing 8
+// Demonstrate an anonymous method that returns a value. 
+   
+using System;  
+  
+// This delegate returns a value. 
+delegate int CountIt(int end);  
+  
+class AnonMethDemo3 {  
+ 
+  static void Main() {   
+    int result; 
+ 
+    // Here, the ending value for the count 
+    // is passed to the anonymous method.   
+    // A summation of the count is returned. 
+    CountIt count = delegate (int end) { 
+      int sum = 0; 
+ 
+      for(int i=0; i <= end; i++) { 
+        Console.WriteLine(i); 
+        sum += i; 
+      } 
+      return sum; // return a value from an anonymous method 
+    }; 
+ 
+    result = count(3); 
+    Console.WriteLine("Summation of 3 is " + result); 
+    Console.WriteLine(); 
+ 
+    result = count(5);  
+    Console.WriteLine("Summation of 5 is " + result); 
+  } 
+}
+
+listing 9
+// Demonstrate a captured variable. 
+   
+using System;  
+  
+// This delegate returns int and takes an int argument. 
+delegate int CountIt(int end);  
+  
+class VarCapture {  
+ 
+  static CountIt Counter() { 
+    int sum = 0; 
+ 
+    // Here, a summation of the count is stored 
+    // in the captured variable sum. 
+    CountIt ctObj = delegate (int end) { 
+      for(int i=0; i <= end; i++) { 
+        Console.WriteLine(i); 
+        sum += i; 
+      } 
+      return sum; 
+    }; 
+    return ctObj; 
+  } 
+ 
+  static void Main() {   
+    // Get a counter. 
+    CountIt count = Counter(); 
+ 
+    int result;  
+ 
+    result = count(3); 
+    Console.WriteLine("Summation of 3 is " + result); 
+    Console.WriteLine(); 
+ 
+    result = count(5);  
+    Console.WriteLine("Summation of 5 is " + result); 
+  } 
+}
+
+listing 10
+// Use two simple lambda expressions. 
+ 
+using System;  
+  
+// Declare a delegate that takes an int argument 
+// and returns an int result. 
+delegate int Incr(int v); 
+ 
+// Declare a delegate that takes an int argument  
+// and returns a bool result. 
+delegate bool IsEven(int v); 
+ 
+class SimpleLambdaDemo {  
+ 
+  static void Main() {   
+    
+    // Create an Incr delegate instance that refers to  
+    // a lambda expression that increases its parameter by 2. 
+    Incr incr = count => count + 2; 
+ 
+    // Now, use the incr lambda expression. 
+    Console.WriteLine("Use incr lambda expression: "); 
+    int x = -10; 
+    while(x <= 0) {     
+      Console.Write(x + " "); 
+      x = incr(x); // increase x by 2 
+    } 
+ 
+    Console.WriteLine("\n"); 
+ 
+    // Create a IsEven delegate instance that refers to  
+    // a lambda expression that returns true if its parameter 
+    // is even and false otherwise. 
+    IsEven isEven = n => n % 2 == 0; 
+ 
+    // Now, use the isEven lambda expression 
+    Console.WriteLine("Use isEven lambda expression: "); 
+    for(int i=1; i <= 10; i++) 
+      if(isEven(i)) Console.WriteLine(i + " is even."); 
+ 
+  } 
+}
+
+listing 11
+// Demonstrate a statement lambda. 
+using System;  
+  
+// IntOp takes one int argument and returns an int result. 
+delegate int IntOp(int end);  
+  
+class StatementLambdaDemo {  
+ 
+  static void Main() {   
+ 
+    // A statement lambda that returns the factorial 
+    // of the value it is passed. 
+    IntOp fact = n => { 
+                         int r = 1; 
+                         for(int i=1; i <= n; i++) 
+                           r = i * r; 
+                         return r; 
+                      }; 
+ 
+    Console.WriteLine("The factorial of 3 is " + fact(3)); 
+    Console.WriteLine("The factorial of 5 is " + fact(5)); 
+  } 
+}
+
+listing 12
+// The first delegate example rewritten to use  
+// statement lambdas. 
+  
+using System; 
+ 
+// Declare a delegate type.  
+delegate string StrMod(string s); 
+ 
+class UseStatementLambdas { 
+     
+  static void Main() {  
+    // Create delegates that refer to lambda expressions 
+    // that perform various string modifications. 
+ 
+    // Replaces spaces with hyphens. 
+    StrMod ReplaceSpaces = s => { 
+             Console.WriteLine("Replacing spaces with hyphens."); 
+             return s.Replace(' ', '-'); 
+           };  
+ 
+    // Remove spaces. 
+    StrMod RemoveSpaces = s => { 
+             string temp = ""; 
+             int i; 
+ 
+             Console.WriteLine("Removing spaces."); 
+             for(i=0; i < s.Length; i++) 
+               if(s[i] != ' ') temp += s[i]; 
+ 
+             return temp; 
+           };  
+ 
+ 
+    // Reverse a string. 
+    StrMod Reverse = s => { 
+             string temp = ""; 
+             int i, j; 
+ 
+             Console.WriteLine("Reversing string."); 
+             for(j=0, i=s.Length-1; i >= 0; i--, j++) 
+             temp += s[i]; 
+ 
+             return temp; 
+           }; 
+ 
+    string str; 
+ 
+    // Call methods through the delegate. 
+    StrMod strOp = ReplaceSpaces; 
+    str = strOp("This is a test."); 
+    Console.WriteLine("Resulting string: " + str); 
+    Console.WriteLine(); 
+      
+    strOp = RemoveSpaces; 
+    str = strOp("This is a test."); 
+    Console.WriteLine("Resulting string: " + str); 
+    Console.WriteLine(); 
+ 
+    strOp = Reverse; 
+    str = strOp("This is a test."); 
+    Console.WriteLine("Resulting string: " + str); 
+  } 
+}
+
+listing 13
+// A very simple event demonstration. 
+  
+using System; 
+ 
+// Declare a delegate type for an event.  
+delegate void MyEventHandler(); 
+ 
+// Declare a class that contains an event. 
+class MyEvent { 
+  public event MyEventHandler SomeEvent; 
+ 
+  // This is called to raise the event. 
+  public void OnSomeEvent() { 
+    if(SomeEvent != null) 
+      SomeEvent(); 
+  } 
+} 
+ 
+class EventDemo { 
+  // An event handler. 
+  static void Handler() { 
+    Console.WriteLine("Event occurred"); 
+  } 
+ 
+  static void Main() {  
+    MyEvent evt = new MyEvent(); 
+ 
+    // Add Handler() to the event list. 
+    evt.SomeEvent += Handler;  
+ 
+    // Raise the event. 
+    evt.OnSomeEvent(); 
+  } 
+}
+
+listing 14
+// An event multicast demonstration. 
+  
+using System; 
+ 
+// Declare a delegate type for an event.  
+delegate void MyEventHandler(); 
+ 
+// Declare a class that contains an event. 
+class MyEvent { 
+  public event MyEventHandler SomeEvent; 
+ 
+  // This is called to raise the event. 
+  public void OnSomeEvent() { 
+    if(SomeEvent != null) 
+      SomeEvent(); 
+  } 
+} 
+ 
+class X { 
+  public void Xhandler() { 
+    Console.WriteLine("Event received by X object"); 
+  } 
+} 
+ 
+class Y { 
+  public void Yhandler() { 
+    Console.WriteLine("Event received by Y object"); 
+  } 
+} 
+ 
+class EventDemo2 { 
+  static void Handler() { 
+    Console.WriteLine("Event received by EventDemo"); 
+  } 
+ 
+  static void Main() {  
+    MyEvent evt = new MyEvent(); 
+    X xOb = new X(); 
+    Y yOb = new Y(); 
+ 
+    // Add handlers to the event list. 
+    evt.SomeEvent += Handler; 
+    evt.SomeEvent += xOb.Xhandler; 
+    evt.SomeEvent += yOb.Yhandler; 
+ 
+    // Raise the event. 
+    evt.OnSomeEvent(); 
+    Console.WriteLine(); 
+ 
+    // Remove a handler. 
+    evt.SomeEvent -= xOb.Xhandler; 
+    evt.OnSomeEvent(); 
+  } 
+}
+
+listing 15
+/* Individual objects receive notifications when instance 
+   event handlers are used. */ 
+  
+using System; 
+ 
+// Declare a delegate type for an event.  
+delegate void MyEventHandler(); 
+ 
+// Declare a class that contains an event. 
+class MyEvent { 
+  public event MyEventHandler SomeEvent; 
+ 
+  // This is called to raise the event. 
+  public void OnSomeEvent() { 
+    if(SomeEvent != null) 
+      SomeEvent(); 
+  } 
+} 
+ 
+class X { 
+  int id; 
+ 
+  public X(int x) { id = x; } 
+ 
+  // This is an instance method that will be used as an event handler. 
+  public void Xhandler() { 
+    Console.WriteLine("Event received by object " + id); 
+  } 
+} 
+ 
+class EventDemo3 { 
+  static void Main() {  
+    MyEvent evt = new MyEvent(); 
+    X o1 = new X(1); 
+    X o2 = new X(2); 
+    X o3 = new X(3); 
+ 
+    evt.SomeEvent += o1.Xhandler; 
+    evt.SomeEvent += o2.Xhandler; 
+    evt.SomeEvent += o3.Xhandler; 
+ 
+    // Raise the event. 
+    evt.OnSomeEvent(); 
+  } 
+}
+
+listing 16
+/* A class receives the notification when  
+   a static method is used as an event handler. */ 
+  
+using System; 
+ 
+// Declare a delegate type for an event.  
+delegate void MyEventHandler(); 
+ 
+// Declare a class that contains an event. 
+class MyEvent { 
+  public event MyEventHandler SomeEvent; 
+ 
+  // This is called to raise the event. 
+  public void OnSomeEvent() { 
+    if(SomeEvent != null) 
+      SomeEvent(); 
+  } 
+} 
+ 
+class X { 
+ 
+  /* This is a static method that will be used as 
+     an event handler. */ 
+  public static void Xhandler() { 
+    Console.WriteLine("Event received by class."); 
+  } 
+} 
+ 
+class EventDemo4 { 
+  static void Main() {  
+    MyEvent evt = new MyEvent(); 
+ 
+    evt.SomeEvent += X.Xhandler; 
+ 
+    // Raise the event. 
+    evt.OnSomeEvent(); 
+  } 
+}
+
+listing 17
+// Create a custom means of managing the event invocation list. 
+   
+using System;  
+  
+// Declare a delegate type for an event.   
+delegate void MyEventHandler();  
+  
+// Declare a class that holds up to 3 events. 
+class MyEvent {  
+  MyEventHandler[] evnt = new MyEventHandler[3]; 
+ 
+  public event MyEventHandler SomeEvent { 
+    // Add an event to the list. 
+    add { 
+      int i; 
+ 
+      for(i=0; i < 3; i++) 
+        if(evnt[i] == null) { 
+          evnt[i] = value;  
+          break; 
+        } 
+      if (i == 3) Console.WriteLine("Event list full."); 
+    } 
+ 
+    // Remove an event from the list. 
+    remove { 
+      int i; 
+ 
+      for(i=0; i < 3; i++) 
+        if(evnt[i] == value) { 
+          evnt[i] = null; 
+          break; 
+        } 
+      if (i == 3) Console.WriteLine("Event handler not found."); 
+    } 
+  }  
+  
+  // This is called to raise the events.  
+  public void OnSomeEvent() {  
+      for(int i=0; i < 3; i++) 
+        if(evnt[i] != null) evnt[i]();  
+  }  
+ 
+}  
+  
+// Create some classes that use MyEventHandler. 
+class W { 
+  public void Whandler() {  
+    Console.WriteLine("Event received by W object");  
+  }  
+}  
+  
+class X { 
+  public void Xhandler() {  
+    Console.WriteLine("Event received by X object");  
+  }  
+}  
+  
+class Y {  
+  public void Yhandler() {  
+    Console.WriteLine("Event received by Y object");  
+  }  
+}  
+  
+class Z {  
+  public void Zhandler() {  
+    Console.WriteLine("Event received by Z object");  
+  }  
+}  
+  
+class EventDemo5 {  
+  static void Main() {   
+    MyEvent evt = new MyEvent();  
+    W wOb = new W();  
+    X xOb = new X();  
+    Y yOb = new Y();  
+    Z zOb = new Z(); 
+ 
+    // Add handlers to the event list. 
+    Console.WriteLine("Adding events."); 
+    evt.SomeEvent += wOb.Whandler;  
+    evt.SomeEvent += xOb.Xhandler;  
+    evt.SomeEvent += yOb.Yhandler;  
+ 
+    // Can't store this one -- full. 
+    evt.SomeEvent += zOb.Zhandler;  
+    Console.WriteLine(); 
+  
+    // Raise the events.  
+    evt.OnSomeEvent();  
+    Console.WriteLine();  
+  
+    // Remove a handler. 
+    Console.WriteLine("Remove xOb.Xhandler."); 
+    evt.SomeEvent -= xOb.Xhandler;  
+    evt.OnSomeEvent();  
+ 
+    Console.WriteLine(); 
+ 
+    // Try to remove it again. 
+    Console.WriteLine("Try to remove xOb.Xhandler again."); 
+    evt.SomeEvent -= xOb.Xhandler;  
+    evt.OnSomeEvent();  
+ 
+    Console.WriteLine(); 
+ 
+    // Now, add Zhandler. 
+    Console.WriteLine("Add zOb.Zhandler."); 
+    evt.SomeEvent += zOb.Zhandler; 
+    evt.OnSomeEvent();  
+ 
+  }  
+}
+
+listing 18
+// Use a lambda expression as an event handler.   
+using System;  
+  
+// Declare a delegate type for an event.   
+delegate void MyEventHandler(int n);  
+  
+// Declare a class that contains an event. 
+class MyEvent {  
+  public event MyEventHandler SomeEvent;  
+  
+  // This is called to raise the event.  
+  public void OnSomeEvent(int n) {  
+    if(SomeEvent != null)  
+      SomeEvent(n);  
+  }  
+}  
+  
+class LambdaEventDemo {  
+  static void Main() {   
+    MyEvent evt = new MyEvent();  
+  
+    // Use a lambda expression as an event handler. 
+    evt.SomeEvent += (n) =>   
+      Console.WriteLine("Event received. Value is " + n);  
+ 
+    // Raise the event twice.  
+    evt.OnSomeEvent(1);  
+    evt.OnSomeEvent(2);  
+  }  
+}
+
+listing 19
+// A .NET-compatible event. 
+  
+using System; 
+ 
+// Derive a class from EventArgs. 
+class MyEventArgs : EventArgs { 
+  public int EventNum; 
+} 
+ 
+// Declare a delegate type for an event.  
+delegate void MyEventHandler(object sender, MyEventArgs e); 
+ 
+// Declare a class that contains an event. 
+class MyEvent { 
+  static int count = 0; 
+ 
+  public event MyEventHandler SomeEvent; 
+ 
+  // This raises SomeEvent. 
+  public void OnSomeEvent() { 
+    MyEventArgs arg = new MyEventArgs(); 
+ 
+    if(SomeEvent != null) { 
+      arg.EventNum = count++; 
+      SomeEvent(this, arg); 
+    } 
+  } 
+} 
+ 
+class X { 
+  public void Handler(object sender, MyEventArgs e) { 
+    Console.WriteLine("Event " + e.EventNum + 
+                      " received by an X object."); 
+    Console.WriteLine("Source is " + sender); 
+    Console.WriteLine(); 
+  } 
+} 
+ 
+class Y {  
+  public void Handler(object sender, MyEventArgs e) { 
+    Console.WriteLine("Event " + e.EventNum + 
+                      " received by a Y object."); 
+    Console.WriteLine("Source is " + sender); 
+    Console.WriteLine(); 
+  } 
+} 
+ 
+class EventDemo6 { 
+  static void Main() {  
+    X ob1 = new X(); 
+    Y ob2 = new Y(); 
+    MyEvent evt = new MyEvent(); 
+ 
+    // Add Handler() to the event list. 
+    evt.SomeEvent += ob1.Handler; 
+    evt.SomeEvent += ob2.Handler; 
+ 
+    // Raise the event. 
+    evt.OnSomeEvent(); 
+    evt.OnSomeEvent(); 
+  } 
+}
+
+listing 20
+// Use the built-in EventHandler delegate. 
+  
+using System; 
+ 
+// Declare a class that contains an event. 
+class MyEvent { 
+  public event EventHandler SomeEvent; // uses EventHandler delegate 
+ 
+  // This is called to raise SomeEvent. 
+  public void OnSomeEvent() { 
+    if(SomeEvent != null) 
+      SomeEvent(this, EventArgs.Empty); 
+  } 
+} 
+ 
+class EventDemo7 { 
+  static void Handler(object sender, EventArgs e) { 
+    Console.WriteLine("Event occurred"); 
+    Console.WriteLine("Source is " + sender); 
+  } 
+ 
+  static void Main() {  
+    MyEvent evt = new MyEvent(); 
+ 
+    // Add Handler() to the event list. 
+    evt.SomeEvent += Handler; 
+ 
+    // Raise the event. 
+    evt.OnSomeEvent(); 
+  } 
+}
+
+listing 21
+// A keypress event example.  
+   
+using System;  
+  
+// Derive a custom EventArgs class that holds the key.  
+class KeyEventArgs : EventArgs {  
+  public char ch;  
+}  
+  
+// Declare a keypress event class.  
+class KeyEvent {  
+  public event EventHandler<KeyEventArgs> KeyPress;  
+  
+  // This is called when a key is pressed.  
+  public void OnKeyPress(char key) {  
+    KeyEventArgs k = new KeyEventArgs();  
+    
+    if(KeyPress != null) {  
+      k.ch = key;  
+      KeyPress(this, k);  
+    }  
+  }  
+}  
+  
+// Demonstrate KeyEvent.  
+class KeyEventDemo {  
+  static void Main() {   
+    KeyEvent kevt = new KeyEvent();  
+    ConsoleKeyInfo key; 
+    int count = 0; 
+ 
+    // Use a lambda expression to display the keypress.  
+    kevt.KeyPress += (sender, e) => 
+      Console.WriteLine(" Received keystroke: " + e.ch);  
+ 
+    // Use a lambda expression to count keypresses. 
+    kevt.KeyPress += (sender, e) =>  
+      count++; // count is an outer variable 
+  
+    Console.WriteLine("Enter some characters. " +  
+                      "Enter a period to stop.");  
+    do {  
+      key = Console.ReadKey(); 
+      kevt.OnKeyPress(key.KeyChar);  
+    } while(key.KeyChar != '.');  
+ 
+    Console.WriteLine(count + " keys pressed.");  
+  }  
+}
+
+

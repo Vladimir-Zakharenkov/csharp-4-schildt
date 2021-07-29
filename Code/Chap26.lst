@@ -1,0 +1,404 @@
+listing 1
+// Access a web site. 
+ 
+using System; 
+using System.Net; 
+using System.IO; 
+ 
+class NetDemo {  
+  static void Main() { 
+    int ch; 
+ 
+    // First, create a WebRequest to a URI. 
+    HttpWebRequest req = (HttpWebRequest) 
+           WebRequest.Create("http://www.McGraw-Hill.com"); 
+ 
+    // Next, send that request and return the response. 
+    HttpWebResponse resp = (HttpWebResponse) 
+           req.GetResponse(); 
+ 
+    // From the response, obtain an input stream. 
+    Stream istrm = resp.GetResponseStream(); 
+ 
+ 
+    /* Now, read and display the html present at 
+       the specified URI.  So you can see what is 
+       being displayed, the data is shown 
+       400 characters at a time.  After each 400 
+       characters are displayed, you must press 
+       ENTER to get the next 400. */ 
+   
+    for(int i=1; ; i++) { 
+      ch =  istrm.ReadByte(); 
+      if(ch == -1) break; 
+      Console.Write((char) ch); 
+      if((i%400)==0) { 
+        Console.Write("\nPress Enter."); 
+        Console.ReadLine(); 
+      } 
+    } 
+ 
+    // Close the Response. This also closes istrm. 
+    resp.Close(); 
+  } 
+}
+
+listing 2
+// Handle network exceptions. 
+ 
+using System; 
+using System.Net; 
+using System.IO; 
+ 
+class NetExcDemo {  
+  static void Main() { 
+    int ch; 
+ 
+    try { 
+ 
+      // First, create a WebRequest to a URI. 
+      HttpWebRequest req = (HttpWebRequest) 
+             WebRequest.Create("http://www.McGraw-Hill.com"); 
+ 
+      // Next, send that request and return the response. 
+      HttpWebResponse resp = (HttpWebResponse) 
+             req.GetResponse(); 
+ 
+      // From the response, obtain an input stream. 
+      Stream istrm = resp.GetResponseStream(); 
+ 
+      /* Now, read and display the html present at 
+         the specified URI.  So you can see what is 
+         being displayed, the data is shown 
+         400 characters at a time.  After each 400 
+         characters are displayed, you must press 
+         ENTER to get the next 400. */ 
+   
+      for(int i=1; ; i++) { 
+        ch =  istrm.ReadByte(); 
+        if(ch == -1) break; 
+        Console.Write((char) ch); 
+        if((i%400)==0) { 
+          Console.Write("\nPress Enter."); 
+          Console.ReadLine(); 
+        } 
+      } 
+ 
+      // Close the Response. This also closes istrm. 
+      resp.Close(); 
+ 
+    } catch(WebException exc) { 
+      Console.WriteLine("Network Error: " + exc.Message +  
+                        "\nStatus code: " + exc.Status); 
+    } catch(ProtocolViolationException exc) { 
+      Console.WriteLine("Protocol Error: " + exc.Message); 
+    } catch(UriFormatException exc) { 
+      Console.WriteLine("URI Format Error: " + exc.Message); 
+    } catch(NotSupportedException exc) { 
+      Console.WriteLine("Unknown Protocol: " + exc.Message); 
+    } catch(IOException exc) { 
+      Console.WriteLine("I/O Error: " + exc.Message); 
+    } catch(System.Security.SecurityException exc) { 
+      Console.WriteLine("Security Exception: " + exc.Message); 
+    } catch(InvalidOperationException exc) { 
+      Console.WriteLine("Invalid Operation: " + exc.Message); 
+    } 
+  } 
+}
+
+listing 3
+// Use Uri. 
+ 
+using System; 
+using System.Net; 
+ 
+class UriDemo {  
+  static void Main() { 
+ 
+    Uri sample = new Uri("http://HerbSchildt.com/somefile.txt?SomeQuery"); 
+ 
+    Console.WriteLine("Host: " + sample.Host); 
+    Console.WriteLine("Port: " + sample.Port); 
+    Console.WriteLine("Scheme: " + sample.Scheme); 
+    Console.WriteLine("Local Path: " + sample.LocalPath); 
+    Console.WriteLine("Query: " + sample.Query); 
+    Console.WriteLine("Path and query: " + sample.PathAndQuery); 
+ 
+  } 
+}
+
+listing 4
+// Examine the headers.  
+  
+using System;  
+using System.Net;  
+  
+class HeaderDemo {   
+  static void Main() {  
+  
+    // Create a WebRequest to a URI.  
+    HttpWebRequest req = (HttpWebRequest)  
+           WebRequest.Create("http://www.McGraw-Hill.com");  
+  
+    // Send that request and return the response.  
+    HttpWebResponse resp = (HttpWebResponse)  
+           req.GetResponse();  
+  
+    // Obtain a list of the names.  
+    string[] names = resp.Headers.AllKeys;  
+  
+    // Display the header name/value pairs.  
+    Console.WriteLine("{0,-20}{1}\n", "Name", "Value");  
+    foreach(string n in names) { 
+      Console.Write("{0,-20}", n); 
+      foreach(string v in resp.Headers.GetValues(n)) 
+        Console.WriteLine(v);  
+    } 
+ 
+    // Close the Response.   
+    resp.Close();  
+  }  
+}
+
+listing 5
+/* Examine Cookies. 
+ 
+   To see what cookies a web site uses, 
+   specify its name on the command line. 
+   For example, if you call this program 
+   CookieDemo, then 
+  
+     CookieDemo http://www.mhprofessional.com
+  
+   displays the cookies associated with mhprofessional.com. 
+*/ 
+ 
+using System; 
+using System.Net; 
+ 
+class CookieDemo {  
+  static void Main(string[] args) { 
+ 
+    if(args.Length != 1) { 
+      Console.WriteLine("Usage: CookieDemo <uri>"); 
+      return ; 
+    } 
+ 
+    // Create a WebRequest to the specified URI. 
+    HttpWebRequest req = (HttpWebRequest) 
+           WebRequest.Create(args[0]);  
+ 
+    // Get an empty cookie container. 
+    req.CookieContainer = new CookieContainer(); 
+ 
+    // Send the request and return the response. 
+    HttpWebResponse resp = (HttpWebResponse) 
+           req.GetResponse(); 
+ 
+    // Display the cookies. 
+    Console.WriteLine("Number of cookies: " +  
+                        resp.Cookies.Count); 
+    Console.WriteLine("{0,-20}{1}", "Name", "Value"); 
+ 
+    for(int i=0; i < resp.Cookies.Count; i++) 
+      Console.WriteLine("{0, -20}{1}", 
+                         resp.Cookies[i].Name, 
+                         resp.Cookies[i].Value); 
+ 
+    // Close the Response.  
+    resp.Close(); 
+  } 
+}
+
+listing 6
+/* Use LastModified.  
+  
+   To see the date on which a web site was 
+   last modified, enter its URI on the command 
+   line. For example, if you call this program 
+   LastModified, then see the date of last 
+   modification for HerbSchildt.com enter 
+   
+     LastModifiedDemo http://www.HerbSchildt.com  
+*/  
+  
+using System;  
+using System.Net;  
+  
+class LastModifiedDemo {   
+  static void Main(string[] args) {  
+  
+    if(args.Length != 1) {  
+      Console.WriteLine("Usage: LastModifiedDemo <uri>");  
+      return ;  
+    }  
+  
+    HttpWebRequest req = (HttpWebRequest)  
+           WebRequest.Create(args[0]);  
+  
+    HttpWebResponse resp = (HttpWebResponse)  
+           req.GetResponse();  
+  
+    Console.WriteLine("Last modified: " + resp.LastModified);  
+  
+    resp.Close();  
+  }  
+}
+
+listing 7
+/* MiniCrawler: A skeletal Web crawler. 
+ 
+   Usage: 
+     To start crawling, specify a starting 
+     URI on the command line. For example, 
+     to start at McGraw-Hill.com use this 
+     command line: 
+   
+       MiniCrawler http://www.McGraw-Hill.com  
+   
+*/  
+ 
+using System; 
+using System.Net; 
+using System.IO; 
+ 
+class MiniCrawler {  
+ 
+  // Find a link in a content string. 
+  static string FindLink(string htmlstr,  
+                         ref int startloc) { 
+    int i; 
+    int start, end; 
+    string uri = null; 
+ 
+    i = htmlstr.IndexOf("href=\"http", startloc,
+                        StringComparison.OrdinalIgnoreCase); 
+    if(i != -1) { 
+      start = htmlstr.IndexOf('"', i) + 1; 
+      end = htmlstr.IndexOf('"', start); 
+      uri = htmlstr.Substring(start, end-start); 
+      startloc = end; 
+    } 
+             
+    return uri; 
+  } 
+ 
+  static void Main(string[] args) { 
+    string link = null; 
+    string str; 
+    string answer; 
+ 
+    int curloc; // holds current location in response 
+ 
+    if(args.Length != 1) { 
+      Console.WriteLine("Usage: MiniCrawler <uri>"); 
+      return ; 
+    } 
+ 
+    string uristr = args[0]; // holds current URI 
+ 
+    HttpWebResponse resp = null; 
+
+    try { 
+ 
+      do { 
+        Console.WriteLine("Linking to " + uristr); 
+ 
+        // Create a WebRequest to the specified URI. 
+        HttpWebRequest req = (HttpWebRequest) 
+               WebRequest.Create(uristr); 
+ 
+        uristr = null; // disallow further use of this URI 
+ 
+        // Send that request and return the response. 
+        resp = (HttpWebResponse) req.GetResponse(); 
+ 
+        // From the response, obtain an input stream. 
+        Stream istrm = resp.GetResponseStream(); 
+ 
+        // Wrap the input stream in a StreamReader. 
+        StreamReader rdr = new StreamReader(istrm); 
+ 
+        // Read in the entire page. 
+        str = rdr.ReadToEnd(); 
+ 
+        curloc = 0; 
+        
+        do { 
+          // Find the next URI to link to. 
+          link = FindLink(str, ref curloc); 
+ 
+          if(link != null) { 
+            Console.WriteLine("Link found: " + link); 
+ 
+            Console.Write("Link, More, Quit?"); 
+            answer = Console.ReadLine(); 
+ 
+            if(string.Equals(answer, "L",
+               StringComparison.OrdinalIgnoreCase)) { 
+              uristr = string.Copy(link); 
+              break; 
+            } else if(string.Equals(answer, "Q",
+                      StringComparison.OrdinalIgnoreCase)) { 
+              break; 
+            } else if(string.Equals(answer, "M",
+                      StringComparison.OrdinalIgnoreCase)) { 
+              Console.WriteLine("Searching for another link."); 
+            } 
+          } else { 
+            Console.WriteLine("No link found."); 
+            break; 
+          } 
+ 
+        } while(link.Length > 0); 
+ 
+        // Close the Response. 
+        if(resp != null) resp.Close(); 
+      } while(uristr != null); 
+ 
+    } catch(WebException exc) { 
+      Console.WriteLine("Network Error: " + exc.Message +  
+                        "\nStatus code: " + exc.Status); 
+    } catch(ProtocolViolationException exc) { 
+      Console.WriteLine("Protocol Error: " + exc.Message); 
+    } catch(UriFormatException exc) { 
+      Console.WriteLine("URI Format Error: " + exc.Message); 
+    } catch(NotSupportedException exc) { 
+      Console.WriteLine("Unknown Protocol: " + exc.Message); 
+    } catch(IOException exc) { 
+      Console.WriteLine("I/O Error: " + exc.Message); 
+    } finally { 
+      if(resp != null) resp.Close(); 
+    }
+ 
+    Console.WriteLine("Terminating MiniCrawler."); 
+  } 
+}
+
+listing 8
+// Use WebClient to download information into a file. 
+ 
+using System; 
+using System.Net; 
+using System.IO; 
+ 
+class WebClientDemo {  
+  static void Main() { 
+    WebClient user = new WebClient(); 
+    string uri = "http://www.McGraw-Hill.com"; 
+    string fname = "data.txt"; 
+     
+    try { 
+      Console.WriteLine("Downloading data from " + 
+                        uri + " to " + fname); 
+      user.DownloadFile(uri, fname); 
+    } catch (WebException exc) { 
+      Console.WriteLine(exc); 
+    } 
+
+    user.Dispose(); 
+    Console.WriteLine("Download complete."); 
+  } 
+}
+
+

@@ -1,0 +1,1162 @@
+listing 1
+// Create a thread of execution. 
+ 
+using System; 
+using System.Threading; 
+ 
+class MyThread { 
+  public int Count; 
+  string thrdName; 
+ 
+  public MyThread(string name) { 
+    Count = 0; 
+    thrdName = name; 
+  } 
+ 
+  // Entry point of thread. 
+  public void Run() { 
+    Console.WriteLine(thrdName + " starting."); 
+ 
+    do { 
+      Thread.Sleep(500); 
+      Console.WriteLine("In " + thrdName + 
+                        ", Count is " + Count); 
+      Count++; 
+    } while(Count < 10); 
+ 
+    Console.WriteLine(thrdName + " terminating."); 
+  } 
+} 
+ 
+class MultiThread { 
+  static void Main() { 
+    Console.WriteLine("Main thread starting."); 
+ 
+    // First, construct a MyThread object. 
+    MyThread mt = new MyThread("Child #1"); 
+ 
+    // Next, construct a thread from that object. 
+    Thread newThrd = new Thread(mt.Run); 
+ 
+    // Finally, start execution of the thread. 
+    newThrd.Start(); 
+ 
+    do { 
+      Console.Write("."); 
+      Thread.Sleep(100); 
+    } while (mt.Count != 10); 
+ 
+    Console.WriteLine("Main thread ending."); 
+  } 
+}
+
+listing 2
+// An alternate way to start a thread. 
+ 
+using System; 
+using System.Threading; 
+ 
+class MyThread { 
+  public int Count; 
+  public Thread Thrd;  
+ 
+  public MyThread(string name) { 
+    Count = 0; 
+    Thrd = new Thread(this.Run);  
+    Thrd.Name = name; // set the name of the thread 
+    Thrd.Start(); // start the thread 
+  } 
+ 
+  // Entry point of thread. 
+  void Run() { 
+    Console.WriteLine(Thrd.Name + " starting."); 
+ 
+    do { 
+      Thread.Sleep(500); 
+      Console.WriteLine("In " + Thrd.Name + 
+                        ", Count is " + Count); 
+      Count++; 
+    } while(Count < 10); 
+ 
+    Console.WriteLine(Thrd.Name + " terminating."); 
+  } 
+} 
+ 
+class MultiThreadImproved { 
+  static void Main() { 
+    Console.WriteLine("Main thread starting."); 
+ 
+    // First, construct a MyThread object. 
+    MyThread mt = new MyThread("Child #1"); 
+ 
+    do { 
+      Console.Write("."); 
+      Thread.Sleep(100); 
+    } while (mt.Count != 10); 
+ 
+    Console.WriteLine("Main thread ending."); 
+  } 
+}
+
+listing 3
+// Create multiple threads of execution. 
+ 
+using System; 
+using System.Threading; 
+ 
+class MyThread { 
+  public int Count; 
+  public Thread Thrd; 
+ 
+  public MyThread(string name) { 
+    Count = 0; 
+    Thrd = new Thread(this.Run); 
+    Thrd.Name = name; 
+    Thrd.Start(); 
+  } 
+ 
+  // Entry point of thread. 
+  void Run() { 
+    Console.WriteLine(Thrd.Name + " starting."); 
+ 
+    do { 
+      Thread.Sleep(500); 
+      Console.WriteLine("In " + Thrd.Name + 
+                        ", Count is " + Count); 
+      Count++; 
+    } while(Count < 10); 
+ 
+    Console.WriteLine(Thrd.Name + " terminating."); 
+  } 
+} 
+ 
+class MoreThreads { 
+  static void Main() { 
+    Console.WriteLine("Main thread starting."); 
+ 
+    // Construct three threads. 
+    MyThread mt1 = new MyThread("Child #1"); 
+    MyThread mt2 = new MyThread("Child #2"); 
+    MyThread mt3 = new MyThread("Child #3"); 
+ 
+    do { 
+      Console.Write("."); 
+      Thread.Sleep(100); 
+    } while (mt1.Count < 10 || 
+             mt2.Count < 10 || 
+             mt3.Count < 10); 
+ 
+    Console.WriteLine("Main thread ending."); 
+  } 
+}
+
+listing 4
+// Use IsAlive to wait for threads to end. 
+class MoreThreads { 
+  static void Main() { 
+    Console.WriteLine("Main thread starting."); 
+ 
+    // Construct three threads. 
+    MyThread mt1 = new MyThread("Child #1"); 
+    MyThread mt2 = new MyThread("Child #2"); 
+    MyThread mt3 = new MyThread("Child #3"); 
+ 
+    do { 
+      Console.Write("."); 
+      Thread.Sleep(100); 
+    } while (mt1.Thrd.IsAlive && 
+             mt2.Thrd.IsAlive && 
+             mt3.Thrd.IsAlive); 
+ 
+    Console.WriteLine("Main thread ending."); 
+  } 
+}
+
+listing 5
+// Use Join(). 
+ 
+using System; 
+using System.Threading; 
+ 
+class MyThread { 
+  public int Count; 
+  public Thread Thrd; 
+ 
+  public MyThread(string name) { 
+    Count = 0; 
+    Thrd = new Thread(this.Run); 
+    Thrd.Name = name; 
+    Thrd.Start(); 
+  } 
+ 
+  // Entry point of thread. 
+  void Run() { 
+    Console.WriteLine(Thrd.Name + " starting."); 
+ 
+    do { 
+      Thread.Sleep(500); 
+      Console.WriteLine("In " + Thrd.Name + 
+                        ", Count is " + Count); 
+      Count++; 
+    } while(Count < 10); 
+ 
+    Console.WriteLine(Thrd.Name + " terminating."); 
+  } 
+} 
+ 
+// Use Join() to wait for threads to end. 
+class JoinThreads { 
+  static void Main() { 
+    Console.WriteLine("Main thread starting."); 
+ 
+    // Construct three threads. 
+    MyThread mt1 = new MyThread("Child #1"); 
+    MyThread mt2 = new MyThread("Child #2"); 
+    MyThread mt3 = new MyThread("Child #3"); 
+ 
+    mt1.Thrd.Join(); 
+    Console.WriteLine("Child #1 joined."); 
+ 
+    mt2.Thrd.Join(); 
+    Console.WriteLine("Child #2 joined."); 
+ 
+    mt3.Thrd.Join(); 
+    Console.WriteLine("Child #3 joined."); 
+ 
+    Console.WriteLine("Main thread ending."); 
+  } 
+}
+
+listing 6
+// Passing an argument to the thread method. 
+  
+using System;  
+using System.Threading;  
+  
+class MyThread {  
+  public int Count;  
+  public Thread Thrd;  
+ 
+  // Notice that MyThread is also pass an int value. 
+  public MyThread(string name, int num) {  
+    Count = 0;  
+ 
+    // Explicitly invoke ParameterizedThreadStart constructor 
+    // for the sake of illustration. 
+    Thrd = new Thread(this.Run); 
+ 
+    Thrd.Name = name; 
+ 
+     // Here, Start() is passed num as an argument. 
+    Thrd.Start(num);  
+  }  
+  
+  // Notice that this version of Run() has 
+  // a parameter of type object. 
+  void Run(object num) {  
+    Console.WriteLine(Thrd.Name + 
+                      " starting with count of " + num);  
+  
+    do {  
+      Thread.Sleep(500);  
+      Console.WriteLine("In " + Thrd.Name +  
+                        ", Count is " + Count);  
+      Count++;  
+    } while(Count < (int) num);  
+  
+    Console.WriteLine(Thrd.Name + " terminating.");  
+  }  
+}  
+  
+class PassArgDemo {  
+  static void Main() {  
+ 
+    // Notice that the iteration count is passed 
+    // to these two MyThread objects. 
+    MyThread mt = new MyThread("Child #1", 5);  
+    MyThread mt2 = new MyThread("Child #2", 3);  
+  
+    do {  
+      Thread.Sleep(100);  
+    } while (mt.Thrd.IsAlive | mt2.Thrd.IsAlive);  
+  
+    Console.WriteLine("Main thread ending.");  
+  }  
+}
+
+listing 7
+// Demonstrate thread priorities. 
+ 
+using System; 
+using System.Threading; 
+ 
+class MyThread { 
+  public int Count; 
+  public Thread Thrd; 
+ 
+  static bool stop = false; 
+  static string currentName; 
+ 
+  /* Construct a new thread. Notice that this  
+     constructor does not actually start the 
+     threads running. */ 
+  public MyThread(string name) { 
+    Count = 0; 
+    Thrd = new Thread(this.Run); 
+    Thrd.Name = name; 
+    currentName = name; 
+  } 
+ 
+  // Begin execution of new thread. 
+  void Run() { 
+    Console.WriteLine(Thrd.Name + " starting."); 
+    do { 
+      Count++; 
+ 
+      if(currentName != Thrd.Name) { 
+        currentName = Thrd.Name; 
+        Console.WriteLine("In " + currentName); 
+      } 
+ 
+    } while(stop == false && Count < 1000000000); 
+    stop = true; 
+ 
+    Console.WriteLine(Thrd.Name + " terminating."); 
+  } 
+} 
+ 
+class PriorityDemo { 
+  static void Main() { 
+    MyThread mt1 = new MyThread("High Priority"); 
+    MyThread mt2 = new MyThread("Low Priority"); 
+ 
+    // Set the priorities. 
+    mt1.Thrd.Priority = ThreadPriority.AboveNormal; 
+    mt2.Thrd.Priority = ThreadPriority.BelowNormal; 
+ 
+    // Start the threads. 
+    mt1.Thrd.Start(); 
+    mt2.Thrd.Start(); 
+ 
+    mt1.Thrd.Join(); 
+    mt2.Thrd.Join(); 
+ 
+    Console.WriteLine(); 
+    Console.WriteLine(mt1.Thrd.Name + " thread counted to " + 
+                      mt1.Count); 
+    Console.WriteLine(mt2.Thrd.Name + " thread counted to " + 
+                      mt2.Count); 
+  } 
+}
+
+listing 8
+// Use lock to synchronize access to an object.  
+ 
+using System; 
+using System.Threading; 
+ 
+class SumArray {  
+  int sum;  
+  object lockOn = new object(); // a private object to lock on 
+  
+  public int SumIt(int[] nums) {  
+    lock(lockOn) { // lock the entire method 
+      sum = 0; // reset sum  
+    
+      for(int i=0; i < nums.Length; i++) {  
+        sum += nums[i];  
+        Console.WriteLine("Running total for " +  
+               Thread.CurrentThread.Name +  
+               " is " + sum);  
+        Thread.Sleep(10); // allow task-switch  
+      }  
+      return sum; 
+    } 
+  }  
+}   
+  
+class MyThread {  
+  public Thread Thrd;  
+  int[] a;  
+  int answer; 
+ 
+  // Create one SumArray object for all instances of MyThread. 
+  static SumArray sa = new SumArray();  
+ 
+  // Construct a new thread.  
+  public MyThread(string name, int[] nums) {  
+    a = nums;  
+    Thrd = new Thread(this.Run); 
+    Thrd.Name = name; 
+    Thrd.Start(); // start the thread  
+  }  
+  
+  // Begin execution of new thread.  
+  void Run() {  
+    Console.WriteLine(Thrd.Name + " starting.");  
+  
+    answer = sa.SumIt(a);           
+ 
+    Console.WriteLine("Sum for " + Thrd.Name +  
+                       " is " + answer);  
+  
+    Console.WriteLine(Thrd.Name + " terminating.");  
+  }  
+}  
+  
+class Sync {  
+  static void Main() {  
+    int[] a = {1, 2, 3, 4, 5};  
+  
+    MyThread mt1 = new MyThread("Child #1", a);  
+    MyThread mt2 = new MyThread("Child #2", a);  
+  
+    mt1.Thrd.Join();  
+    mt2.Thrd.Join();  
+  }  
+}
+
+listing 9
+// Another way to use lock to synchronize access to an object.  
+ 
+using System; 
+using System.Threading; 
+ 
+class SumArray {  
+  int sum;  
+  
+  public int SumIt(int[] nums) {  
+    sum = 0; // reset sum  
+  
+    for(int i=0; i < nums.Length; i++) {  
+      sum += nums[i];  
+      Console.WriteLine("Running total for " +  
+             Thread.CurrentThread.Name +  
+             " is " + sum);  
+      Thread.Sleep(10); // allow task-switch  
+    }  
+    return sum; 
+  }  
+}   
+  
+class MyThread {  
+  public Thread Thrd;  
+  int[] a;  
+  int answer; 
+ 
+  /* Create one SumArray object for all 
+     instances of MyThread. */ 
+  static SumArray sa = new SumArray();  
+ 
+  // Construct a new thread.  
+  public MyThread(string name, int[] nums) {  
+    a = nums;  
+    Thrd = new Thread(this.Run); 
+    Thrd.Name = name; 
+    Thrd.Start(); // start the thread  
+  }  
+  
+  // Begin execution of new thread.  
+  void Run() {  
+    Console.WriteLine(Thrd.Name + " starting.");  
+  
+    // Lock calls to SumIt().  
+    lock(sa) answer = sa.SumIt(a); 
+ 
+    Console.WriteLine("Sum for " + Thrd.Name +  
+                       " is " + answer);  
+  
+    Console.WriteLine(Thrd.Name + " terminating.");  
+  }  
+}  
+  
+class Sync {  
+  static void Main() {  
+    int[] a = {1, 2, 3, 4, 5};  
+  
+    MyThread mt1 = new MyThread("Child #1", a);  
+    MyThread mt2 = new MyThread("Child #2", a);  
+  
+    mt1.Thrd.Join();  
+    mt2.Thrd.Join();  
+  }  
+}
+
+listing 10
+// Use Wait() and Pulse() to create a ticking clock. 
+ 
+using System; 
+using System.Threading; 
+ 
+class TickTock { 
+  object lockOn = new object(); 
+ 
+  public void Tick(bool running) { 
+    lock(lockOn) { 
+      if(!running) { // stop the clock 
+        Monitor.Pulse(lockOn); // notify any waiting threads 
+        return; 
+      } 
+ 
+      Console.Write("Tick "); 
+      Monitor.Pulse(lockOn); // let Tock() run 
+   
+      Monitor.Wait(lockOn); // wait for Tock() to complete 
+    } 
+  } 
+ 
+  public void Tock(bool running) { 
+    lock(lockOn) { 
+      if(!running) { // stop the clock 
+        Monitor.Pulse(lockOn); // notify any waiting threads 
+        return; 
+      } 
+ 
+      Console.WriteLine("Tock"); 
+      Monitor.Pulse(lockOn); // let Tick() run 
+ 
+      Monitor.Wait(lockOn); // wait for Tick() to complete 
+    } 
+  } 
+}  
+ 
+class MyThread { 
+  public Thread Thrd; 
+  TickTock ttOb; 
+ 
+  // Construct a new thread. 
+  public MyThread(string name, TickTock tt) { 
+    Thrd = new Thread(this.Run); 
+    ttOb = tt; 
+    Thrd.Name = name; 
+    Thrd.Start();  
+  } 
+ 
+  // Begin execution of new thread. 
+  void Run() { 
+    if(Thrd.Name == "Tick") { 
+      for(int i=0; i<5; i++) ttOb.Tick(true); 
+      ttOb.Tick(false); 
+    } 
+    else { 
+      for(int i=0; i<5; i++) ttOb.Tock(true); 
+      ttOb.Tock(false); 
+    } 
+  } 
+} 
+ 
+class TickingClock { 
+  static void Main() { 
+    TickTock tt = new TickTock(); 
+    MyThread mt1 = new MyThread("Tick", tt); 
+    MyThread mt2 = new MyThread("Tock", tt); 
+ 
+    mt1.Thrd.Join(); 
+    mt2.Thrd.Join(); 
+    Console.WriteLine("Clock Stopped"); 
+  } 
+}
+
+listing 11
+// A non-functional version of TickTock. 
+class TickTock { 
+ 
+  object lockOn = new object(); 
+ 
+  public void Tick(bool running) { 
+    lock(lockOn) { 
+      if(!running) { // stop the clock 
+        return; 
+      } 
+ 
+      Console.Write("Tick "); 
+    } 
+  } 
+ 
+  public void Tock(bool running) { 
+    lock(lockOn) { 
+      if(!running) { // stop the clock 
+        return; 
+      } 
+ 
+      Console.WriteLine("Tock"); 
+    } 
+  } 
+}
+
+listing 12
+// Use MethodImplAttribute to synchronize a method. 
+ 
+using System; 
+using System.Threading; 
+using System.Runtime.CompilerServices; 
+ 
+// Rewrite of TickTock to use MethodImplOptions.Synchronized. 
+class TickTock { 
+ 
+  /* The following attribute synchronizes the entire 
+     Tick() method. */ 
+  [MethodImplAttribute(MethodImplOptions.Synchronized)] 
+  public void Tick(bool running) { 
+    if(!running) { // stop the clock 
+      Monitor.Pulse(this); // notify any waiting threads 
+      return; 
+    } 
+ 
+    Console.Write("Tick "); 
+    Monitor.Pulse(this); // let Tock() run 
+   
+    Monitor.Wait(this); // wait for Tock() to complete 
+  } 
+ 
+ 
+  /* The following attribute synchronizes the entire 
+     Tock() method. */ 
+  [MethodImplAttribute(MethodImplOptions.Synchronized)] 
+  public void Tock(bool running) { 
+    if(!running) { // stop the clock 
+      Monitor.Pulse(this); // notify any waiting threads 
+      return; 
+    } 
+ 
+    Console.WriteLine("Tock"); 
+    Monitor.Pulse(this); // let Tick() run 
+ 
+    Monitor.Wait(this); // wait for Tick() to complete 
+  } 
+}  
+ 
+class MyThread { 
+  public Thread Thrd; 
+  TickTock ttOb; 
+ 
+  // Construct a new thread. 
+  public MyThread(string name, TickTock tt) { 
+    Thrd = new Thread(this.Run); 
+    ttOb = tt; 
+    Thrd.Name = name; 
+    Thrd.Start();  
+  } 
+ 
+  // Begin execution of new thread. 
+  void Run() { 
+    if(Thrd.Name == "Tick") { 
+      for(int i=0; i<5; i++) ttOb.Tick(true); 
+      ttOb.Tick(false); 
+    } 
+    else { 
+      for(int i=0; i<5; i++) ttOb.Tock(true); 
+      ttOb.Tock(false); 
+    } 
+  } 
+} 
+ 
+class TickingClock { 
+  static void Main() { 
+    TickTock tt = new TickTock(); 
+    MyThread mt1 = new MyThread("Tick", tt); 
+    MyThread mt2 = new MyThread("Tock", tt); 
+ 
+    mt1.Thrd.Join(); 
+    mt2.Thrd.Join(); 
+    Console.WriteLine("Clock Stopped"); 
+  } 
+}
+
+listing 13
+// Use a Mutex. 
+  
+using System;  
+using System.Threading;  
+ 
+// This class contains a shared resource (Count), 
+// and a mutex (Mtx) to control access to it.  
+class SharedRes { 
+  public static int Count = 0; 
+  public static Mutex Mtx = new Mutex(); 
+} 
+ 
+// This thread increments SharedRes.Count. 
+class IncThread {  
+  int num; 
+  public Thread Thrd;  
+  
+  public IncThread(string name, int n) {  
+    Thrd = new Thread(this.Run);  
+    num = n; 
+    Thrd.Name = name;  
+    Thrd.Start();  
+  }  
+  
+  // Entry point of thread.  
+  void Run() {  
+ 
+    Console.WriteLine(Thrd.Name + " is waiting for the mutex."); 
+ 
+    // Acquire the Mutex. 
+    SharedRes.Mtx.WaitOne(); 
+ 
+    Console.WriteLine(Thrd.Name + " acquires the mutex."); 
+ 
+    do {  
+      Thread.Sleep(500);  
+      SharedRes.Count++;  
+      Console.WriteLine("In " + Thrd.Name +  
+                        ", SharedRes.Count is " + SharedRes.Count);  
+      num--; 
+    } while(num > 0);  
+  
+    Console.WriteLine(Thrd.Name + " releases the mutex.");   
+ 
+    // Release the Mutex. 
+    SharedRes.Mtx.ReleaseMutex(); 
+  }  
+}  
+ 
+// This thread decrements SharedRes.Count. 
+class DecThread {  
+  int num; 
+  public Thread Thrd;  
+  
+  public DecThread(string name, int n) {  
+    Thrd = new Thread(new ThreadStart(this.Run));  
+    num = n; 
+    Thrd.Name = name;  
+    Thrd.Start();  
+  }  
+  
+  // Entry point of thread.  
+  void Run() {  
+ 
+    Console.WriteLine(Thrd.Name + " is waiting for the mutex."); 
+ 
+    // Acquire the Mutex. 
+    SharedRes.Mtx.WaitOne(); 
+ 
+    Console.WriteLine(Thrd.Name + " acquires the mutex."); 
+ 
+    do {  
+      Thread.Sleep(500);  
+      SharedRes.Count--;  
+      Console.WriteLine("In " + Thrd.Name +  
+                        ", SharedRes.Count is " + SharedRes.Count);  
+      num--; 
+    } while(num > 0);  
+  
+    Console.WriteLine(Thrd.Name + " releases the mutex.");  
+ 
+    // Release the Mutex. 
+    SharedRes.Mtx.ReleaseMutex(); 
+  }  
+}  
+  
+class MutexDemo {  
+  static void Main() {  
+ 
+    // Construct three threads.  
+    IncThread mt1 = new IncThread("Increment Thread", 5);  
+ 
+    Thread.Sleep(1); // let the Increment thread start 
+ 
+    DecThread mt2 = new DecThread("Decrement Thread", 5);  
+  
+    mt1.Thrd.Join(); 
+    mt2.Thrd.Join(); 
+  }  
+}
+
+listing 14
+// Use a Semaphore 
+  
+using System;  
+using System.Threading;  
+ 
+// This thread allows only two instances of itself 
+// to run at any one time. 
+class MyThread {  
+  public Thread Thrd; 
+ 
+  // This creates a semaphore that allows up to 2 
+  // permits to be granted and that initially has 
+  // two permits available. 
+  static Semaphore sem = new Semaphore(2, 2); 
+  
+  public MyThread(string name) {  
+    Thrd = new Thread(this.Run);  
+    Thrd.Name = name;  
+    Thrd.Start();  
+  }  
+  
+  // Entry point of thread.  
+  void Run() {  
+ 
+    Console.WriteLine(Thrd.Name + " is waiting for a permit."); 
+ 
+    sem.WaitOne(); 
+ 
+    Console.WriteLine(Thrd.Name + " acquires a permit."); 
+ 
+    for(char ch='A'; ch < 'D'; ch++) { 
+      Console.WriteLine(Thrd.Name + " : " + ch + " "); 
+      Thread.Sleep(500);  
+    } 
+  
+    Console.WriteLine(Thrd.Name + " releases a permit."); 
+ 
+    // Release the semaphore. 
+    sem.Release(); 
+  }  
+}  
+ 
+  
+class SemaphoreDemo {  
+  static void Main() {  
+ 
+    // Construct three threads.  
+    MyThread mt1 = new MyThread("Thread #1");  
+    MyThread mt2 = new MyThread("Thread #2");  
+    MyThread mt3 = new MyThread("Thread #3");  
+  
+    mt1.Thrd.Join(); 
+    mt2.Thrd.Join(); 
+    mt3.Thrd.Join(); 
+  }  
+}
+
+listing 15
+// Use a manual event object.   
+    
+using System;    
+using System.Threading;    
+   
+// This thread signals the event passed to its constructor.   
+class MyThread {    
+  public Thread Thrd;   
+  ManualResetEvent mre;   
+    
+  public MyThread(string name, ManualResetEvent evt) {    
+    Thrd = new Thread(this.Run);    
+    Thrd.Name = name;   
+    mre = evt;   
+    Thrd.Start();    
+  }    
+    
+  // Entry point of thread.    
+  void Run() {    
+    Console.WriteLine("Inside thread " + Thrd.Name);   
+   
+    for(int i=0; i<5; i++) {   
+      Console.WriteLine(Thrd.Name);   
+      Thread.Sleep(500);   
+    }   
+   
+    Console.WriteLine(Thrd.Name + " Done!");   
+   
+    // Signal the event. 
+    mre.Set(); 
+  }    
+}    
+    
+class ManualEventDemo {    
+  public static void Main() {    
+    ManualResetEvent evtObj = new ManualResetEvent(false);   
+   
+    MyThread mt1 = new MyThread("Event Thread 1", evtObj);    
+ 
+    Console.WriteLine("Main thread waiting for event."); 
+ 
+    // Wait for signaled event. 
+    evtObj.WaitOne(); 
+ 
+    Console.WriteLine("Main thread received first event."); 
+ 
+ 
+    // Reset the event. 
+    evtObj.Reset();  
+ 
+ 
+    mt1 = new MyThread("Event Thread 2", evtObj);    
+ 
+    // Wait for signaled event. 
+    evtObj.WaitOne(); 
+ 
+    Console.WriteLine("Main thread received second event."); 
+  }    
+}
+
+listing 16
+// Use Interlocked operations. 
+  
+using System;  
+using System.Threading;  
+ 
+// A shared resource. 
+class SharedRes { 
+  public static int Count = 0; 
+} 
+ 
+// This thread increments SharedRes.Count. 
+class IncThread {  
+  public Thread Thrd; 
+  
+  public IncThread(string name) {  
+    Thrd = new Thread(this.Run);  
+    Thrd.Name = name; 
+    Thrd.Start();  
+  }  
+  
+  // Entry point of thread.  
+  void Run() {  
+ 
+    for(int i=0; i<5; i++) { 
+      Interlocked.Increment(ref SharedRes.Count); 
+      Console.WriteLine(Thrd.Name + " Count is " + SharedRes.Count); 
+    } 
+  }  
+}  
+ 
+// This thread decrements SharedRes.Count. 
+class DecThread {  
+  public Thread Thrd; 
+  
+  public DecThread(string name) {  
+    Thrd = new Thread(this.Run);  
+    Thrd.Name = name; 
+    Thrd.Start();  
+  }  
+  
+  // Entry point of thread.  
+  void Run() {  
+ 
+    for(int i=0; i<5; i++) { 
+      Interlocked.Decrement(ref SharedRes.Count); 
+      Console.WriteLine(Thrd.Name + " Count is " + SharedRes.Count); 
+    } 
+  }  
+}  
+  
+class InterdlockedDemo {  
+  static void Main() {  
+ 
+    // Construct two threads.  
+    IncThread mt1 = new IncThread("Increment Thread");  
+    DecThread mt2 = new DecThread("Decrement Thread");  
+  
+    mt1.Thrd.Join(); 
+    mt2.Thrd.Join(); 
+  }  
+}
+
+listing 17
+// Stopping a thread by use of Abort(). 
+ 
+using System; 
+using System.Threading; 
+ 
+class MyThread {  
+  public Thread Thrd;  
+    
+  public MyThread(string name) {  
+    Thrd = new Thread(this.Run); 
+    Thrd.Name = name; 
+    Thrd.Start();  
+  }  
+  
+  // This is the entry point for thread.  
+  void Run() {  
+    Console.WriteLine(Thrd.Name + " starting."); 
+ 
+    for(int i = 1; i <= 1000; i++) {  
+      Console.Write(i + " ");  
+      if((i%10)==0) { 
+        Console.WriteLine(); 
+        Thread.Sleep(250); 
+      } 
+    } 
+    Console.WriteLine(Thrd.Name + " exiting.");  
+  }  
+} 
+  
+class StopDemo {  
+  static void Main() {  
+    MyThread mt1 = new MyThread("My Thread");  
+ 
+    Thread.Sleep(1000); // let child thread start executing 
+  
+    Console.WriteLine("Stopping thread.");  
+    mt1.Thrd.Abort(); 
+ 
+    mt1.Thrd.Join(); // wait for thread to terminate 
+ 
+    Console.WriteLine("Main thread terminating.");  
+  }  
+}
+
+listing 18
+// Using Abort(object). 
+ 
+using System; 
+using System.Threading; 
+ 
+class MyThread {  
+  public Thread Thrd;  
+    
+  public MyThread(string name) {  
+    Thrd = new Thread(this.Run); 
+    Thrd.Name = name; 
+    Thrd.Start();  
+  }  
+  
+  // This is the entry point for thread.  
+  void Run() {  
+    try { 
+      Console.WriteLine(Thrd.Name + " starting."); 
+ 
+      for(int i = 1; i <= 1000; i++) {  
+        Console.Write(i + " ");  
+        if((i%10)==0) { 
+          Console.WriteLine(); 
+          Thread.Sleep(250); 
+        } 
+      } 
+      Console.WriteLine(Thrd.Name + " exiting normally.");  
+    } catch(ThreadAbortException exc) { 
+      Console.WriteLine("Thread aborting, code is " + 
+                         exc.ExceptionState); 
+    } 
+  }  
+} 
+  
+class UseAltAbort {  
+  static void Main() {  
+    MyThread mt1 = new MyThread("My Thread");  
+ 
+    Thread.Sleep(1000); // let child thread start executing 
+ 
+    Console.WriteLine("Stopping thread.");  
+    mt1.Thrd.Abort(100); 
+ 
+    mt1.Thrd.Join(); // wait for thread to terminate 
+ 
+    Console.WriteLine("Main thread terminating.");  
+  }  
+}
+
+listing 19
+// Using ResetAbort(). 
+ 
+using System; 
+using System.Threading; 
+ 
+class MyThread {  
+  public Thread Thrd;  
+    
+  public MyThread(string name) {  
+    Thrd = new Thread(this.Run); 
+    Thrd.Name = name; 
+    Thrd.Start();  
+  }  
+  
+  // This is the entry point for thread.  
+  void Run() {  
+    Console.WriteLine(Thrd.Name + " starting."); 
+ 
+    for(int i = 1; i <= 1000; i++) {  
+      try { 
+        Console.Write(i + " ");  
+        if((i%10)==0) { 
+          Console.WriteLine(); 
+          Thread.Sleep(250); 
+        } 
+      } catch(ThreadAbortException exc) { 
+        if((int)exc.ExceptionState == 0) { 
+          Console.WriteLine("Abort Cancelled! Code is " + 
+                             exc.ExceptionState); 
+          Thread.ResetAbort(); 
+        } 
+        else  
+          Console.WriteLine("Thread aborting, code is " + 
+                             exc.ExceptionState); 
+      } 
+    } 
+    Console.WriteLine(Thrd.Name + " exiting normally.");  
+  } 
+} 
+  
+class ResetAbort {  
+  static void Main() {  
+    MyThread mt1 = new MyThread("My Thread");  
+ 
+    Thread.Sleep(1000); // let child thread start executing 
+ 
+    Console.WriteLine("Stopping thread.");  
+    mt1.Thrd.Abort(0); // this won't stop the thread 
+ 
+    Thread.Sleep(1000); // let child execute a bit longer 
+ 
+    Console.WriteLine("Stopping thread.");  
+    mt1.Thrd.Abort(100); // this will stop the thread 
+ 
+    mt1.Thrd.Join(); // wait for thread to terminate 
+ 
+    Console.WriteLine("Main thread terminating.");  
+  }  
+}
+
+listing 20
+// Control the main thread. 
+ 
+using System; 
+using System.Threading; 
+ 
+class UseMain { 
+  static void Main() { 
+    Thread Thrd; 
+ 
+    // Get the main thread. 
+    Thrd = Thread.CurrentThread; 
+ 
+    // Display main thread's name. 
+    if(Thrd.Name == null) 
+      Console.WriteLine("Main thread has no name."); 
+    else 
+      Console.WriteLine("Main thread is called: " + Thrd.Name); 
+ 
+    // Display main thread's priority. 
+    Console.WriteLine("Priority: " + Thrd.Priority); 
+ 
+    Console.WriteLine(); 
+ 
+    // Set the name and priority. 
+    Console.WriteLine("Setting name and priority.\n"); 
+    Thrd.Name = "Main Thread"; 
+    Thrd.Priority = ThreadPriority.AboveNormal; 
+ 
+    Console.WriteLine("Main thread is now called: " + 
+                       Thrd.Name); 
+ 
+    Console.WriteLine("Priority is now: " + 
+                       Thrd.Priority); 
+  } 
+}
+
+listing 21
+// Starting a new process. 
+ 
+using System; 
+using System.Diagnostics; 
+ 
+class StartProcess {  
+  static void Main() {  
+    Process newProc = Process.Start("wordpad.exe"); 
+ 
+    Console.WriteLine("New process started."); 
+ 
+    newProc.WaitForExit(); 
+ 
+    newProc.Close(); // free resources 
+ 
+    Console.WriteLine("New process ended."); 
+  }  
+}
+

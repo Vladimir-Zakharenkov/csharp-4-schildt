@@ -1,0 +1,571 @@
+listing 1
+// Demonstrate pointers and unsafe. 
+ 
+using System; 
+ 
+class UnsafeCode { 
+  // Mark Main as unsafe. 
+  unsafe static void Main() { 
+    int count = 99; 
+    int* p; // create an int pointer 
+ 
+    p = &count; // put address of count into p 
+ 
+    Console.WriteLine("Initial value of count is " + *p); 
+ 
+    *p = 10; // assign 10 to count via p 
+     
+    Console.WriteLine("New value of count is " + *p); 
+  } 
+}
+
+listing 2
+// Demonstrate fixed. 
+ 
+using System; 
+ 
+class Test { 
+  public int num; 
+  public Test(int i) { num = i; } 
+} 
+ 
+class FixedCode { 
+  // Mark Main as unsafe. 
+  unsafe static void Main() { 
+    Test o = new Test(19); 
+ 
+    fixed (int* p = &o.num) { // use fixed to put address of o.num into p 
+ 
+      Console.WriteLine("Initial value of o.num is " + *p); 
+   
+      *p = 10; // assign the to count via p 
+     
+      Console.WriteLine("New value of o.num is " + *p); 
+    } 
+  } 
+}
+
+listing 3
+// Demonstrate the effects of pointer arithmethic. 
+ 
+using System; 
+ 
+class PtrArithDemo { 
+  unsafe static void Main() { 
+    int x; 
+    int i;  
+    double d; 
+ 
+    int* ip = &i; 
+    double* fp = &d; 
+ 
+    Console.WriteLine("int     double\n"); 
+ 
+    for(x=0; x < 10; x++) { 
+       Console.WriteLine((uint) (ip) + " " + (uint) (fp)); 
+       ip++; 
+       fp++; 
+    } 
+  } 
+}
+
+listing 4
+/* An array name with an index yields a pointer to the 
+   start of the array. */ 
+ 
+using System; 
+ 
+class PtrArray { 
+  unsafe static void Main() { 
+    int[] nums = new int[10]; 
+ 
+    fixed(int* p = &nums[0], p2 = nums) { 
+      if(p == p2) 
+        Console.WriteLine("p and p2 point to same address."); 
+    } 
+  } 
+}
+
+listing 5
+// Index a pointer as if it were an array. 
+ 
+using System; 
+ 
+class PtrIndexDemo { 
+  unsafe static void Main() { 
+    int[] nums = new int[10]; 
+ 
+    // Index a pointer. 
+    Console.WriteLine("Index pointer like array."); 
+    fixed (int* p = nums) { 
+      for(int i=0; i < 10; i++)  
+        p[i] = i; // index pointer like array 
+ 
+      for(int i=0; i < 10; i++)  
+        Console.WriteLine("p[{0}]: {1} ", i, p[i]); 
+    } 
+ 
+    // Use pointer arithmetic. 
+    Console.WriteLine("\nUse pointer arithmetic."); 
+    fixed (int* p = nums) { 
+      for(int i=0; i < 10; i++)  
+        *(p+i) = i; // use pointer arithmetic 
+ 
+      for(int i=0; i < 10; i++)  
+        Console.WriteLine("*(p+{0}): {1} ", i, *(p+i)); 
+    } 
+  } 
+}
+
+listing 6
+// Use fixed to get a pointer to the start of a string. 
+ 
+using System; 
+ 
+class FixedString { 
+  unsafe static void Main() { 
+    string str = "this is a test"; 
+ 
+    // Point p to start of str. 
+    fixed(char* p = str) { 
+ 
+      // Display the contents of str via p. 
+      for(int i=0; p[i] != 0; i++) 
+        Console.Write(p[i]); 
+    } 
+ 
+    Console.WriteLine(); 
+     
+  } 
+}
+
+listing 7
+using System; 
+ 
+class MultipleIndirect { 
+  unsafe static void Main() { 
+    int x;   // holds an int value  
+    int* p;  // holds an int pointer 
+    int** q; // holds an pointer to an int pointer 
+ 
+    x = 10; 
+    p = &x; // put address of x into p 
+    q = &p; // put address of p into q 
+ 
+    Console.WriteLine(**q); // display the value of x  
+  } 
+}
+
+listing 8
+// Demonstrate stackalloc. 
+ 
+using System; 
+ 
+class UseStackAlloc { 
+  unsafe static void Main() { 
+    int* ptrs = stackalloc int[3]; 
+ 
+    ptrs[0] = 1; 
+    ptrs[1] = 2; 
+    ptrs[2] = 3; 
+ 
+    for(int i=0; i < 3; i++) 
+      Console.WriteLine(ptrs[i]); 
+  } 
+}
+
+listing 9
+// Demonstrate a fixed-size buffer. 
+  
+using System;  
+ 
+// Create a fixed size buffer. 
+unsafe struct FixedBankRecord { 
+  public fixed byte Name[80]; // create a fixed-size buffer 
+  public double Balance; 
+  public long ID; 
+} 
+  
+class FixedSizeBuffer {  
+  // Mark Main as unsafe. 
+  unsafe static void Main() {  
+    Console.WriteLine("Size of FixedBankRecord is " +  
+                       sizeof(FixedBankRecord)); 
+  }  
+}
+
+listing 10
+// Demonstrate a nullable type. 
+ 
+using System; 
+ 
+class NullableDemo { 
+  static void Main() { 
+    int? count = null; 
+ 
+    if(count.HasValue) 
+      Console.WriteLine("count has this value: " + count.Value); 
+    else  
+      Console.WriteLine("count has no value"); 
+ 
+    count = 100; 
+ 
+    if(count.HasValue) 
+      Console.WriteLine("count has this value: " + count.Value); 
+    else  
+      Console.WriteLine("count has no value");     
+  } 
+}
+
+listing 11
+// Use nullable objects in expressions. 
+ 
+using System; 
+ 
+class NullableDemo { 
+  static void Main() { 
+    int? count = null; 
+    int? result = null; 
+ 
+    int incr = 10; // notice that incr is a non-nullable type 
+ 
+    // result contains null, because count is null. 
+    result = count + incr; 
+ 
+    if(result.HasValue) 
+      Console.WriteLine("result has this value: " + result.Value); 
+    else  
+      Console.WriteLine("result has no value");     
+ 
+    // Now, count is given a value and result will contain a value. 
+    count = 100; 
+    result = count + incr; 
+ 
+    if(result.HasValue) 
+      Console.WriteLine("result has this value: " + result.Value); 
+    else  
+      Console.WriteLine("result has no value");     
+             
+  } 
+}
+
+listing 12
+// Using ?? 
+ 
+using System; 
+ 
+class NullableDemo2 { 
+  // Return a zero balance. 
+  static double GetZeroBal() { 
+    Console.WriteLine("In GetZeroBal()."); 
+      return 0.0; 
+  } 
+ 
+  static void Main() { 
+    double? balance = 123.75; 
+    double currentBalance; 
+ 
+    // Here, GetZeroBal( ) is not called because balance 
+    // contains a value. 
+    currentBalance = balance ?? GetZeroBal(); 
+ 
+    Console.WriteLine(currentBalance); 
+  } 
+}
+
+listing 13
+partial class XY { 
+  public XY(int a, int b) { 
+    X = a; 
+    Y = b; 
+  } 
+}
+
+listing 14
+partial class XY { 
+  public int X { get; set; } 
+}
+
+listing 15
+partial class XY { 
+  public int Y { get; set; } 
+}
+
+listing 16
+// Demonstrate partial class definitions. 
+using System; 
+ 
+class Test { 
+  static void Main() { 
+    XY xy = new XY(1, 2); 
+ 
+ 
+    Console.WriteLine(xy.X + "," + xy.Y); 
+  } 
+}
+
+listing 17
+// Demonstrate a partial method. 
+using System; 
+ 
+partial class XY { 
+  public XY(int a, int b) { 
+    X = a; 
+    Y = b; 
+  } 
+ 
+  // Declare a partial method. 
+  partial void Show(); 
+} 
+ 
+partial class XY { 
+  public int X { get; set; } 
+ 
+  // Implement a partial method. 
+  partial void Show() { 
+    Console.WriteLine("{0}, {1}", X, Y); 
+  } 
+} 
+ 
+partial class XY { 
+  public int Y { get; set; } 
+ 
+  // Call a partial method. 
+  public void ShowXY() {  
+    Show(); 
+  } 
+} 
+ 
+class Test { 
+  static void Main() { 
+    XY xy = new XY(1, 2); 
+ 
+    xy.ShowXY(); 
+  } 
+}
+
+listing 18
+// Demosntrate the use of dynamic. 
+ 
+using System; 
+using System.Globalization;
+ 
+class DynDemo { 
+  static void Main() { 
+    // Declare two dymamic variables. 
+    dynamic str; 
+    dynamic val;  
+ 
+    // Implicit conversion to dynamic types are supported. 
+    // Therefore the following assignments are legal. 
+    str = "This is a string"; 
+    val = 10;  
+ 
+    Console.WriteLine("str contains " + str); 
+    Console.WriteLine("val contains " + val + '\n'); 
+     
+    str = str.ToUpper(CultureInfo.CurrentCulture); 
+    Console.WriteLine("str now contains " + str); 
+ 
+    val = val + 2; 
+    Console.WriteLine("val now contains " + val + '\n'); 
+ 
+  
+    string str2 = str.ToLower(CultureInfo.CurrentCulture); 
+    Console.WriteLine("str2 contains " + str2); 
+ 
+    // Implcit conversions from dynamic types are supported. 
+    int x = val * 2; 
+    Console.WriteLine("x contains " + x); 
+  } 
+}
+
+listing 19
+public class DivBy { 
+  public bool IsDivBy(int a, int b) { 
+    if((a % b) == 0) return true; 
+     return false; 
+  } 
+ 
+  public bool IsEven(int a) { 
+    if((a % 2) == 0) return true; 
+    return false; 
+  } 
+}
+
+listing 20
+// Use dynamic with reflection. 
+ 
+using System; 
+using System.Reflection; 
+ 
+class DynRefDemo { 
+  static void Main() { 
+ 
+    Assembly asm = Assembly.LoadFrom("MyClass.dll"); 
+ 
+    Type[] all = asm.GetTypes(); 
+ 
+    // Find the DivBy class. 
+    int i; 
+    for(i = 0; i < all.Length; i++) 
+      if(all[i].Name == "DivBy") break; 
+ 
+    if(i == all.Length) { 
+      Console.WriteLine("DivBy not found in assembly."); 
+      return; 
+    } 
+ 
+    Type t = all[i]; 
+ 
+    // Now, find the default constructor. 
+    ConstructorInfo[] ci = t.GetConstructors(); 
+     
+    int j; 
+    for(j = 0; j < ci.Length; j++)  
+      if(ci[j].GetParameters().Length == 0) break; 
+     
+    if(j == ci.Length) { 
+      Console.WriteLine("Default constructor not found."); 
+      return; 
+    } 
+ 
+    // Create a DivBy object dynamically. 
+    dynamic obj = ci[j].Invoke(null); 
+ 
+    // Now, invoke methods on obj by name. This is legal because 
+    // obj is of type dynamic, and the calls to the methods are 
+    // type-checked at run time, not compile time. 
+    if(obj.IsDivBy(15, 3))  
+      Console.WriteLine("15 is evenly divisible by 3."); 
+    else 
+      Console.WriteLine("15 is NOT evenly divisible by 3."); 
+ 
+    if(obj.IsEven(9)) 
+      Console.WriteLine("9 is even."); 
+    else 
+      Console.WriteLine("9 is NOT even."); 
+  } 
+}
+
+listing 21
+// Demonstrate readonly.  
+  
+using System;  
+  
+class MyClass {  
+  public static readonly int SIZE = 10;  
+}  
+  
+class DemoReadOnly {  
+  static void Main() {  
+    int[] source = new int[MyClass.SIZE];  
+    int[] target = new int[MyClass.SIZE];  
+  
+    // Give source some values. 
+    for(int i=0; i < MyClass.SIZE; i++)  
+      source[i] = i;  
+  
+    foreach(int i in source)  
+      Console.Write(i + " ");  
+ 
+    Console.WriteLine();  
+  
+    // Reverse copy source into target. 
+    for(int i = MyClass.SIZE-1, j = 0; i > 0; i--, j++) 
+      target[j] = source[i]; 
+ 
+    foreach(int i in target)  
+      Console.Write(i + " ");  
+ 
+    Console.WriteLine();  
+ 
+//  MyClass.SIZE = 100; // Error!!! can't change  
+  }  
+}
+
+listing 22
+// Demonstrate using statement. 
+ 
+using System; 
+using System.IO; 
+ 
+class UsingDemo { 
+  static void Main() { 
+    StreamReader sr = new StreamReader("test.txt"); 
+ 
+    // Use object inside using statement. 
+    using(sr) { 
+      // ... 
+    } 
+ 
+    // Create StreamReader inside the using statement. 
+    using(StreamReader sr2 = new StreamReader("test.txt")) { 
+      // ...  
+    } 
+  } 
+}
+
+listing 23
+#include <stdlib.h> 
+ 
+int __declspec(dllexport) AbsMax(int a, int b) { 
+  return abs(a) < abs(b) ? abs(b) : abs(a); 
+}
+
+listing 24
+using System; 
+using System.Runtime.InteropServices; 
+ 
+class ExternMeth { 
+ 
+  // Here an extern method is declared. 
+  [DllImport("ExtMeth.dll")] 
+  public extern static int AbsMax(int a, int b); 
+ 
+  static void Main() { 
+ 
+    // Use the extern method. 
+    int max = AbsMax(-10, -20); 
+    Console.WriteLine(max); 
+ 
+  } 
+}
+
+listing 25
+using System; 
+ 
+namespace MyNS { 
+  public class MyClass { 
+    public MyClass() { 
+      Console.WriteLine("Constructing from MyClass1.dll."); 
+    } 
+  } 
+}
+
+listing 26
+using System; 
+ 
+namespace MyNS { 
+  public class MyClass { 
+    public MyClass() { 
+      Console.WriteLine("Constructing from MyClass2.dll."); 
+    } 
+  } 
+}
+
+listing 27
+// extern alias statements must be at the top of the file. 
+extern alias Asm1; 
+extern alias Asm2; 
+ 
+using System; 
+ 
+class Demo { 
+  static void Main() { 
+    Asm1::MyNS.MyClass t = new Asm1::MyNS.MyClass(); 
+    Asm2::MyNS.MyClass t2 = new Asm2::MyNS.MyClass(); 
+  } 
+}
+
+

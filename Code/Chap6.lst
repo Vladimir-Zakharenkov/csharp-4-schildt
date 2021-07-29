@@ -1,0 +1,549 @@
+listing 1
+// A program that uses the Building class.   
+ 
+using System;  
+  
+class Building {   
+  public int Floors;    // number of floors 
+  public int Area;      // total square footage of building 
+  public int Occupants; // number of occupants 
+}   
+   
+// This class declares an object of type Building.   
+class BuildingDemo {   
+  static void Main() {   
+    Building house = new Building(); // create a Building object 
+    int areaPP; // area per person 
+   
+    // Assign values to fields in house. 
+    house.Occupants = 4;  
+    house.Area = 2500;  
+    house.Floors = 2;  
+   
+    // Compute the area per person. 
+    areaPP = house.Area / house.Occupants;  
+   
+    Console.WriteLine("house has:\n  " + 
+                      house.Floors + " floors\n  " + 
+                      house.Occupants + " occupants\n  " + 
+                      house.Area + " total area\n  " + 
+                      areaPP + " area per person"); 
+  }   
+}
+
+listing 2
+// This program creates two Building objects. 
+  
+using System;  
+  
+class Building {   
+  public int Floors;    // number of floors 
+  public int Area;      // total square footage of building 
+  public int Occupants; // number of occupants 
+}   
+   
+// This class declares two objects of type Building.   
+class BuildingDemo {   
+  static void Main() {   
+    Building house = new Building();   
+    Building office = new Building(); 
+ 
+    int areaPP; // area per person 
+   
+    // Assign values to fields in house. 
+    house.Occupants = 4;  
+    house.Area = 2500;  
+    house.Floors = 2;  
+ 
+    // Assign values to fields in office. 
+    office.Occupants = 25;  
+    office.Area = 4200;  
+    office.Floors = 3;  
+   
+    // Compute the area per person in house. 
+    areaPP = house.Area / house.Occupants;  
+   
+    Console.WriteLine("house has:\n  " + 
+                      house.Floors + " floors\n  " + 
+                      house.Occupants + " occupants\n  " + 
+                      house.Area + " total area\n  " + 
+                      areaPP + " area per person"); 
+ 
+    Console.WriteLine(); 
+ 
+    // Compute the area per person in office. 
+    areaPP = office.Area / office.Occupants;  
+ 
+    Console.WriteLine("office has:\n  " + 
+                      office.Floors + " floors\n  " + 
+                      office.Occupants + " occupants\n  " + 
+                      office.Area + " total area\n  " + 
+                      areaPP + " area per person"); 
+  }   
+}
+
+listing 3
+// Add a method to Building. 
+  
+using System;  
+  
+class Building {   
+  public int Floors;    // number of floors 
+  public int Area;      // total square footage of building 
+  public int Occupants; // number of occupants 
+ 
+  // Display the area per person.  
+  public void AreaPerPerson() {  
+    Console.WriteLine("  " + Area / Occupants + " area per person"); 
+  }  
+}   
+ 
+// Use the AreaPerPerson() method. 
+class BuildingDemo {   
+  static void Main() {   
+    Building house = new Building();   
+    Building office = new Building(); 
+ 
+ 
+    // Assign values to fields in house. 
+    house.Occupants = 4;  
+    house.Area = 2500;  
+    house.Floors = 2;  
+ 
+    // Assign values to fields in office. 
+    office.Occupants = 25;  
+    office.Area = 4200;  
+    office.Floors = 3;  
+   
+ 
+    Console.WriteLine("house has:\n  " + 
+                      house.Floors + " floors\n  " + 
+                      house.Occupants + " occupants\n  " + 
+                      house.Area + " total area"); 
+    house.AreaPerPerson(); 
+ 
+    Console.WriteLine(); 
+ 
+    Console.WriteLine("office has:\n  " + 
+                      office.Floors + " floors\n  " + 
+                      office.Occupants + " occupants\n  " + 
+                      office.Area + " total area"); 
+    office.AreaPerPerson(); 
+  }   
+}
+
+listing 4
+// Return a value from AreaPerPerson(). 
+  
+using System;  
+  
+class Building {   
+  public int Floors;    // number of floors 
+  public int Area;      // total square footage of building 
+  public int Occupants; // number of occupants 
+ 
+  // Return the area per person.  
+  public int AreaPerPerson() {  
+    return Area / Occupants; 
+  }  
+}   
+   
+// Use the return value from AreaPerPerson().   
+class BuildingDemo {   
+  static void Main() {   
+    Building house = new Building();   
+    Building office = new Building(); 
+    int areaPP; // area per person 
+ 
+    // Assign values to fields in house. 
+    house.Occupants = 4;  
+    house.Area = 2500;  
+    house.Floors = 2;  
+ 
+    // Assign values to fields in office. 
+    office.Occupants = 25;  
+    office.Area = 4200;  
+    office.Floors = 3;  
+   
+    // Obtain area per person for house. 
+    areaPP = house.AreaPerPerson(); 
+ 
+    Console.WriteLine("house has:\n  " + 
+                      house.Floors + " floors\n  " + 
+                      house.Occupants + " occupants\n  " + 
+                      house.Area + " total area\n  " + 
+                      areaPP + " area per person"); 
+ 
+ 
+    Console.WriteLine(); 
+ 
+    // Obtain area per person for office. 
+    areaPP = office.AreaPerPerson(); 
+ 
+    Console.WriteLine("office has:\n  " + 
+                      office.Floors + " floors\n  " + 
+                      office.Occupants + " occupants\n  " + 
+                      office.Area + " total area\n  " + 
+                      areaPP + " area per person"); 
+  }   
+}
+
+listing 5
+// A simple example that uses a parameter.  
+  
+using System;  
+  
+class ChkNum {   
+  // Return true if x is prime.  
+  public bool IsPrime(int x) {  
+    if(x <= 1) return false; 
+ 
+    for(int i=2; i <= x/i; i++)  
+      if((x %i) == 0) return false;  
+  
+    return true;  
+  }  
+}   
+   
+class ParmDemo {   
+  static void Main() {   
+    ChkNum ob = new ChkNum();  
+  
+    for(int i=2; i < 10; i++)  
+      if(ob.IsPrime(i)) Console.WriteLine(i + " is prime.");  
+      else Console.WriteLine(i + " is not prime.");  
+  }   
+}
+
+listing 6
+// Add a method that takes two arguments.  
+  
+using System;  
+  
+class ChkNum {   
+  // Return true if x is prime.  
+  public bool IsPrime(int x) {  
+    if(x <= 1) return false; 
+ 
+    for(int i=2; i <= x/i; i++)  
+      if((x %i) == 0) return false;  
+  
+    return true;  
+  }  
+  
+  // Return the least common factor.  
+  public int LeastComFactor(int a, int b) {  
+    int max;  
+  
+    if(IsPrime(a) || IsPrime(b)) return 1;  
+  
+    max = a < b ? a : b;  
+  
+    for(int i=2; i <= max/2; i++)  
+      if(((a%i) == 0) && ((b%i) == 0)) return i;  
+  
+    return 1;  
+  }  
+}   
+   
+class ParmDemo {   
+  static void Main() {   
+    ChkNum ob = new ChkNum();  
+    int a, b;  
+  
+    for(int i=2; i < 10; i++)  
+      if(ob.IsPrime(i)) Console.WriteLine(i + " is prime.");  
+      else Console.WriteLine(i + " is not prime.");  
+  
+    a = 7;  
+    b = 8;  
+    Console.WriteLine("Least common factor for " +  
+                      a + " and " + b + " is " +  
+                      ob.LeastComFactor(a, b));  
+  
+    a = 100;  
+    b = 8;  
+    Console.WriteLine("Least common factor for " +  
+                      a + " and " + b + " is " +  
+                      ob.LeastComFactor(a, b));  
+  
+    a = 100;  
+    b = 75;  
+    Console.WriteLine("Least common factor for " +  
+                      a + " and " + b + " is " +  
+                      ob.LeastComFactor(a, b));  
+  
+  }   
+}
+
+listing 7
+/* 
+   Add a parameterized method that computes the   
+   maximum number of people that can occupy a 
+   building assuming each needs a specified 
+   minimum space. 
+*/ 
+  
+using System;  
+  
+class Building {   
+  public int Floors;    // number of floors 
+  public int Area;      // total square footage of building 
+  public int Occupants; // number of occupants 
+ 
+  // Return the area per person.  
+  public int AreaPerPerson() {  
+    return Area / Occupants; 
+  }  
+ 
+  // Return the maximum number of occupants if each 
+  // is to have at least the specified minimum area. 
+  public int MaxOccupant(int minArea) { 
+    return Area / minArea; 
+  } 
+}   
+ 
+// Use MaxOccupant(). 
+class BuildingDemo {   
+  static void Main() {   
+    Building house = new Building();   
+    Building office = new Building(); 
+ 
+    // Assign values to fields in house. 
+    house.Occupants = 4;  
+    house.Area = 2500;  
+    house.Floors = 2;  
+ 
+    // Assign values to fields in office. 
+    office.Occupants = 25;  
+    office.Area = 4200;  
+    office.Floors = 3;  
+   
+    Console.WriteLine("Maximum occupants for house if each has " + 
+                      300 + " square feet: " + 
+                      house.MaxOccupant(300)); 
+ 
+    Console.WriteLine("Maximum occupants for office if each has " + 
+                      300 + " square feet: " + 
+                      office.MaxOccupant(300)); 
+  }   
+}
+
+listing 8
+public void MyMeth() { 
+  char a, b; 
+ 
+  // ... 
+ 
+  if(a==b) { 
+    Console.WriteLine("equal"); 
+    return; 
+  } else { 
+    Console.WriteLine("not equal"); 
+    return; 
+  } 
+  Console.WriteLine("this is unreachable"); 
+}
+
+listing 9
+// A simple constructor. 
+ 
+using System; 
+ 
+class MyClass { 
+  public int x; 
+ 
+  public MyClass() { 
+    x = 10; 
+  }   
+}   
+   
+class ConsDemo {   
+  static void Main() {   
+    MyClass t1 = new MyClass(); 
+    MyClass t2 = new MyClass(); 
+ 
+    Console.WriteLine(t1.x + " " + t2.x); 
+  }   
+}
+
+listing 10
+// A parameterized constructor. 
+ 
+using System; 
+ 
+class MyClass { 
+  public int x; 
+ 
+  public MyClass(int i) { 
+    x = i; 
+  }   
+}   
+   
+class ParmConsDemo {   
+  static void Main() {   
+    MyClass t1 = new MyClass(10); 
+    MyClass t2 = new MyClass(88); 
+ 
+    Console.WriteLine(t1.x + " " + t2.x); 
+  }   
+}
+
+listing 11
+// Add a constructor to Building. 
+  
+using System;  
+  
+class Building {   
+  public int Floors;    // number of floors 
+  public int Area;      // total square footage of building 
+  public int Occupants; // number of occupants 
+ 
+  // A parameterized constructor for Building. 
+  public Building(int f, int a, int o) { 
+    Floors = f; 
+    Area = a; 
+    Occupants = o; 
+  } 
+ 
+  // Display the area per person.  
+  public int AreaPerPerson() {  
+    return Area / Occupants; 
+  }  
+ 
+  // Return the maximum number of occupants if each 
+  // is to have at least the specified minimum area. 
+  public int MaxOccupant(int minArea) { 
+    return Area / minArea; 
+  } 
+}   
+   
+// Use the parameterized Building constructor. 
+class BuildingDemo {   
+  static void Main() {   
+    Building house = new Building(2, 2500, 4);   
+    Building office = new Building(3, 4200, 25); 
+ 
+    Console.WriteLine("Maximum occupants for house if each has " + 
+                      300 + " square feet: " + 
+                      house.MaxOccupant(300)); 
+ 
+    Console.WriteLine("Maximum occupants for office if each has " + 
+                      300 + " square feet: " + 
+                      office.MaxOccupant(300)); 
+  }   
+}
+
+listing 12
+// Use new with a value type. 
+ 
+using System; 
+ 
+class newValue {  
+  static void Main() {  
+    int i = new int(); // initialize i to zero 
+ 
+    Console.WriteLine("The value of i is: " + i); 
+  }  
+}
+
+listing 13
+// Demonstrate a destructor. 
+ 
+using System; 
+ 
+class Destruct {  
+  public int x;  
+  
+  public Destruct(int i) {  
+    x = i;  
+  }    
+ 
+  // Called when object is recycled. 
+  ~Destruct() { 
+    Console.WriteLine("Destructing " + x); 
+  } 
+   
+  // Generates an object that is immediately destroyed. 
+  public void Generator(int i) { 
+    Destruct o = new Destruct(i); 
+  } 
+ 
+}    
+    
+class DestructDemo {    
+  static void Main() {    
+    int count; 
+ 
+    Destruct ob = new Destruct(0); 
+ 
+    /* Now, generate a large number of objects.  At 
+       some point, garbage collection will occur.  
+       Note: you might need to increase the number 
+       of objects generated in order to force 
+       garbage collection. */ 
+ 
+    for(count=1; count < 100000; count++) 
+      ob.Generator(count);  
+ 
+    Console.WriteLine("Done"); 
+  }    
+}
+
+listing 14
+using System; 
+ 
+class Rect { 
+  public int Width; 
+  public int Height; 
+ 
+  public Rect(int w, int h) { 
+    Width = w; 
+    Height = h; 
+  } 
+ 
+  public int Area() { 
+    return Width * Height; 
+  } 
+} 
+  
+class UseRect { 
+  static void Main() {   
+    Rect r1 = new Rect(4, 5); 
+    Rect r2 = new Rect(7, 9); 
+ 
+    Console.WriteLine("Area of r1: " + r1.Area()); 
+ 
+    Console.WriteLine("Area of r2: " + r2.Area()); 
+  } 
+}
+
+listing 15
+using System; 
+ 
+class Rect { 
+  public int Width; 
+  public int Height; 
+ 
+  public Rect(int w, int h) { 
+    this.Width = w; 
+    this.Height = h; 
+  } 
+ 
+  public int Area() { 
+    return this.Width * this.Height; 
+  } 
+} 
+  
+class UseRect { 
+  static void Main() {   
+    Rect r1 = new Rect(4, 5); 
+    Rect r2 = new Rect(7, 9); 
+ 
+    Console.WriteLine("Area of r1: " + r1.Area()); 
+ 
+    Console.WriteLine("Area of r2: " + r2.Area()); 
+ 
+  } 
+}
+

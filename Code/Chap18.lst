@@ -1,0 +1,1533 @@
+listing 1
+// A simple generic class.  
+ 
+using System; 
+ 
+// In the following Gen class, T is a type parameter 
+// that will be replaced by a real type when an object 
+// of type Gen is created. 
+class Gen<T> { 
+  T ob; // declare a variable of type T 
+   
+  // Notice that this constructor has a parameter of type T. 
+  public Gen(T o) { 
+    ob = o; 
+  } 
+ 
+  // Return ob, which is of type T. 
+  public T GetOb() { 
+    return ob; 
+  } 
+ 
+  // Show type of T. 
+  public void ShowType() { 
+    Console.WriteLine("Type of T is " + typeof(T)); 
+  } 
+} 
+ 
+// Demonstrate the generic class. 
+class GenericsDemo { 
+  static void Main() { 
+    // Create a Gen reference for int. 
+    Gen<int> iOb;  
+ 
+    // Create a Gen<int> object and assign its reference to iOb. 
+    iOb = new Gen<int>(102); 
+ 
+    // Show the type of data used by iOb. 
+    iOb.ShowType(); 
+ 
+    // Get the value in iOb. 
+    int v = iOb.GetOb(); 
+    Console.WriteLine("value: " + v); 
+ 
+    Console.WriteLine(); 
+ 
+    // Create a Gen object for strings. 
+    Gen<string> strOb = new Gen<string>("Generics add power."); 
+ 
+    // Show the type of data stored in strOb. 
+    strOb.ShowType(); 
+ 
+    // Get the value in strOb. 
+    string str = strOb.GetOb(); 
+    Console.WriteLine("value: " + str); 
+  } 
+}
+
+listing 2
+// NonGen is functionally equivalent to Gen but does not use generics. 
+ 
+using System; 
+ 
+class NonGen {  
+  object ob; // ob is now of type object 
+    
+  // Pass the constructor a reference of type object. 
+  public NonGen(object o) {  
+    ob = o;  
+  }  
+  
+  // Return type object. 
+  public object GetOb() {  
+    return ob;  
+  }  
+ 
+  // Show type of ob.  
+  public void ShowType() {  
+    Console.WriteLine("Type of ob is " + ob.GetType()); 
+  }  
+}  
+  
+// Demonstrate the non-generic class.  
+class NonGenDemo {  
+  static void Main() {  
+    NonGen iOb;   
+  
+    // Create NonGen object. 
+    iOb = new NonGen(102);  
+  
+    // Show the type of data stored in iOb. 
+    iOb.ShowType(); 
+ 
+    // Get the value in iOb. 
+    // This time, a cast is necessary. 
+    int v = (int) iOb.GetOb();  
+    Console.WriteLine("value: " + v);  
+  
+    Console.WriteLine();  
+  
+    // Create another NonGen object and store a string in it. 
+    NonGen strOb = new NonGen("Non-Generics Test");  
+  
+    // Show the type of data stored strOb. 
+    strOb.ShowType(); 
+ 
+    // Get the value of strOb. 
+    // Again, notice that a cast is necessary.  
+    String str = (string) strOb.GetOb();  
+    Console.WriteLine("value: " + str);  
+ 
+    // This compiles, but is conceptually wrong! 
+    iOb = strOb; 
+ 
+    // The following line results in a run-time exception. 
+    // v = (int) iOb.GetOb(); // run-time error! 
+  }  
+}
+
+listing 3
+// A simple generic class with two type parameters: T and V. 
+ 
+using System; 
+ 
+class TwoGen<T, V> { 
+  T ob1; 
+  V ob2; 
+   
+  // Notice that this constructor has parameters of type T and V. 
+  public TwoGen(T o1, V o2) { 
+    ob1 = o1; 
+    ob2 = o2; 
+  } 
+ 
+  // Show types of T and V. 
+  public void showTypes() { 
+    Console.WriteLine("Type of T is " + typeof(T)); 
+    Console.WriteLine("Type of V is " + typeof(V)); 
+  } 
+ 
+  public T getob1() { 
+    return ob1; 
+  } 
+ 
+  public V GetObj2() { 
+    return ob2; 
+  } 
+} 
+ 
+// Demonstrate two generic type parameters. 
+class SimpGen { 
+  static void Main() { 
+ 
+    TwoGen<int, string> tgObj = 
+      new TwoGen<int, string>(119, "Alpha Beta Gamma"); 
+ 
+    // Show the types. 
+    tgObj.showTypes(); 
+ 
+    // Obtain and show values. 
+    int v = tgObj.getob1(); 
+    Console.WriteLine("value: " + v); 
+ 
+    string str = tgObj.GetObj2(); 
+    Console.WriteLine("value: " + str); 
+  } 
+}
+
+listing 4
+// A simple demonstration of a base class constraint. 
+ 
+using System; 
+ 
+class A { 
+  public void Hello() { 
+    Console.WriteLine("Hello"); 
+  } 
+} 
+ 
+// Class B inherits A. 
+class B : A { } 
+ 
+// Class C does not inherit A. 
+class C { } 
+ 
+// Because of the base class constraint, all type arguments 
+// passed to Test must have A as a base class. 
+class Test<T> where T : A { 
+  T obj; 
+ 
+  public Test(T o) { 
+    obj = o; 
+  } 
+ 
+  public void SayHello() { 
+    // OK to call Hello() because it's declared 
+    // by the base class A. 
+    obj.Hello(); 
+  } 
+} 
+ 
+class BaseClassConstraintDemo { 
+  static void Main() { 
+    A a = new A(); 
+    B b = new B(); 
+    C c = new C(); 
+ 
+    // The following is valid because A is the specified base class. 
+    Test<A> t1 = new Test<A>(a); 
+ 
+    t1.SayHello(); 
+ 
+    // The following is valid because B inherits A. 
+    Test<B> t2 = new Test<B>(b); 
+ 
+    t2.SayHello(); 
+ 
+ 
+    // The following is invalid because C does not inherit A. 
+//    Test<C> t3 = new Test<C>(c); // Error! 
+//    t3.SayHello(); // Error! sayHello is not known. 
+  } 
+}
+
+listing 5
+// A more practical demonstration of a base class constraint. 
+ 
+using System; 
+ 
+// A custom exception that is thrown if a name or number is not found. 
+class NotFoundException : Exception { 
+  /* Implement all of the Exception constructors. Notice that 
+     the constructors simply execute the base class constructor. 
+     Because NotFoundException adds nothing to Exception, 
+     there is no need for any further actions. */ 
+  public NotFoundException() : base() { } 
+  public NotFoundException(string message) : base(message) { }  
+  public NotFoundException(string message, Exception innerException) : 
+    base(message, innerException) { } 
+  protected NotFoundException( 
+    System.Runtime.Serialization.SerializationInfo info, 
+    System.Runtime.Serialization.StreamingContext context) : 
+      base(info, context) { } 
+} 
+// A base class that stores a name and phone number. 
+class PhoneNumber { 
+ 
+  public PhoneNumber(string n, string num) { 
+    Name = n; 
+    Number = num; 
+  } 
+ 
+  public string Number { get; set; } 
+  public string Name { get; set; } 
+ 
+} 
+ 
+// A class of phone numbers for friends. 
+class Friend : PhoneNumber { 
+ 
+  public Friend(string n, string num, bool wk) : 
+    base(n, num) 
+  { 
+    IsWorkNumber = wk; 
+  } 
+ 
+  public bool IsWorkNumber { get; private set; } 
+ 
+  // ... 
+} 
+ 
+// A class of phone numbers for suppliers. 
+class Supplier : PhoneNumber { 
+  public Supplier(string n, string num) : 
+    base(n, num) { } 
+ 
+  // ... 
+} 
+ 
+// Notice that this class does not inherit PhoneNumber, 
+class EmailFriend { 
+  // ... 
+} 
+ 
+// PhoneList can manage any type of phone list 
+// as long as it is derived from PhoneNumber. 
+class PhoneList<T> where T : PhoneNumber { 
+  T[] phList; 
+  int end; 
+ 
+  public PhoneList() {  
+    phList = new T[10]; 
+    end = 0; 
+  } 
+ 
+  // Add an entry to the list. 
+  public bool Add(T newEntry) { 
+    if(end == 10) return false; 
+ 
+    phList[end] = newEntry; 
+    end++; 
+ 
+    return true; 
+  } 
+ 
+  // Given a name, find and return the phone info. 
+  public T FindByName(string name) { 
+ 
+    for(int i=0; i<end; i++) { 
+      // Name can be used because it is a member of 
+      // PhoneNumber, which is the base class constraint. 
+      if(phList[i].Name == name)  
+        return phList[i]; 
+    } 
+ 
+    // Name not in list. 
+    throw new NotFoundException(); 
+  } 
+ 
+  // Given a number, find and return the phone info. 
+  public T FindByNumber(string number) { 
+ 
+    for(int i=0; i<end; i++) { 
+      // Number can be used because it is also a member of 
+      // PhoneNumber, which is the base class constraint. 
+      if(phList[i].Number == number)  
+        return phList[i]; 
+    } 
+ 
+    // Number not in list. 
+    throw new NotFoundException(); 
+  } 
+ 
+  // ... 
+} 
+ 
+// Demonstrate base class constraints. 
+class UseBaseClassConstraint { 
+  static void Main() { 
+ 
+    // The following code is OK because Friend 
+    // inherits PhoneNumber. 
+    PhoneList<Friend> plist = new PhoneList<Friend>(); 
+    plist.Add(new Friend("Tom", "555-1234", true)); 
+    plist.Add(new Friend("Gary", "555-6756", true)); 
+    plist.Add(new Friend("Matt", "555-9254", false)); 
+ 
+    try { 
+      // Find the number of a friend given a name. 
+      Friend frnd = plist.FindByName("Gary"); 
+ 
+      Console.Write(frnd.Name + ": " + frnd.Number); 
+ 
+      if(frnd.IsWorkNumber) 
+        Console.WriteLine(" (work)"); 
+      else 
+        Console.WriteLine(); 
+    } catch(NotFoundException) { 
+      Console.WriteLine("Not Found"); 
+    } 
+ 
+    Console.WriteLine(); 
+ 
+    // The following code is also OK because Supplier 
+    // inherits PhoneNumber. 
+    PhoneList<Supplier> plist2 = new PhoneList<Supplier>(); 
+    plist2.Add(new Supplier("Global Hardware", "555-8834")); 
+    plist2.Add(new Supplier("Computer Warehouse", "555-9256")); 
+    plist2.Add(new Supplier("NetworkCity", "555-2564")); 
+ 
+    try { 
+      // Find the name of a supplier given a number. 
+      Supplier sp = plist2.FindByNumber("555-2564"); 
+      Console.WriteLine(sp.Name + ": " + sp.Number); 
+    } catch(NotFoundException) { 
+        Console.WriteLine("Not Found"); 
+    } 
+ 
+    // The following declaration is invalid because EmailFriend 
+    // does NOT inherit PhoneNumber. 
+//    PhoneList<EmailFriend> plist3 = 
+//        new PhoneList<EmailFriend>(); // Error! 
+  } 
+}
+
+listing 6
+// Use an interface constraint. 
+ 
+using System; 
+ 
+// A custom exception that is thrown if a name or number is not found. 
+class NotFoundException : Exception { 
+  /* Implement all of the Exception constructors. Notice that 
+     the constructors simply execute the base class constructor. 
+     Because NotFoundException adds nothing to Exception, 
+     there is no need for any further actions. */ 
+  public NotFoundException() : base() { } 
+  public NotFoundException(string message) : base(message) { }  
+  public NotFoundException(string message, Exception innerException) : 
+    base(message, innerException) { } 
+  protected NotFoundException( 
+    System.Runtime.Serialization.SerializationInfo info, 
+    System.Runtime.Serialization.StreamingContext context) : 
+      base(info, context) { } 
+} 
+ 
+// An interface that supports a name and phone number. 
+public interface IPhoneNumber { 
+ 
+  string Number { 
+    get; 
+    set; 
+  } 
+ 
+  string Name { 
+    get; 
+    set; 
+  } 
+} 
+ 
+// A class of phone numbers for friends. 
+// It implements IPhoneNumber. 
+class Friend : IPhoneNumber { 
+ 
+  public Friend(string n, string num, bool wk) { 
+    Name = n; 
+    Number = num; 
+ 
+    IsWorkNumber = wk; 
+  } 
+ 
+  public bool IsWorkNumber { get; private set; } 
+ 
+  // Implement IPhoneNumber. 
+  public string Number { get; set; } 
+  public string Name { get; set; } 
+ 
+  // ... 
+} 
+ 
+// A class of phone numbers for suppliers. 
+class Supplier : IPhoneNumber { 
+ 
+  public Supplier(string n, string num) { 
+    Name = n; 
+    Number = num; 
+  } 
+ 
+  // Implement IPhoneNumber. 
+  public string Number { get; set; } 
+  public string Name { get; set; } 
+ 
+  // ... 
+} 
+ 
+// Notice that this class does not implement IPhoneNumber, 
+class EmailFriend { 
+  // ... 
+} 
+ 
+// PhoneList can manage any type of phone list 
+// as long as it is implements IPhoneNumber. 
+class PhoneList<T> where T : IPhoneNumber { 
+  T[] phList; 
+  int end; 
+ 
+  public PhoneList() {  
+    phList = new T[10]; 
+    end = 0; 
+  } 
+ 
+  public bool Add(T newEntry) { 
+    if(end == 10) return false; 
+ 
+    phList[end] = newEntry; 
+    end++; 
+ 
+    return true; 
+  } 
+ 
+  // Given a name, find and return the phone info. 
+  public T FindByName(string name) { 
+ 
+    for(int i=0; i<end; i++) { 
+      // Name can be used because it is a member of 
+      // IPhoneNumber, which is the interface constraint. 
+      if(phList[i].Name == name)  
+        return phList[i]; 
+    } 
+ 
+    // Name not in list. 
+    throw new NotFoundException(); 
+  } 
+ 
+  // Given a number, find and return the phone info. 
+  public T FindByNumber(string number) { 
+ 
+    for(int i=0; i<end; i++) { 
+      // Number can be used becasue it is also a member of 
+      // IPhoneNumber, which is the interface constraint. 
+      if(phList[i].Number == number)  
+        return phList[i]; 
+    } 
+ 
+    // Number not in list. 
+    throw new NotFoundException(); 
+  } 
+ 
+  // ... 
+} 
+ 
+// Demonstrate interface constraints. 
+class UseInterfaceConstraint { 
+  static void Main() { 
+ 
+    // The following code is OK because Friend 
+    // implements IPhoneNumber. 
+    PhoneList<Friend> plist = new PhoneList<Friend>(); 
+    plist.Add(new Friend("Tom", "555-1234", true)); 
+    plist.Add(new Friend("Gary", "555-6756", true)); 
+    plist.Add(new Friend("Matt", "555-9254", false)); 
+ 
+    try { 
+      // Find the number of a friend given a name. 
+      Friend frnd = plist.FindByName("Gary"); 
+ 
+      Console.Write(frnd.Name + ": " + frnd.Number); 
+ 
+      if(frnd.IsWorkNumber) 
+        Console.WriteLine(" (work)"); 
+      else 
+        Console.WriteLine(); 
+    } catch(NotFoundException) { 
+      Console.WriteLine("Not Found"); 
+    } 
+ 
+    Console.WriteLine(); 
+ 
+    // The following code is also OK because Supplier 
+    // implements IPhoneNumber. 
+    PhoneList<Supplier> plist2 = new PhoneList<Supplier>(); 
+    plist2.Add(new Supplier("Global Hardware", "555-8834")); 
+    plist2.Add(new Supplier("Computer Warehouse", "555-9256")); 
+    plist2.Add(new Supplier("NetworkCity", "555-2564")); 
+ 
+    try { 
+      // Find the name of a supplier given a number. 
+      Supplier sp = plist2.FindByNumber("555-2564"); 
+      Console.WriteLine(sp.Name + ": " + sp.Number); 
+    } catch(NotFoundException) { 
+        Console.WriteLine("Not Found"); 
+    } 
+ 
+    // The following declaration is invalid because EmailFriend 
+    // does NOT implement IPhoneNumber. 
+//    PhoneList<EmailFriend> plist3 = 
+//        new PhoneList<EmailFriend>(); // Error! 
+  } 
+}
+
+listing 7
+// Demonstrate a new() constructor constraint. 
+ 
+using System; 
+ 
+class MyClass { 
+ 
+  public MyClass() { 
+    // ... 
+  }     
+ 
+  //... 
+} 
+ 
+class Test<T> where T : new() { 
+  T obj; 
+ 
+  public Test() { 
+    // This works because of the new() constraint. 
+    obj = new T(); // create a T object 
+  } 
+ 
+  // ... 
+} 
+ 
+class ConsConstraintDemo { 
+  static void Main() { 
+ 
+    Test<MyClass> x = new Test<MyClass>(); 
+ 
+  } 
+}
+
+listing 8
+// Demonstrate a reference constriant. 
+ 
+using System; 
+ 
+class MyClass { 
+  //... 
+} 
+ 
+// Use a reference constraint. 
+class Test<T> where T : class { 
+  T obj; 
+ 
+  public Test() { 
+    // The following statement is legal only 
+    // because T is guaranteed to be a reference 
+    // type, which can be assigned the value null. 
+    obj = null; 
+  } 
+ 
+  // ... 
+} 
+ 
+class ClassConstraintDemo { 
+  static void Main() { 
+ 
+    // The following is OK because MyClass is a class. 
+    Test<MyClass> x = new Test<MyClass>(); 
+ 
+    // The next line is in error because int is a value type. 
+//    Test<int> y = new Test<int>(); 
+  } 
+}
+
+listing 9
+// Demonstrate a value type constriant. 
+ 
+using System; 
+ 
+struct MyStruct { 
+  //... 
+} 
+ 
+class MyClass { 
+  // ... 
+} 
+ 
+class Test<T> where T : struct { 
+  T obj; 
+ 
+  public Test(T x) { 
+    obj = x; 
+  } 
+ 
+  // ... 
+} 
+ 
+class ValueConstraintDemo { 
+  static void Main() { 
+ 
+    // Both of these declarations are legal. 
+ 
+    Test<MyStruct> x = new Test<MyStruct>(new MyStruct()); 
+ 
+    Test<int> y = new Test<int>(10); 
+ 
+    // But, the following declaration is illegal! 
+//    Test<MyClass> z = new Test<MyClass>(new MyClass()); 
+  } 
+}
+
+listing 10
+// Create relationship between two type parameters. 
+ 
+using System; 
+ 
+class A { 
+  //... 
+} 
+ 
+class B : A { 
+  // ... 
+} 
+ 
+// Here, V must be or inherit from T. 
+class Gen<T, V> where V : T {  
+  // ... 
+} 
+ 
+class NakedConstraintDemo { 
+  static void Main() { 
+ 
+    // This declaration is OK because B inherits A. 
+    Gen<A, B> x = new Gen<A, B>(); 
+ 
+    // This declaration is in error because 
+    // A does not inherit B. 
+//    Gen<B, A> y = new Gen<B, A>(); 
+ 
+  } 
+}
+
+listing 11
+// Use multiple where clauses. 
+ 
+using System; 
+ 
+// Gen has two type arguments and both have a where clause. 
+class Gen<T, V> where T : class 
+                where V : struct {  
+  T ob1;  
+  V ob2;  
+ 
+  public Gen(T t, V v) { 
+    ob1 = t; 
+    ob2 = v; 
+  } 
+} 
+ 
+class MultipleConstraintDemo { 
+  static void Main() { 
+    // This is OK because string is a class and 
+    // int is a value type. 
+    Gen<string, int> obj = new Gen<string, int>("test", 11); 
+ 
+    // The next line is wrong because bool is not 
+    // a reference type. 
+//    Gen<bool, int> obj = new Gen<bool, int>(true, 11); 
+  } 
+}
+
+listing 12
+// Demonstrate the default operator. 
+ 
+using System; 
+ 
+class MyClass { 
+  //... 
+} 
+ 
+// Construct a default value of T. 
+class Test<T> {  
+  public T obj; 
+ 
+  public Test() { 
+    // The following statement would work only for reference types. 
+//    obj = null; // can't use 
+ 
+    // The following statement will work only for numeric value types. 
+//    obj = 0; // can't use 
+ 
+    // This statement works for both reference and value types. 
+    obj = default(T); // Works! 
+  } 
+ 
+  // ... 
+} 
+ 
+class DefaultDemo { 
+  static void Main() { 
+ 
+    // Construct Test using a reference type. 
+    Test<MyClass> x = new Test<MyClass>(); 
+ 
+    if(x.obj == null) 
+      Console.WriteLine("x.obj is null."); 
+ 
+    // Construct Test using a value type. 
+    Test<int> y = new Test<int>(); 
+ 
+    if(y.obj == 0) 
+      Console.WriteLine("y.obj is 0."); 
+  } 
+}
+
+listing 13
+// Demonstrate a generic struct. 
+using System; 
+ 
+// This structure is generic. 
+struct XY<T> { 
+  T x; 
+  T y; 
+ 
+  public XY(T a, T b) { 
+    x = a; 
+    y = b; 
+  } 
+ 
+  public T X { 
+    get { return x; } 
+    set { x = value; } 
+  } 
+ 
+  public T Y { 
+    get { return y; } 
+    set { y = value; } 
+  } 
+} 
+ 
+class StructTest { 
+  static void Main() { 
+    XY<int> xy = new XY<int>(10, 20); 
+    XY<double> xy2 = new XY<double>(88.0, 99.0); 
+ 
+    Console.WriteLine(xy.X + ", " + xy.Y); 
+ 
+    Console.WriteLine(xy2.X + ", " + xy2.Y); 
+  } 
+}
+
+listing 14
+// Demonstrate a generic method. 
+ 
+using System; 
+ 
+// A class of array utilities.  Notice that this is not 
+// a generic class. 
+class ArrayUtils {  
+ 
+  // Copy an array, inserting a new element 
+  // in the process.  This is a generic method. 
+  public static bool CopyInsert<T>(T e, uint idx, 
+                                   T[] src, T[] target) { 
+ 
+    // See if target array is big enough. 
+    if(target.Length < src.Length+1)  
+      return false; 
+ 
+    // Copy src to target, inserting e at idx in the proecess. 
+    for(int i=0, j=0; i < src.Length; i++, j++) { 
+      if(i == idx) { 
+        target[j] = e; 
+        j++; 
+      } 
+      target[j] = src[i]; 
+    } 
+     
+    return true; 
+  } 
+} 
+ 
+class GenMethDemo { 
+  static void Main() { 
+    int[] nums = { 1, 2, 3 }; 
+    int[] nums2 = new int[4]; 
+ 
+    // Display contents of nums. 
+    Console.Write("Contents of nums: "); 
+    foreach(int x in nums) 
+      Console.Write(x + " "); 
+ 
+    Console.WriteLine(); 
+ 
+    // Operate on an int array. 
+    ArrayUtils.CopyInsert(99, 2, nums, nums2); 
+ 
+    // Display contents of nums2. 
+    Console.Write("Contents of nums2: "); 
+    foreach(int x in nums2) 
+      Console.Write(x + " "); 
+ 
+    Console.WriteLine(); 
+ 
+ 
+    // Now, use copyInsert on an array of strings. 
+    string[] strs = { "Generics", "are", "powerful."}; 
+    string[] strs2 = new string[4]; 
+ 
+    // Display contents of strs. 
+    Console.Write("Contents of strs: "); 
+    foreach(string s in strs) 
+      Console.Write(s + " "); 
+ 
+    Console.WriteLine(); 
+ 
+    // Insert into a string array. 
+    ArrayUtils.CopyInsert("in C#", 1, strs, strs2); 
+ 
+    // Display contents of strs2. 
+    Console.Write("Contents of strs2: "); 
+    foreach(string s in strs2) 
+      Console.Write(s + " "); 
+ 
+    Console.WriteLine(); 
+ 
+    // This call is invalid because the first argument 
+    // is of type double, and the third and fourth arguments 
+    // have elements types of int. 
+//    ArrayUtils.CopyInsert(0.01, 2, nums, nums2); 
+  } 
+}
+
+listing 15
+// A simple generic delegate. 
+   
+using System;  
+  
+// Declare a generic delegate.   
+delegate T SomeOp<T>(T v);  
+  
+class GenDelegateDemo {  
+  // Return the summation of the argument. 
+  static int Sum(int v) { 
+    int result = 0; 
+    for(int i=v; i>0; i--) 
+      result += i; 
+ 
+    return result; 
+  } 
+ 
+  // Return a string containing the reverse of the argument. 
+  static string Reflect(string str) { 
+    string result = ""; 
+ 
+    foreach(char ch in str) 
+      result = ch + result; 
+ 
+    return result; 
+  } 
+      
+  static void Main() {   
+    // Construct an int delegate. 
+    SomeOp<int> intDel = Sum;  
+    Console.WriteLine(intDel(3)); 
+ 
+    // Construct a string delegate. 
+    SomeOp<string> strDel = Reflect;  
+    Console.WriteLine(strDel("Hello")); 
+  }  
+}
+
+listing 16
+// Demonstrate a generic interface. 
+ 
+using System; 
+ 
+public interface ISeries<T> { 
+  T GetNext(); // return next element in series 
+  void Reset(); // restart the series 
+  void SetStart(T v); // set the starting element 
+} 
+ 
+// Implement ISeries. 
+class ByTwos<T> : ISeries<T> { 
+  T start; 
+  T val; 
+ 
+  // This delegate defines the form of a method 
+  // that will be called when the next element in 
+  // the series is needed. 
+  public delegate T IncByTwo(T v); 
+ 
+  // This delegate reference will be assigned the  
+  // method passed to the ByTwos constructor. 
+  IncByTwo incr;  
+ 
+  public ByTwos(IncByTwo incrMeth) { 
+    start = default(T); 
+    val = default(T); 
+    incr = incrMeth; 
+  } 
+ 
+  public T GetNext() { 
+    val = incr(val); 
+    return val; 
+  } 
+ 
+  public void Reset() { 
+    val = start; 
+  } 
+ 
+  public void SetStart(T v) { 
+    start = v; 
+    val = start; 
+  } 
+} 
+ 
+class ThreeD { 
+  public int x, y, z; 
+ 
+  public ThreeD(int a, int b, int c) { 
+    x = a; 
+    y = b; 
+    z = c; 
+  } 
+} 
+   
+class GenIntfDemo { 
+  // Define plus two for int. 
+  static int IntPlusTwo(int v) { 
+    return v + 2; 
+  } 
+ 
+  // Define plus two for double. 
+  static double DoublePlusTwo(double v) { 
+    return v + 2.0; 
+  } 
+ 
+  // Define plus two for ThreeD. 
+  static ThreeD ThreeDPlusTwo(ThreeD v) { 
+    if(v==null) return new ThreeD(0, 0, 0); 
+    else return new ThreeD(v.x + 2, v.y + 2, v.z + 2); 
+  } 
+ 
+  static void Main() { 
+ 
+    // Demonstrate int series. 
+    ByTwos<int> intBT = new ByTwos<int>(IntPlusTwo); 
+ 
+    for(int i=0; i < 5; i++) 
+      Console.Write(intBT.GetNext() + "  "); 
+ 
+    Console.WriteLine(); 
+ 
+ 
+    // Demonstrate double series. 
+    ByTwos<double> dblBT = new ByTwos<double>(DoublePlusTwo); 
+ 
+    dblBT.SetStart(11.4); 
+ 
+    for(int i=0; i < 5; i++) 
+      Console.Write(dblBT.GetNext() + "  "); 
+ 
+    Console.WriteLine(); 
+ 
+ 
+    // Demonstrate ThreeD series. 
+    ByTwos<ThreeD> ThrDBT = new ByTwos<ThreeD>(ThreeDPlusTwo); 
+ 
+    ThreeD coord; 
+    for(int i=0; i < 5; i++) { 
+      coord = ThrDBT.GetNext(); 
+      Console.Write(coord.x + "," + 
+                    coord.y + "," + 
+                    coord.z + "  "); 
+    } 
+ 
+    Console.WriteLine(); 
+  } 
+}
+
+listing 17
+// Demonstrate IComparable<T> and IEquatable<T>.
+
+using System;
+
+// Now MyClass implements IComparable<T> and IEquatable<T>.
+class MyClass : IComparable<MyClass>, IEquatable<MyClass> {
+  public int Val;
+
+  public MyClass(int x) { Val = x; }
+
+  // Implement IComparable<T>.
+  public int CompareTo(MyClass other) {
+    return Val - other.Val; // Now, no cast is needed.
+  }
+
+  // Implement IEquatable<T>.
+  public bool Equals(MyClass other) {
+    return Val == other.Val;
+  }
+
+  // An override of Equals(Object).
+  public override bool Equals(Object obj) {
+    if(obj is MyClass)
+      return Equals((MyClass) obj);
+    return false;
+  }
+
+  // An override of GetHashCode().
+  public override int GetHashCode() {
+    return Val.GetHashCode();
+  }    
+}
+
+class CompareDemo {
+
+  // Require IEquatable<T> interface.
+  public static bool IsIn<T>(T what, T[] obs) where T : IEquatable<T> {
+    foreach(T v in obs)
+      if(v.Equals(what)) // Uses Equals().
+        return true;
+
+    return false;
+  }
+
+  // Require IComparable<T> interface. This method assumes
+  // a sorted array. It returns true if what is inside the range
+  // of elements pass to obs.
+  public static bool InRange<T>(T what, T[] obs) where T : IComparable<T> {
+    if(what.CompareTo(obs[0]) < 0 ||
+       what.CompareTo(obs[obs.Length-1]) > 0) return false;
+    return true;
+  }
+
+  // Demonstrate comparisons.
+  static void Main() {
+
+    // Use IsIn() with int.
+    int[] nums = { 1, 2, 3, 4, 5 };
+
+    if(IsIn(2, nums))
+      Console.WriteLine("2 is found.");
+
+    if(IsIn(99, nums))
+      Console.WriteLine("This won't display.");
+
+
+    // Use IsIn() with MyClass.
+    MyClass[] mcs = { new MyClass(1), new MyClass(2),
+                      new MyClass(3), new MyClass(4) };
+
+    if(IsIn(new MyClass(3), mcs))
+      Console.WriteLine("MyClass(3) is found.");
+
+    if(IsIn(new MyClass(99), mcs))
+      Console.WriteLine("This won't display.");
+
+
+    // Use InRange() with int.
+    if(InRange(2, nums))
+      Console.WriteLine("2 is within the range of nums.");
+    if(InRange(1, nums))
+      Console.WriteLine("1 is within the range of nums.");
+    if(InRange(5, nums))
+      Console.WriteLine("5 is within the range of nums.");
+    if(!InRange(0, nums))
+      Console.WriteLine("0 is NOT within the range of nums.");
+    if(!InRange(6, nums))
+      Console.WriteLine("6 is NOT within the range of nums.");
+
+    // Use InRange() with MyClass.
+    if(InRange(new MyClass(2), mcs))
+      Console.WriteLine("MyClass(2) is within the range of mcs.");
+    if(InRange(new MyClass(1), mcs))
+      Console.WriteLine("MyClass(1) is within the range of mcs.");
+    if(InRange(new MyClass(4), mcs))
+      Console.WriteLine("MyClass(4) is within the range of mcs.");
+    if(!InRange(new MyClass(0), mcs))
+      Console.WriteLine("MyClass(0) is NOT within the range of mcs.");
+    if(!InRange(new MyClass(5), mcs))
+      Console.WriteLine("MyClass(5) is NOT within the range of mcs.");
+  }
+}
+
+listing 18
+// A simple generic class hierarchy. 
+using System; 
+ 
+// A generic base class. 
+class Gen<T> {  
+  T ob; 
+    
+  public Gen(T o) {  
+    ob = o;  
+  }  
+  
+  // Return ob.  
+  public T GetOb() {  
+    return ob;  
+  }  
+}  
+ 
+// A class derived from Gen. 
+class Gen2<T> : Gen<T> { 
+  public Gen2(T o) : base(o) { 
+    // ... 
+  } 
+} 
+ 
+class GenHierDemo { 
+  static void Main() { 
+    Gen2<string> g2 = new Gen2<string>("Hello"); 
+ 
+    Console.WriteLine(g2.GetOb()); 
+  } 
+}
+
+listing 19
+// A derived class can add its own type parameters. 
+using System; 
+ 
+// A generic base class. 
+class Gen<T> {  
+  T ob; // declare a variable of type T  
+    
+  // Pass the constructor a reference of type T. 
+  public Gen(T o) {  
+    ob = o;  
+  }  
+  
+  // Return ob.  
+  public T GetOb() {  
+    return ob;  
+  }  
+}  
+ 
+// A derived class of Gen that defines a second 
+// type parameter, called V. 
+class Gen2<T, V> : Gen<T> { 
+  V ob2; 
+ 
+  public Gen2(T o, V o2) : base(o) { 
+    ob2 = o2; 
+  } 
+ 
+  public V GetObj2() { 
+    return ob2; 
+  } 
+} 
+  
+// Create an object of type Gen2. 
+class GenHierDemo2 {  
+  static void Main() {  
+    
+    // Create a Gen2 object for string and int. 
+    Gen2<string, int> x = 
+      new Gen2<string, int>("Value is: ", 99);  
+ 
+    Console.Write(x.GetOb()); 
+    Console.WriteLine(x.GetObj2()); 
+  }  
+}
+
+listing 20
+// A nongeneric class can be the base class of a generic derived class. 
+using System; 
+ 
+// A nongeneric class. 
+class NonGen { 
+  int num; 
+ 
+  public NonGen(int i) { 
+    num = i; 
+  } 
+ 
+  public int GetNum() { 
+    return num; 
+  } 
+} 
+ 
+// A generic derived class. 
+class Gen<T> : NonGen {  
+  T ob; 
+    
+  public Gen(T o, int i) : base (i) {  
+    ob = o;  
+  }  
+  
+  // Return ob.  
+  public T GetOb() {  
+    return ob;  
+  }  
+}  
+  
+// Create a Gen object. 
+class HierDemo3 {  
+  static void Main() {  
+    
+    // Create a Gen object for string. 
+    Gen<String> w = new Gen<String>("Hello", 47); 
+    
+    Console.Write(w.GetOb() + " "); 
+    Console.WriteLine(w.GetNum()); 
+  }  
+} 
+
+
+listing 21
+// Overriding a virtual method in a generic class.  
+using System;  
+  
+// A generic base class.  
+class Gen<T> {   
+  protected T ob;   
+     
+  public Gen(T o) {   
+    ob = o;   
+  }   
+   
+  // Return ob. This method is virtual.  
+  public virtual T GetOb() {   
+    Console.Write("Gen's GetOb(): " );  
+    return ob;   
+  }   
+}   
+  
+// A derived class of Gen that overrides GetOb().  
+class Gen2<T> : Gen<T> {  
+  
+  public Gen2(T o) : base(o) {  }  
+    
+  // Override GetOb().  
+  public override T GetOb() {   
+    Console.Write("Gen2's GetOb(): ");  
+    return ob;   
+  }   
+}  
+   
+// Demonstrate generic method override.  
+class OverrideDemo {   
+  static void Main() {   
+     
+    // Create a Gen object for int.  
+    Gen<int> iOb = new Gen<int>(88);  
+ 
+    // This calls Gen's version of GetOb().  
+    Console.WriteLine(iOb.GetOb());  
+ 
+ 
+    // Now, create a Gen2 object and assign its  
+    // reference to iOb (which is a Gen<int> variable). 
+    iOb = new Gen2<int>(99);   
+ 
+    // This calls Gen2's verison of GetOb().  
+    Console.WriteLine(iOb.GetOb());  
+  } 
+}
+
+listing 22
+// Ambiguity can result when overloading methods that 
+// use type parameters. 
+// 
+// This program will not compile. 
+ 
+using System; 
+ 
+// A generic class that contains a potentially ambiguous 
+// overload of the Set() method. 
+class Gen<T, V> {  
+  T ob1;  
+  V ob2;  
+ 
+  // ... 
+ 
+  // In some cases, these two methods 
+  // will not differ in their parameter types. 
+  public void Set(T o) { 
+    ob1 = o; 
+  } 
+ 
+  public void Set(V o) { 
+    ob2 = o; 
+  } 
+} 
+ 
+class AmbiguityDemo { 
+  static void Main() { 
+    Gen<int, double> ok = new Gen<int, double>(); 
+ 
+    Gen<int, int> notOK = new Gen<int, int>(); 
+ 
+    ok.Set(10); // is valid, types args differ 
+ 
+    notOK.Set(10); // ambiguous, types args are the same! 
+  } 
+}
+
+listing 23
+// Demonstrate generic interface covariance. 
+using System; 
+ 
+// This generic interface supports covariance. 
+public interface IMyCoVarGenIF<out T> {  
+  T GetObject(); 
+}  
+ 
+// Implement the IMyCoVarGenIF interface. 
+class MyClass<T> : IMyCoVarGenIF<T> { 
+  T obj; 
+ 
+  public MyClass(T v) { obj = v; } 
+ 
+  public T GetObject() { return obj; } 
+} 
+ 
+// Create a simple class heirarchy. 
+class Alpha { 
+  string name; 
+ 
+  public Alpha(string n) { name = n; } 
+ 
+  public string GetName() { return name; } 
+  // ... 
+} 
+ 
+class Beta : Alpha { 
+  public Beta(string n) : base(n) { } 
+  // ... 
+} 
+ 
+class VarianceDemo { 
+  static void Main() { 
+    // Create a IMyCoVarGenIF reference to a MyClass<Alpha> object. 
+    // This is legal with or without covariance. 
+    IMyCoVarGenIF<Alpha> AlphaRef = 
+         new MyClass<Alpha>(new Alpha("Alpha #1")); 
+ 
+    Console.WriteLine("Name of object referred to by AlphaRef is " +  
+                      AlphaRef.GetObject().GetName()); 
+ 
+    // Now create a MyClass<Beta> object and assign it to AlphaRef. 
+    // *** This line is legal because of covariance. *** 
+    AlphaRef = new MyClass<Beta>(new Beta("Beta #1")); 
+ 
+    Console.WriteLine("Name of object referred to by AlphaRef is now " + 
+                      AlphaRef.GetObject().GetName()); 
+  } 
+}
+
+listing 24
+// Demonstrate generic interface contravariance. 
+using System; 
+ 
+// This generic interface supports contravariance. 
+public interface IMyContraVarGenIF<in T> {  
+  void Show(T obj); 
+}  
+ 
+// Implement the IMyContraVarGenIF interface. 
+class MyClass<T> : IMyContraVarGenIF<T> { 
+  public void Show(T x) { Console.WriteLine(x); } 
+} 
+ 
+// Create a simple class heirarchy. 
+class Alpha { 
+  public override string ToString() { 
+    return "This is an Alpha object."; 
+  } 
+  // ... 
+} 
+ 
+class Beta : Alpha { 
+  public override string ToString() { 
+    return "This is a Beta object."; 
+  } 
+  // ... 
+} 
+ 
+class VarianceDemo { 
+  static void Main() { 
+    // Create an IMyContraVarGenIF<Alpha> reference to a 
+    // MyClass<Alpha> object. 
+    // This is legal with or without contravariance. 
+    IMyContraVarGenIF<Alpha> AlphaRef = new MyClass<Alpha>();  
+ 
+    // Create an IMyContraVarGenIF<beta> reference to a 
+    // MyClass<Beta> object. 
+    // This is legal with or without contravariance. 
+    IMyContraVarGenIF<Beta> BetaRef = new MyClass<Beta>(); 
+ 
+    // Create an IMyContraVarGenIF<beta> reference to 
+    // a MyClass<Alpha> object. 
+    // *** This is legal because of contravariance. *** 
+    IMyContraVarGenIF<Beta> BetaRef2 = new MyClass<Alpha>(); 
+ 
+    // This call is legal with or without contravariance. 
+    BetaRef.Show(new Beta()); 
+     
+    // Assign AlphaRef to BetaRef. 
+    //  *** This is legal because of contravariance. *** 
+    BetaRef = AlphaRef; 
+ 
+    BetaRef.Show(new Beta()); 
+  } 
+}
+
+listing 25
+// Demonstrate covariance and contravariance with a generic delegate. 
+    
+using System;   
+ 
+// Declare a generic delegate that is contravariant on T. 
+delegate bool SomeOp<in T>(T obj);   
+   
+// Declare a generic delegate that is covariant on T. 
+delegate T AnotherOp<out T, V>(V obj);   
+   
+class Alpha { 
+  public int Val { get; set; } 
+ 
+  public Alpha(int v) { Val = v; } 
+} 
+ 
+class Beta : Alpha { 
+  public Beta(int v) : base(v) { } 
+} 
+  
+class GenDelegateVarianceDemo {   
+  // Return true if obj.Val is even. 
+  static bool IsEven(Alpha obj) {  
+    if((obj.Val % 2) == 0) return true; 
+    return false; 
+   }  
+       
+  static Beta ChangeIt(Alpha obj) { 
+    return new Beta(obj.Val +2); 
+  } 
+ 
+  static void Main() {    
+    Alpha objA = new Alpha(4); 
+    Beta objB = new Beta(9);  
+ 
+    // First demonstrate contravariance. 
+ 
+    // Declare a SomeOp<Alpha> delegate and set it ot IsEven. 
+    SomeOp<Alpha> checkIt = IsEven;   
+ 
+    // Declare a SomeOp<Beta> delegate. 
+    SomeOp<Beta> checkIt2; 
+  
+    // Now, assign the SomeOp<Alpha> delegate the SomeOp<Beta> delegate. 
+    // *** This is legal only because of contravariance. *** 
+    checkIt2 = checkIt; 
+ 
+    // Call through the delegate.  
+    Console.WriteLine(checkIt2(objB));  
+ 
+ 
+    // Now, demonstrate covariance. 
+ 
+    // First, declare two AnotherOp delegates 
+    // Here, the return type is Beta and the parameter type is Alpha. 
+    // Notice that modifyIt is set to ChangeIt. 
+    AnotherOp<Beta, Alpha> modifyIt = ChangeIt; 
+ 
+    // Here, the return type is Alpha and the parameter type is Alpha. 
+    AnotherOp<Alpha, Alpha> modifyIt2; 
+ 
+    // Now, assign modifyIt to modifyIt2. 
+    // *** This statement is legal only because of covariance. *** 
+    modifyIt2 = modifyIt; 
+ 
+    // Actually call the method and display the results. 
+    objA = modifyIt2(objA); 
+    Console.WriteLine(objA.Val); 
+  }   
+}
+
+
