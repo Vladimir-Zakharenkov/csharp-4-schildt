@@ -47,6 +47,7 @@ class MyThread
         do
         {
             Thread.Sleep(500);
+
             Console.WriteLine("В потоке " + Thrd.Name + ", Count = " + Count);
             Count++;
         }
