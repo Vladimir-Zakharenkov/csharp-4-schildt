@@ -96,3 +96,102 @@ class InterlockedDemo
 }
 
 #endregion
+
+#region English
+
+/*
+
+The Interlocked Class
+
+One other class that is related to synchronization is Interlocked. This class offers an
+alternative to the other synchronization features when all you need to do is change the
+value of a shared variable. The methods provided by Interlocked guarantee that their
+operation is performed as a single, uninterruptable operation. Thus, no other
+synchronization is needed. Interlocked provides static methods that add two integers,
+increment an integer, decrement an integer, compare and set an object, exchange objects,
+and obtain a 64-bit value. All of these operations take place without interruption.
+
+The following program demonstrates two Interlocked methods: Increment() and
+Decrement(). Here are the forms of these methods that will be used:
+
+public static int Increment(ref int location)
+public static int Decrement(ref int location)
+
+Here, location is the variable to be incremented or decremented.
+
+*/
+
+// Use Interlocked operations. 
+  
+//using System;  
+//using System.Threading;  
+ 
+//// A shared resource. 
+//class SharedRes
+//{
+//    public static int Count = 0;
+//}
+
+//// This thread increments SharedRes.Count. 
+//class IncThread
+//{
+//    public Thread Thrd;
+
+//    public IncThread(string name)
+//    {
+//        Thrd = new Thread(this.Run);
+//        Thrd.Name = name;
+//        Thrd.Start();
+//    }
+
+//    // Entry point of thread.  
+//    void Run()
+//    {
+
+//        for (int i = 0; i < 5; i++)
+//        {
+//            Interlocked.Increment(ref SharedRes.Count);
+//            Console.WriteLine(Thrd.Name + " Count is " + SharedRes.Count);
+//        }
+//    }
+//}
+
+//// This thread decrements SharedRes.Count. 
+//class DecThread
+//{
+//    public Thread Thrd;
+
+//    public DecThread(string name)
+//    {
+//        Thrd = new Thread(this.Run);
+//        Thrd.Name = name;
+//        Thrd.Start();
+//    }
+
+//    // Entry point of thread.  
+//    void Run()
+//    {
+
+//        for (int i = 0; i < 5; i++)
+//        {
+//            Interlocked.Decrement(ref SharedRes.Count);
+//            Console.WriteLine(Thrd.Name + " Count is " + SharedRes.Count);
+//        }
+//    }
+//}
+
+//class InterdlockedDemo
+//{
+//    static void Main()
+//    {
+
+//        // Construct two threads.  
+//        IncThread mt1 = new IncThread("Increment Thread");
+//        DecThread mt2 = new DecThread("Decrement Thread");
+
+//        mt1.Thrd.Join();
+//        mt2.Thrd.Join();
+//    }
+//}
+
+#endregion
