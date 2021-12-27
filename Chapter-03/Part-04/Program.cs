@@ -39,7 +39,7 @@ class FindRadius
 
         Console.WriteLine("Радиус равен " + r);
     }
-//}
+}
 
 /*
 
