@@ -9,32 +9,32 @@
 
 // Применить тип decimal для расчета будущей стоимости капиталовложений.
 
-//using System;
+using System;
 
-//class FutVal
-//{
-//    static void Main()
-//    {
-//        decimal amount;
-//        decimal rate_of_return;
-//        int years, i;
+class FutVal
+{
+    static void Main()
+    {
+        decimal amount;
+        decimal rate_of_return;
+        int years, i;
 
-//        amount = 1000.0M;
-//        rate_of_return = 0.07M;
-//        years = 10;
+        amount = 1000.0M;
+        rate_of_return = 0.07M;
+        years = 10;
 
-//        Console.WriteLine("Первоначальные капиталовложения: $" + amount);
-//        Console.WriteLine("Норма прибыли: " + rate_of_return);
-//        Console.WriteLine("В течении " + years + " лет");
+        Console.WriteLine("Первоначальные капиталовложения: $" + amount);
+        Console.WriteLine("Норма прибыли: " + rate_of_return);
+        Console.WriteLine("В течении " + years + " лет");
 
-//        for (i = 0; i < years; i++)
-//        {
-//            amount = amount + (amount * rate_of_return);
-//        }
+        for (i = 0; i < years; i++)
+        {
+            amount = amount + (amount * rate_of_return);
+        }
 
-//        Console.WriteLine("Будущая стоимость равна $" + amount);
-//    }
-//}
+        Console.WriteLine("Будущая стоимость равна $" + amount);
+    }
+}
 
 /*
 
@@ -65,29 +65,29 @@ investment that has a fixed rate of return over a period of years.
 
 // Use the decimal type to compute the future value of an investment.
 
-using System;
-class FutVal
-{
-    static void Main()
-    {
-        decimal amount;
-        decimal rate_of_return;
-        int years, i;
+//using System;
+//class FutVal
+//{
+//    static void Main()
+//    {
+//        decimal amount;
+//        decimal rate_of_return;
+//        int years, i;
 
-        amount = 1000.0M;
-        rate_of_return = 0.07M;
-        years = 10;
+//        amount = 1000.0M;
+//        rate_of_return = 0.07M;
+//        years = 10;
 
-        Console.WriteLine("Original investment: $" + amount);
-        Console.WriteLine("Rate of return: " + rate_of_return);
-        Console.WriteLine("Over " + years + " years");
+//        Console.WriteLine("Original investment: $" + amount);
+//        Console.WriteLine("Rate of return: " + rate_of_return);
+//        Console.WriteLine("Over " + years + " years");
 
-        for (i = 0; i < years; i++)
-            amount = amount + (amount * rate_of_return);
+//        for (i = 0; i < years; i++)
+//            amount = amount + (amount * rate_of_return);
 
-        Console.WriteLine("Future value is $" + amount);
-    }
-}
+//        Console.WriteLine("Future value is $" + amount);
+//    }
+//}
 
 /*
 
