@@ -97,6 +97,10 @@ mentioned, floating-point literals are double by default.)
 To specify a decimal literal, follow its value with an m or M. For example, 9.95M is a
 decimal literal.
 
+Although integer literals create an int, uint, long, or ulong value by default, they can
+still be assigned to variables of type byte, sbyte, short, or ushort as long as the value being
+assigned can be represented by the target type.
+
 */
 
 #endregion
