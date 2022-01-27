@@ -53,43 +53,43 @@ Apple.
 
 // Продемонстрировать применение перечисления.
 
-//using System;
+using System;
 
-//class EnumDemo
-//{
-//    enum Apple
-//    {
-//        Jonathan, GoldenDel, RedDel, Winesap, Cortland, McIntosh
-//    };
+class EnumDemo
+{
+    enum Apple
+    {
+        Jonathan, GoldenDel, RedDel, Winesap, Cortland, McIntosh
+    };
 
-//    static void Main()
-//    {
-//        string[] color =
-//        {
-//            "красный",
-//            "желтый",
-//            "красный",
-//            "красный",
-//            "красный",
-//            "красновато-зеленый"
-//        };
+    static void Main()
+    {
+        string[] color =
+        {
+            "красный",
+            "желтый",
+            "красный",
+            "красный",
+            "красный",
+            "красновато-зеленый"
+        };
 
-//        Apple i; // Объявить переменную перечислимого типа
+        Apple i; // Объявить переменную перечислимого типа
 
-//        // Использовать переменную i для циклического обращения к членам перечисления.
-//        for (i = Apple.Jonathan; i <= Apple.McIntosh; i++)
-//        {
-//            Console.WriteLine(i + " имеет значение " + (int)i);
-//        }
+        // Использовать переменную i для циклического обращения к членам перечисления.
+        for (i = Apple.Jonathan; i <= Apple.McIntosh; i++)
+        {
+            Console.WriteLine(i + " имеет значение " + (int)i);
+        }
 
-//        Console.WriteLine();
+        Console.WriteLine();
 
-//        // Использовать перечисление для индексирования массива.
-//        for (i = Apple.Jonathan; i <= Apple.McIntosh; i++)
-//        {
-//            Console.WriteLine("Цвет сорта " + i + " - " + color[(int)i]);
-//        }
-//    }
+        // Использовать перечисление для индексирования массива.
+        for (i = Apple.Jonathan; i <= Apple.McIntosh; i++)
+        {
+            Console.WriteLine("Цвет сорта " + i + " - " + color[(int)i]);
+        }
+    }
 //}
 
 /*
@@ -172,39 +172,39 @@ Here is a program that illustrates the Apple enumeration:
 */
 
 // Demonstrate an enumeration.
-using System;
-class EnumDemo
-{
-    enum Apple
-    {
-        Jonathan, GoldenDel, RedDel, Winesap,
-        Cortland, McIntosh
-    };
-    static void Main()
-    {
-        string[] color = {
-"Red",
-"Yellow",
-"Red",
-"Red",
-"Red",
-"Reddish Green"
-};
+//using System;
+//class EnumDemo
+//{
+//    enum Apple
+//    {
+//        Jonathan, GoldenDel, RedDel, Winesap,
+//        Cortland, McIntosh
+//    };
+//    static void Main()
+//    {
+//        string[] color = {
+//"Red",
+//"Yellow",
+//"Red",
+//"Red",
+//"Red",
+//"Reddish Green"
+//};
 
-        Apple i; // declare an enum variable
+//        Apple i; // declare an enum variable
 
-                 // Use i to cycle through the enum.
-        for (i = Apple.Jonathan; i <= Apple.McIntosh; i++)
-            Console.WriteLine(i + " has value of " + (int)i);
+//                 // Use i to cycle through the enum.
+//        for (i = Apple.Jonathan; i <= Apple.McIntosh; i++)
+//            Console.WriteLine(i + " has value of " + (int)i);
 
-        Console.WriteLine();
+//        Console.WriteLine();
 
-        // Use an enumeration to index an array.
-        for (i = Apple.Jonathan; i <= Apple.McIntosh; i++)
-            Console.WriteLine("Color of " + i + " is " +
-            color[(int)i]);
-    }
-}
+//        // Use an enumeration to index an array.
+//        for (i = Apple.Jonathan; i <= Apple.McIntosh; i++)
+//            Console.WriteLine("Color of " + i + " is " +
+//            color[(int)i]);
+//    }
+//}
 
 /*
 
