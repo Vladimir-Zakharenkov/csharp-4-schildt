@@ -14,33 +14,33 @@
 
 // Скопировать структуру.
 
-//using System;
+using System;
 
-//// Определить структуру.
-//struct MyStruct
-//{
-//    public int x;
-//}
+// Определить структуру.
+struct MyStruct
+{
+    public int x;
+}
 
-//// Продемонстрировать присваивание структуры.
-//class StructAssignment
-//{
-//    static void Main()
-//    {
-//        MyStruct a;
-//        MyStruct b;
+// Продемонстрировать присваивание структуры.
+class StructAssignment
+{
+    static void Main()
+    {
+        MyStruct a;
+        MyStruct b;
 
-//        a.x = 10;
-//        b.x = 20;
+        a.x = 10;
+        b.x = 20;
 
-//        Console.WriteLine("a.x {0}, b.x {1}", a.x, b.x);
+        Console.WriteLine("a.x {0}, b.x {1}", a.x, b.x);
 
-//        a = b;
-//        b.x = 30;
+        a = b;
+        b.x = 30;
 
-//        Console.WriteLine("a.x {0}, b.x {1}", a.x, b.x);
-//    }
-//}
+        Console.WriteLine("a.x {0}, b.x {1}", a.x, b.x);
+    }
+}
 
 /*
 
@@ -76,30 +76,29 @@ on the right. For example, consider the following program:
 
 // Copy a struct.
 
-using System;
+//using System;
 
-// Define a structure.
-struct MyStruct
-{
-    public int x;
-}
+//// Define a structure.
+//struct MyStruct
+//{
+//    public int x;
+//}
 
-// Demonstrate structure assignment.
-class StructAssignment
-{
-    static void Main()
-    {
-        MyStruct a;
-        MyStruct b;
-        a.x = 10;
-        b.x = 20;
-        Console.WriteLine("a.x {0}, b.x {1}", a.x, b.x);
-        a = b;
-        b.x = 30;
-        Console.WriteLine("a.x {0}, b.x {1}", a.x, b.x);
-    }
-}
-
+//// Demonstrate structure assignment.
+//class StructAssignment
+//{
+//    static void Main()
+//    {
+//        MyStruct a;
+//        MyStruct b;
+//        a.x = 10;
+//        b.x = 20;
+//        Console.WriteLine("a.x {0}, b.x {1}", a.x, b.x);
+//        a = b;
+//        b.x = 30;
+//        Console.WriteLine("a.x {0}, b.x {1}", a.x, b.x);
+//    }
+//}
 
 /*
 
