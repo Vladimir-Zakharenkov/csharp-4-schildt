@@ -321,7 +321,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Part-14", "Chapter-03\Part-
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Part-15", "Chapter-03\Part-15\Part-15.csproj", "{7AA9C6A3-7573-44C3-B884-1231950701BC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chapter-03 Part-16", "Chapter-03\Chapter-03 Part-16\Chapter-03 Part-16.csproj", "{1D0F1FFF-E3AA-4318-B395-30FB591A641A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Part-16", "Chapter-03\Chapter-03 Part-16\Part-16.csproj", "{1D0F1FFF-E3AA-4318-B395-30FB591A641A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
