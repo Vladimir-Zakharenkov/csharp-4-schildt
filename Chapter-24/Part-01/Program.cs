@@ -97,6 +97,13 @@ is described and several basic techniques are demonstrated. Thus, the informatio
 chapter will help you get started. If you will be focusing on parallel programming, then
 these are areas of the .NET framework that you will want to study in greater detail.
 
+NOTE
+Although the use of the TPL and PLINQ is now recommended for most multithreading
+applications, threading based on the Thread class as described in Chapter 23 is still in
+widespread use. Furthermore, much of what is described in Chapter 23 applies to the TPL.
+Therefore, an understanding of the material in Chapter 23 is still required to fully master
+multithreading in C#.
+
 */
 
 #endregion
