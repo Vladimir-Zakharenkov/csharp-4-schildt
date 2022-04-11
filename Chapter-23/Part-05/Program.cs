@@ -38,7 +38,8 @@ class MyThread
             Thread.Sleep(500);
             Console.WriteLine("В потоке " + Thrd.Name + ", Count = " + Count);
             Count++;
-        } while (Count < 10);
+        }
+        while (Count < 10);
 
         Console.WriteLine(Thrd.Name + " завершен.");
     }
@@ -59,7 +60,8 @@ class MoreThreads
         {
             Console.Write(".");
             Thread.Sleep(100);
-        } while (mt1.Count < 10 || mt2.Count < 10 || mt3.Count < 10);
+        }
+        while (mt1.Count < 10 || mt2.Count < 10 || mt3.Count < 10);
 
         Console.WriteLine(new string('-', 50));
         Console.WriteLine("Основной поток завершен.");

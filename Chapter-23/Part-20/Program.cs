@@ -75,7 +75,7 @@ class MyThread
         for (int i = 0; i < 5; i++)
         {
             Console.WriteLine(Thrd.Name);
-            Thread.Sleep(500);
+            Thread.Sleep(1000);
         }
 
         Console.WriteLine(Thrd.Name + " завершен!");
@@ -103,7 +103,7 @@ class ManualEventDemo
         // Установить событийный объект в исходное состояние.
         evtObj.Reset();
 
-        mt1 = new MyThread("Событийный поток 2", evtObj);
+        MyThread mt2 = new MyThread("Событийный поток 2", evtObj);
 
         // Ожидать уведомления о событии.
         evtObj.WaitOne();

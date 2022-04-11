@@ -120,7 +120,8 @@ class IncThread
             SharedRess.Count++;
             Console.WriteLine("В потоке " + Thrd.Name + ", SharedRes.Count = " + SharedRess.Count);
             num--;
-        } while (num > 0);
+        }
+        while (num > 0);
 
         Console.WriteLine(Thrd.Name + " освобождает мьютекс.");
 
@@ -159,7 +160,8 @@ class DecThread
             SharedRess.Count--;
             Console.WriteLine("В потоке " + Thrd.Name + ", SharedRes.Count = " + SharedRess.Count);
             num--;
-        } while (num > 0);
+        }
+        while (num > 0);
 
         // Освободить мьютекс.
         SharedRess.Mtx.ReleaseMutex();
@@ -179,7 +181,6 @@ class MutexDemo
 
         mt1.Thrd.Join();
         mt2.Thrd.Join();
-
     }
 }
 

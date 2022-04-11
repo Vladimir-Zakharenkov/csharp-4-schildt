@@ -47,7 +47,8 @@ class MyThread
             Thread.Sleep(500);
             Console.WriteLine("В потоке " + Thrd.Name + ", Count = " + Count);
             Count++;
-        } while (Count < 10);
+        }
+        while (Count < 10);
 
         Console.WriteLine(Thrd.Name + " завершен.");
     }

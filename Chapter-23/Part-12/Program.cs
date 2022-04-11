@@ -53,7 +53,7 @@ class MyThread
     int answer;
 
     // Создать один объект типа SumArray для всех экземпляров класса MyThread.
-    static SumArray sa = new();
+   static SumArray sa = new();
 
     // Сконструировать новый поток.
     public MyThread(string name, int[] nums)

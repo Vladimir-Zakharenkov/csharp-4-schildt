@@ -53,7 +53,7 @@ class TickTock
             }
 
             Console.Write("так");
-            Thread.Sleep(1000);
+            Thread.Sleep(500);
             Monitor.Pulse(lockOn); // разрешить выполнение метода Tick()
             Monitor.Wait(lockOn); // ожидать завершение метода Tick()
         }
@@ -79,7 +79,7 @@ class MyThread
     {
         if (Thrd.Name == "Tick")
         {
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 20; i++)
             {
                 ttob.Tick(true);
             }
@@ -88,7 +88,7 @@ class MyThread
         }
         else
         {
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 20; i++)
             {
                 ttob.Tock(true);
             }

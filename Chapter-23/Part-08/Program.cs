@@ -78,7 +78,8 @@ class MyThread
             Thread.Sleep(500);
             Console.WriteLine("В потоке " + Thrd.Name + ", Count = " + Count);
             Count++;
-        } while (Count < (int)num);
+        }
+        while (Count < (int)num);
 
         Console.WriteLine(Thrd.Name + " завершен.");
     }
@@ -96,7 +97,8 @@ class PassArgDemo
         do
         {
             Thread.Sleep(100);
-        } while (mt.Thrd.IsAlive || mt2.Thrd.IsAlive);
+        }
+        while (mt.Thrd.IsAlive || mt2.Thrd.IsAlive);
 
         Console.WriteLine("Основной поток завершен.");
 

@@ -100,7 +100,7 @@ class MyThread
         for (char ch = 'A'; ch < 'D'; ch++)
         {
             Console.WriteLine(Thrd.Name + " : " + ch + " ");
-            Thread.Sleep(500);
+            Thread.Sleep(2000);
         }
 
         Console.WriteLine(Thrd.Name + " высвобождает разрешение.");
