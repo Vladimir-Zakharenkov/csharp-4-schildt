@@ -97,10 +97,10 @@ within the try block. An exception thrown by a method called from within a try b
 can be caught by that try block, assuming, of course, that the method itself did not catch
 the exception.
 
-For example, consider the following program. Main( ) establishes a try block from which
-the method GenException( ) is called. Inside GenException( ), an IndexOutOfRangeException
-is generated. This exception is not caught by GenException( ). However, since GenException( )
-was called from within a try block in Main( ), the exception is caught by the catch statement
+For example, consider the following program. Main() establishes a try block from which
+the method GenException() is called. Inside GenException(), an IndexOutOfRangeException
+is generated. This exception is not caught by GenException(). However, since GenException()
+was called from within a try block in Main(), the exception is caught by the catch statement
 associated with that try.
 
 */
@@ -162,10 +162,10 @@ nums[3]: 3
 Index out-of-bounds!
 After catch block.
 
-As explained, because GenException( ) is called from within a try block, the exception that
-it generates (and does not catch) is caught by the catch in Main( ). Understand, however,
-that if GenException( ) had caught the exception, then it never would have been passed
-back to Main( ).
+As explained, because GenException() is called from within a try block, the exception that
+it generates (and does not catch) is caught by the catch in Main(). Understand, however,
+that if GenException() had caught the exception, then it never would have been passed
+back to Main().
 
 */
 

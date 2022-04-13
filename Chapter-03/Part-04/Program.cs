@@ -72,8 +72,8 @@ of 5E–324 to 1.7E+308.
 
 Of the two, double is the most commonly used. One reason for this is that many of the
 math functions in C#’s class library (which is the .NET Framework library) use double
-values. For example, the Sqrt( ) method (which is defined by the library class System.Math)
-returns a double value that is the square root of its double argument. Here, Sqrt( ) is used to
+values. For example, the Sqrt() method (which is defined by the library class System.Math)
+returns a double value that is the square root of its double argument. Here, Sqrt() is used to
 compute the radius of a circle given the circle’s area:
 
 */
@@ -103,9 +103,9 @@ The output from the program is shown here:
 
 Radius is 1.78412203012729
 
-One other point about the preceding example. As mentioned, Sqrt( ) is a member of the
-Math class. Notice how Sqrt( ) is called; it is preceded by the name Math. This is similar to
-the way Console precedes WriteLine( ). Although not all standard methods are called by
+One other point about the preceding example. As mentioned, Sqrt() is a member of the
+Math class. Notice how Sqrt() is called; it is preceded by the name Math. This is similar to
+the way Console precedes WriteLine(). Although not all standard methods are called by
 specifying their class name first, several are, as the next example shows.
 
 */

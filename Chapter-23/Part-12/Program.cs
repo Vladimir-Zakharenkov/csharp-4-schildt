@@ -203,7 +203,7 @@ Instead, calls to SumIt() are locked within MyThread.
 
 /*
 
-Here, the call to sa.SumIt( ) is locked, rather than the code inside SumIt( ) itself. The code
+Here, the call to sa.SumIt() is locked, rather than the code inside SumIt() itself. The code
 that accomplishes this is shown here:
 
 // Lock calls to SumIt().

@@ -211,7 +211,7 @@ select ws;
 First, the results of the group clause are stored (creating a temporary result) and the where
 clause operates on the stored results. At this point, ws will range over each group obtained
 by group. Next, the where clause filters the query so the final result contains only those
-groups that contain more than two members. This determination is made by calling Count( ),
+groups that contain more than two members. This determination is made by calling Count(),
 which is an extension method that is implemented for all IEnumerable objects. It returns the
 number of elements in a sequence. (You’ll learn more about extension methods later in this
 chapter.) The resulting sequence of groups is returned by the select clause.

@@ -152,8 +152,8 @@ special purposes. Also, the @ can precede any identifier, but this is considered
 
 The .NET Framework Class Library
 
-The sample programs shown in this chapter make use of two built-in methods: WriteLine( )
-andWrite( ). As mentioned, these methods are members of the Console class, which is part
+The sample programs shown in this chapter make use of two built-in methods: WriteLine()
+andWrite(). As mentioned, these methods are members of the Console class, which is part
 of the System namespace, which is defined by the .NET Framework’s class library. As
 explained earlier in this chapter, the C# environment relies on the .NET Framework class
 library to provide support for such things as I/O, string handling, networking, and GUIs.

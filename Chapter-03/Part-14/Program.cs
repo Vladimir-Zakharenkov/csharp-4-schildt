@@ -72,7 +72,7 @@ by double quotes. For example,
 
 "this is a test"
 
-is a string. You have seen examples of strings in many of the WriteLine( ) statements in the
+is a string. You have seen examples of strings in many of the WriteLine() statements in the
 preceding sample programs.
 
 In addition to normal characters, a string literal can also contain one or more of the
@@ -108,7 +108,7 @@ Four Five Six
 "Why?", he asked.
 
 Notice how the \n escape sequence is used to generate a new line. You don’t need to use
-multiple WriteLine( ) statements to get multiline output. Just embed \n within a longer
+multiple WriteLine() statements to get multiline output. Just embed \n within a longer
 string at the points where you want the new lines to occur. Also note how a quotation mark
 is generated inside a string.
 

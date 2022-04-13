@@ -104,7 +104,7 @@ inferred from the type of the expression.
 
 Here is an example that shows how let can be used to create another enumerable data
 source. The query takes as input an array of strings. It then converts those strings into char
-arrays. This is accomplished by use of another string method called ToCharArray( ), which
+arrays. This is accomplished by use of another string method called ToCharArray(), which
 returns an array containing the characters in the string. The result is assigned to a variable
 called chrArray, which is then used by a nested from clause to obtain the individual characters
 in the array. The query then sorts the characters and returns the resulting sequence.
@@ -151,7 +151,7 @@ The individual characters in sorted order:
 a a a a a b e g h l m m p t
 
 In the program, notice how the let clause assigns to chrArray a reference to the array
-returned by str.ToCharArray( ):
+returned by str.ToCharArray():
 
 let chrArray = str.ToCharArray()
 

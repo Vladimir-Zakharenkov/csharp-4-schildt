@@ -99,7 +99,7 @@ A cast can be applied to a specific portion of a larger expression. This gives y
 control over the way type conversions occur when an expression is evaluated. For example,
 consider the following program. It displays the square roots of the numbers from 1 to 10. It
 also displays the whole number portion and the fractional part of each result, separately. To
-do so, it uses a cast to convert the result of Math.Sqrt( ) to int.
+do so, it uses a cast to convert the result of Math.Sqrt() to int.
 
 */
 
@@ -163,14 +163,14 @@ The square root of 10 is 3.16227766016838
 Whole number part: 3
 Fractional part: 0.16227766016838
 
-As the output shows, the cast of Math.Sqrt( ) to int results in the whole number component
+As the output shows, the cast of Math.Sqrt() to int results in the whole number component
 of the value. In this expression
 
 Math.Sqrt(n) - (int) Math.Sqrt(n)
 
 the cast to int obtains the whole number component, which is then subtracted from the
 complete value, yielding the fractional component. Thus, the outcome of the expression
-is double. Only the value of the second call to Math.Sqrt( ) is cast to int.
+is double. Only the value of the second call to Math.Sqrt() is cast to int.
 
 */
 

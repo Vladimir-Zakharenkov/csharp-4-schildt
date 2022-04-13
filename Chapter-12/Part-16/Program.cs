@@ -163,8 +163,8 @@ At first glance you might think that enumerations are an interesting but relativ
 unimportant part of C#, yet this is not the case. Enumerations are very useful when your
 program requires one or more specialized symbols. For example, imagine that you are
 writing a program that controls a conveyor belt in a factory. You might create a method
-called Conveyor( ) that accepts the following commands as parameters: start, stop, forward,
-and reverse. Instead of passing Conveyor( ) integers, such as 1 for start, 2 for stop, and so
+called Conveyor() that accepts the following commands as parameters: start, stop, forward,
+and reverse. Instead of passing Conveyor() integers, such as 1 for start, 2 for stop, and so
 on, which is error-prone, you can create an enumeration that assigns words to these values.
 Here is an example of this approach:
 
@@ -219,17 +219,17 @@ Moving forward.
 Moving backward.
 Stopping conveyor.
 
-Because Conveyor( ) takes an argument of type Action, only the values defined by Action
+Because Conveyor() takes an argument of type Action, only the values defined by Action
 can be passed to the method. For example, here an attempt is made to pass the value 22 to
-Conveyor( ):
+Conveyor():
 
 c.Conveyor(22); // Error!
 
 This won’t compile because there is no predefined conversion from int to Action. This prevents
-the passing of invalid commands to Conveyor( ). Of course, you could use a cast to force
+the passing of invalid commands to Conveyor(). Of course, you could use a cast to force
 a conversion, but this would require a premeditated act, not an accidental misuse. Also,
 because commands are specified by name rather than by number, it is less likely that a
-user of Conveyor( ) will inadvertently pass the wrong value.
+user of Conveyor() will inadvertently pass the wrong value.
 
 There is one other interesting thing in this example: Notice that an enumeration type
 is used to control the switch statement. Because enumerations are integral types, they are

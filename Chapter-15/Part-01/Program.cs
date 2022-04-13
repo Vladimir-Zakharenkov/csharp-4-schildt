@@ -350,8 +350,8 @@ Notice that StrMod takes one string parameter and returns a string.
 
 Next, in DelegateTest, three static methods are declared, each with a single parameter
 of type string and a return type of string. Thus, they match the StrMod delegate. These
-methods perform some type of string modification. Notice that ReplaceSpaces( ) uses one
-of string’s methods, called Replace( ), to replace spaces with hyphens.
+methods perform some type of string modification. Notice that ReplaceSpaces() uses one
+of string’s methods, called Replace(), to replace spaces with hyphens.
 
 In Main(), a StrMod reference called strOp is created and assigned a reference to
 ReplaceSpaces(). Pay close attention to this line:

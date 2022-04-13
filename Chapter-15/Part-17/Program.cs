@@ -529,7 +529,7 @@ handlers can be stored. When an event handler is removed, remove is called and t
 array is searched for the reference to the handler passed in value. If it is found, its element
 in the array is assigned null, thus removing the handler from the list.
 
-When an event is raised, OnSomeEvent( ) is called. It cycles through the evnt array,
+When an event is raised, OnSomeEvent() is called. It cycles through the evnt array,
 calling each event handler in turn.
 
 As the preceding example shows, it is relatively easy to implement a custom eventhandler

@@ -116,7 +116,7 @@ System.Collections.IEnumerator — способ последовательног
 /*
 
 Here is an example in which two interfaces are implemented and both interfaces declare
-a method called Meth( ). Explicit implementation is used to eliminate the ambiguity inherent
+a method called Meth(). Explicit implementation is used to eliminate the ambiguity inherent
 in this situation.
 
 */
@@ -177,12 +177,12 @@ The output from this program is shown here:
 Calling IMyIF_A.Meth(): 6
 Calling IMyIF_B.Meth(): 9
 
-Looking at the program, first notice that Meth( ) has the same signature in both IMyIF_A
+Looking at the program, first notice that Meth() has the same signature in both IMyIF_A
 and IMyIF_B. Thus, when MyClass implements both of these interfaces, it explicitly
 implements each one separately, fully qualifying its name in the process. Since the only way
 that an explicitly implemented method can be called is on an interface reference, MyClass
-creates two such references, one for IMyIF_A and one for IMyIF_B, inside MethA( ) and
-MethB( ), respectively. It then calls these methods, which call the interface methods, thereby
+creates two such references, one for IMyIF_A and one for IMyIF_B, inside MethA() and
+MethB(), respectively. It then calls these methods, which call the interface methods, thereby
 removing the ambiguity.
 
 Choosing Between an Interface and an Abstract Class
@@ -197,7 +197,7 @@ represent your concept in an abstract class.
 The .NET Standard Interfaces
 
 The .NET Framework defines a large number of interfaces that a C# program can use. For
-example, System.IComparable defines the CompareTo( ) method, which allows objects to be
+example, System.IComparable defines the CompareTo() method, which allows objects to be
 compared when an ordering relationship is required. Interfaces also form an important part
 of the Collections classes, which provide various types of storage (such as stacks and queues)
 for groups of objects. For example, System.Collections.ICollection defines the functionality

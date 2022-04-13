@@ -190,7 +190,7 @@ Stopping thread.
 Thread aborting, code is 100
 Main thread terminating.
 
-As the output shows, the value 100 is passed to Abort( ). This value is then accessed
+As the output shows, the value 100 is passed to Abort(). This value is then accessed
 through the ExceptionState property of the ThreadAbortException caught by the thread
 when it is terminated.
 

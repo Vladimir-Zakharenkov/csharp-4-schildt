@@ -125,7 +125,7 @@ This is executed.
 10 > 9 is True
 
 There are three interesting things to notice about this program. First, as you can see,
-when a bool value is output by WriteLine( ), “True” or “False” is displayed. Second, the
+when a bool value is output by WriteLine(), “True” or “False” is displayed. Second, the
 value of a bool variable is sufficient, by itself, to control the if statement. There is no need
 to write an if statement like this:
 

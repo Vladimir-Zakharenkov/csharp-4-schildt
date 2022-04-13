@@ -151,7 +151,7 @@ In the query, pay special attention to the select clause:
 select Math.Sqrt(n);
 
 It returns the square root of the range variable. It does this by obtaining the result of passing
-the range variable to Math.Sqrt( ), which returns the square root of its argument. This means
+the range variable to Math.Sqrt(), which returns the square root of its argument. This means
 that the sequence obtained when the query is executed will contain the square roots of the
 positive values in nums. If you generalize this concept, the power of select becomes apparent.
 You can use select to generate any type of sequence you need, based on the values obtained

@@ -289,7 +289,7 @@ legacy C# code. In some cases, it will be safe. In others, it will need to be ch
 problems.
 
 The following program demonstrates synchronization by controlling access to a method
-called SumIt( ), which sums the elements of an integer array:
+called SumIt(), which sums the elements of an integer array:
 
 */
 
@@ -405,12 +405,12 @@ Finally, the class Sync creates two threads and has them compute the sum of an i
 Inside SumIt(), the lock statement prevents simultaneous use of the method by
 different threads. Notice that lock uses lockOn as the object being synchronized. This is a
 private object that is used solely for synchronization. Sleep() is called to purposely allow
-a task-switch to occur, if one can—but it can’t in this case. Because the code within SumIt( )
+a task-switch to occur, if one can—but it can’t in this case. Because the code within SumIt()
 is locked, it can be used by only one thread at a time. Thus, when the second child thread
 begins execution, it does not enter SumIt() until after the first child thread is done with it.
 This ensures the correct result is produced.
 
-To understand the effects of lock fully, try removing it from the body of SumIt( ). After
+To understand the effects of lock fully, try removing it from the body of SumIt(). After
 doing this, SumIt() is no longer synchronized, and any number of threads can use it
 concurrently on the same object. The problem with this is that the running total is stored in
 sum, which will be changed by each thread that calls SumIt(). Thus, when two threads call
@@ -435,7 +435,7 @@ Child #1 terminating.
 Sum for Child #2 is 29
 Child #2 terminating.
 
-As the output shows, both child threads are using SumIt( ) at the same time on the same
+As the output shows, both child threads are using SumIt() at the same time on the same
 object, and the value of sum is corrupted.
 
 The effects of lock are summarized here:

@@ -186,8 +186,8 @@ threads are suspended, waiting for each other, and neither executes. This situat
 analogous to two overly polite people both insisting that the other step through a door first!
 
 Avoiding deadlock seems easy, but it’s not. For example, deadlock can occur in roundabout
-ways. Consider the TickTock class. As explained, if a final Pulse( ) is not executed by Tick( ) or
-Tock( ), then one or the other will be waiting indefinitely and the program is deadlocked.
+ways. Consider the TickTock class. As explained, if a final Pulse() is not executed by Tick() or
+Tock(), then one or the other will be waiting indefinitely and the program is deadlocked.
 Often the cause of the deadlock is not readily understood simply by looking at the source code
 to the program, because concurrently executing threads can interact in complex ways at
 runtime. To avoid deadlock, careful programming and thorough testing is required. In general,

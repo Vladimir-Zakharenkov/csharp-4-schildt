@@ -189,7 +189,7 @@ orderby             OrderBy(keySelector) or OrderByDescending(keySelector)
 join                Join(inner, outerKeySelector, innerKeySelector, resultSelector)
 group               GroupBy(keySelector)
 
-Except for Join( ), these query methods take one argument, which is an object of some
+Except for Join(), these query methods take one argument, which is an object of some
 form of the generic type Func<T, TResult>. This is a built-in delegate type that is declared
 like this:
 
@@ -264,7 +264,7 @@ In the program, pay special attention to this line:
 var posNums = nums.Where(n => n > 0).Select(r => r);
 
 This creates a query called posNums that creates a sequence of the positive values in nums.
-It does this by use of the Where() method (to filter the values) and Select( ) (to select the
+It does this by use of the Where() method (to filter the values) and Select() (to select the
 values). The Where() method can be invoked on nums because all arrays implement
 IEnumerable<T>, which supports the query extension methods.
 

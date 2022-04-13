@@ -237,7 +237,7 @@ Tock
 Tock
 Clock Stopped
 
-Clearly, the Tick( ) and Tock( ) methods are no longer synchronized!
+Clearly, the Tick() and Tock() methods are no longer synchronized!
 
 */
 

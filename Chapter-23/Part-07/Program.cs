@@ -140,16 +140,16 @@ class JoinThread
 
 /*
 
-Another way to wait for a thread to finish is to call Join( ). Its simplest form is shown here:
+Another way to wait for a thread to finish is to call Join(). Its simplest form is shown here:
 
 public void Join()
 
-Join( ) waits until the thread on which it is called terminates. Its name comes from the concept
+Join() waits until the thread on which it is called terminates. Its name comes from the concept
 of the calling thread waiting until the specified thread joins it. A ThreadStateException will be
-thrown if the thread has not been started. Additional forms of Join( ) allow you to specify a
+thrown if the thread has not been started. Additional forms of Join() allow you to specify a
 maximum amount of time that you want to wait for the specified thread to terminate.
 
-Here is a program that uses Join( ) to ensure that the main thread is the last to stop:
+Here is a program that uses Join() to ensure that the main thread is the last to stop:
 
 */
 

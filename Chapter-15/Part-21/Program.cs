@@ -230,7 +230,7 @@ used to pass a keystroke to an event handler. Next, a delegate called KeyHandler
 the event handler for keystroke events. The class KeyEvent encapsulates the keypress event.
 It defines the event KeyPress.
 
-In Main( ), a KeyEvent object called kevt is created. Next, an event handler based on
+In Main(), a KeyEvent object called kevt is created. Next, an event handler based on
 a lambda expression is added to kvet.KeyPress that displays each key as it is entered, as
 shown here:
 
@@ -241,9 +241,9 @@ following code. It counts the number of keypresses.
 
 kevt.KeyPress += (sender, e) => count++; // count is an outer variable
 
-Notice that count is a local variable declared in Main( ) that is initialized to zero.
+Notice that count is a local variable declared in Main() that is initialized to zero.
 
-Next, a loop is started that calls kevt.OnKeyPress( ) when a key is pressed. This causes
+Next, a loop is started that calls kevt.OnKeyPress() when a key is pressed. This causes
 the registered event handlers to be notified. When the loop ends, the number of keypresses
 is displayed. Although quite simple, this example illustrates the essence of event handling.
 The same basic approach will be used for other event handling situations. Of course, in

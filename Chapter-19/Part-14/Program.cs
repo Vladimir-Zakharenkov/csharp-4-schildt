@@ -114,7 +114,7 @@ class IntoDemo
 /*
 
 In this version, the index of the last occurrence of a period is assigned to idx. This value
-is then used by Substring( ). This prevents the search for the period from having to be
+is then used by Substring(). This prevents the search for the period from having to be
 conducted twice.
 
 */

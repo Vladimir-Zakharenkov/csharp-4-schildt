@@ -101,7 +101,7 @@ The output is shown here:
 hsNameB.net
 hsNameC.net
 
-Notice that the program makes use of one of string’s methods called EndsWith( ) within the
+Notice that the program makes use of one of string’s methods called EndsWith() within the
 where clause. It returns true if the invoking string ends with the character sequence specified
 as an argument.
 

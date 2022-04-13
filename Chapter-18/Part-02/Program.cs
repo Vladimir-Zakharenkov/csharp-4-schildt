@@ -339,7 +339,7 @@ return ob;
 
 Because ob is also of type T, its type is compatible with the return type specified by GetOb().
 
-The ShowType( ) method displays the type of T by passing T to the typeof operator.
+The ShowType() method displays the type of T by passing T to the typeof operator.
 Because a real type will be substituted for T when an object of type Gen is created, typeof
 will obtain type information about the actual type.
 
@@ -351,7 +351,7 @@ Gen<int> iOb;
 Look closely at this declaration. First, notice that the type int is specified within the angle
 brackets after Gen. In this case, int is a type argument that is bound to Gen’s type parameter,
 T. This creates a version of Gen in which all uses of T are replaced by int. Thus, for this
-declaration, ob is of type int, and the return type of GetOb( ) is of type int.
+declaration, ob is of type int, and the return type of GetOb() is of type int.
 
 The next line assigns to iOb a reference to an instance of an int version of the Gen class:
 
@@ -374,8 +374,8 @@ the following line:
 
 int v = iOb.GetOb();
 
-Because the return type of GetOb( ) is T, which was replaced by int when iOb was declared,
-the return type of GetOb( ) is also int. Thus, this value can be assigned to an int variable.
+Because the return type of GetOb() is T, which was replaced by int when iOb was declared,
+the return type of GetOb() is also int. Thus, this value can be assigned to an int variable.
 
 Next, GenericsDemo declares an object of type Gen<string>:
 

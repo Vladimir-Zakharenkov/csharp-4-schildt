@@ -225,7 +225,7 @@ on the contents of a stream, including a FileStream or MemoryStream. This situat
 perfect for generics, but you need some way to ensure that only stream types are used as
 type arguments. You don’t want to allow a type argument of int, for example. You also need
 some way to tell the compiler that the methods defined by a stream will be available for use.
-For example, your generic code needs some way to know that it can call the Read( ) method.
+For example, your generic code needs some way to know that it can call the Read() method.
 
 To handle such situations, C# provides constrained types. When specifying a type parameter,
 you can specify a constraint that the type parameter must satisfy. This is accomplished through

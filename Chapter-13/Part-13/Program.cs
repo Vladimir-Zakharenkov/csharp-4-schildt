@@ -210,10 +210,10 @@ NullReferenceException!
 fixing...
 val is 19
 
-The program creates a class called X that defines a member called x and the Add( )
+The program creates a class called X that defines a member called x and the Add()
 method, which adds the invoking object’s x to the x in the object passed as a parameter. In
-Main( ), two X objects are created. The first, p, is initialized. The second, q, is not. Instead, it
-is explicitly assigned null. Then p.Add( ) is called with q as an argument. Because q does
+Main(), two X objects are created. The first, p, is initialized. The second, q, is not. Instead, it
+is explicitly assigned null. Then p.Add() is called with q as an argument. Because q does
 not refer to any object, a NullReferenceException is generated when the attempt is made to
 obtain the value of q.x.
 

@@ -157,7 +157,7 @@ cancellation subsystem is used. For example, a debugger may need to stop a threa
 run wild. Once a thread has been terminated, it is removed from the system and cannot be
 restarted.
 
-To terminate a thread prior to its normal conclusion, use Thread.Abort( ). Its simplest
+To terminate a thread prior to its normal conclusion, use Thread.Abort(). Its simplest
 form is shown here:
 
 public void Abort()
@@ -166,7 +166,7 @@ Abort() causes a ThreadAbortException to be thrown to the thread on which Abort(
 called. This exception causes the thread to terminate. This exception can also be caught by
 your code (but is automatically rethrown in order to stop the thread). Abort() may not
 always be able to stop a thread immediately, so if it is important that a thread be stopped
-before your program continues, you will need to follow a call to Abort() with a call to Join( ).
+before your program continues, you will need to follow a call to Abort() with a call to Join().
 Also, in rare cases, it is possible that Abort() won’t be able to stop a thread. One way this
 could happen is if a finally block goes into an infinite loop.
 

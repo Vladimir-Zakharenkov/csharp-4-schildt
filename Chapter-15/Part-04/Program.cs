@@ -252,9 +252,9 @@ Reversing string.
 Removing spaces.
 Resulting string: .tsetasisihT
 
-In Main( ), four delegate instances are created. One, strOp, is null. The other three refer to
-specific string modification methods. Next, a multicast is created that calls RemoveSpaces( )
-and Reverse( ). This is accomplished via the following lines:
+In Main(), four delegate instances are created. One, strOp, is null. The other three refer to
+specific string modification methods. Next, a multicast is created that calls RemoveSpaces()
+and Reverse(). This is accomplished via the following lines:
 
 strOp = replaceSp;
 strOp += reverseStr;

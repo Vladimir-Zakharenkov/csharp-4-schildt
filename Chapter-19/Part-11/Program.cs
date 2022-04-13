@@ -225,13 +225,13 @@ var webAddrs = from addr in websites
 where addr.LastIndexOf('.') != -1
 group addr by addr.Substring(addr.LastIndexOf('.'));
 
-The key is obtained by use of the LastIndexOf( ) and Substring( ) methods defined by string.
-(These are described in Chapter 7. The version of Substring( ) used here returns the substring
+The key is obtained by use of the LastIndexOf() and Substring() methods defined by string.
+(These are described in Chapter 7. The version of Substring() used here returns the substring
 that starts at the specified index and runs to the end of the invoking string.) The index of the
-last period in a website name is found using LastIndexOf( ). Using this index, the Substring( )
+last period in a website name is found using LastIndexOf(). Using this index, the Substring()
 method obtains the remainder of the string, which is the part of the website name that
 contains the top-level domain name. One other point: Notice the use of the where clause to
-filter out any strings that don’t contain a period. The LastIndexOf( ) method returns –1 if
+filter out any strings that don’t contain a period. The LastIndexOf() method returns –1 if
 the specified string is not contained in the invoking string.
 
 Because the sequence obtained when webAddrs is executed is a list of groups, you will

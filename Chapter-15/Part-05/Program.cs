@@ -220,13 +220,13 @@ ChangeIt is declared like this:
 
 delegate X ChangeIt(Y obj);
 
-ChangeIt returns X and has a Y parameter. Next, notice that the methods IncrA( ) and
-IncrB( ) are declared as shown here:
+ChangeIt returns X and has a Y parameter. Next, notice that the methods IncrA() and
+IncrB() are declared as shown here:
 
 static X IncrA(X obj)
 static Y IncrB(Y obj)
 
-The IncrA( ) method has an X parameter and returns X. The IncrB( ) method has a Y
+The IncrA() method has an X parameter and returns X. The IncrB() method has a Y
 parameter and returns Y. Given covariance and contravariance, either of these methods
 can be passed to ChangeIt, as the program illustrates.
 
@@ -234,7 +234,7 @@ Therefore, this line
 
 ChangeIt change = IncrA;
 
-uses contravariance to enable IncrA( ) to be passed to the delegate because IncrA( ) has an X
+uses contravariance to enable IncrA() to be passed to the delegate because IncrA() has an X
 parameter, but the delegate has a Y parameter. This works because, with contravariance, if
 the parameter type of the method passed to a delegate is a base class of the parameter type
 used by the delegate, then the method and the delegate are compatible.
@@ -243,7 +243,7 @@ The next line is also legal, but this time it is because of covariance:
 
 change = IncrB;
 
-In this case, the return type of IncrB( ) is Y, but the return type of ChangeIt is X. However,
+In this case, the return type of IncrB() is Y, but the return type of ChangeIt is X. However,
 because the return type of the method is a class derived from the return type of the delegate,
 the two are compatible.
 

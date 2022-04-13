@@ -512,7 +512,7 @@ simply let the Exception constructors handle the process. There is no requiremen
 derived class add anything to what is inherited from Exception.
 
 Before moving on, you might want to experiment with this program a bit. For example,
-try commenting-out the override of ToString( ) and observe the results. Also, try creating an
+try commenting-out the override of ToString() and observe the results. Also, try creating an
 exception using the default constructor, and observe what C# generates as its default message.
 
 */

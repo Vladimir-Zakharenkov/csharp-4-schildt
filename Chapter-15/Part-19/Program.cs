@@ -265,10 +265,10 @@ In this example, MyEventArgs is derived from EventArgs. MyEventArgs adds just on
 field of its own: EventNum. The event handler delegate MyEventHandler now takes the
 two parameters required by the .NET Framework. As explained, the first is an object
 reference to the generator of the event. The second is a reference to EventArgs or a class
-derived from EventArgs. The event handler in the X and Y classes, Handler( ), also has the
+derived from EventArgs. The event handler in the X and Y classes, Handler(), also has the
 same types of parameters.
 
-Inside MyEvent, a MyEventHandler called SomeEvent is declared. In the OnSomeEvent( )
+Inside MyEvent, a MyEventHandler called SomeEvent is declared. In the OnSomeEvent()
 method, SomeEvent is called with the first argument being this, and the second argument
 being a MyEventArgs instance. Thus, the proper arguments are passed to MyEventHandler
 to fulfill the requirements for .NET compatibility.

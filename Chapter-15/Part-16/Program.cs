@@ -133,8 +133,8 @@ The output from this program is shown here:
 
 Event received by class.
 
-In the program, notice that no object of type X is ever created. However, since Xhandler( ) is
-a static method of X, it can be attached to SomeEvent and executed when OnSomeEvent( )
+In the program, notice that no object of type X is ever created. However, since Xhandler() is
+a static method of X, it can be attached to SomeEvent and executed when OnSomeEvent()
 is called.
 
 */

@@ -68,7 +68,7 @@ class ExtMethods2
 /*
 
 You can also use the query-related extension methods within a query based on the C#
-query syntax. In fact, it is quite common to do so. For example, this program uses Average( )
+query syntax. In fact, it is quite common to do so. For example, this program uses Average()
 to obtain a sequence that contains only those values that are less than the average of the
 values in an array.
 

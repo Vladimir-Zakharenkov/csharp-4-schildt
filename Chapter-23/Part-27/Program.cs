@@ -136,14 +136,14 @@ message was received. It returns false if the application was not a GUI app, or 
 have a main window. Furthermore, CloseMainWindow() is only a request to shut down.
 If the application ignores the request, the application will not be terminated.
 
-To positively terminate a process, call Kill( ), as shown here:
+To positively terminate a process, call Kill(), as shown here:
 
 public void Kill()
 
 Use Kill() carefully. It causes an uncontrolled termination of the process. Any unsaved data
 associated with the process will most likely be lost.
 
-You can wait for a process to end by calling WaitForExit( ). Its two forms are shown here:
+You can wait for a process to end by calling WaitForExit(). Its two forms are shown here:
 
 public void WaitForExit()
 public bool WaitForExit(int milliseconds)

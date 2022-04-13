@@ -463,7 +463,7 @@ As the output shows, access to SharedRes.Count is synchronized, with only one th
 time being able to change its value.
 
 To prove that the Mtx mutex was needed to produce the preceding output, try
-commenting out the calls to WaitOne( ) and ReleaseMutex( ) in the preceding program.
+commenting out the calls to WaitOne() and ReleaseMutex() in the preceding program.
 When you run the program, you will see the following sequence (the actual output you see
 may vary):
 

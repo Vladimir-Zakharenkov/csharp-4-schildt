@@ -250,16 +250,16 @@ method. Therefore, when the expression
 
 val.AbsDivideBy(-2)
 
-executes, val is passed to the n parameter of AbsDivideBy( ) and –2 is passed to the
+executes, val is passed to the n parameter of AbsDivideBy() and –2 is passed to the
 d parameter.
 
-As a point of interest, because the methods Reciprocal( ) and AbsDivideBy( ) are
+As a point of interest, because the methods Reciprocal() and AbsDivideBy() are
 defined for double, it is legal to invoke them on a double literal, as shown here:
 
 8.0.Reciprocal()
 8.0.AbsDivideBy(-1)
 
-Furthermore, RevCase( ) can be invoked like this:
+Furthermore, RevCase() can be invoked like this:
 
 "AbCDe".RevCase()
 

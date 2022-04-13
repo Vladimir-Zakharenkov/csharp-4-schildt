@@ -65,7 +65,7 @@ Although the syntax errors reported by the compiler are, obviously, helpful, the
 sometimes can also be misleading. The C# compiler attempts to make sense out of your
 source code no matter what you have written. For this reason, the error that is reported
 may not always reflect the actual cause of the problem. In the preceding program, for
-example, an accidental omission of the opening curly brace after the Main( ) method
+example, an accidental omission of the opening curly brace after the Main() method
 generates the following sequence of errors when compiled by the csc command-line
 compiler. (Similar errors are generated when compiling using the IDE.)
 

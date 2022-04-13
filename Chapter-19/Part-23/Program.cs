@@ -118,7 +118,7 @@ database that uses SQL. By representing the query as data, the query can be conv
 format understood by the database. This process is used by the LINQ to SQL feature provided
 by Visual C#, for example. Thus, expression trees help C# support a variety of data sources.
 
-You can obtain an executable form of an expression tree by calling the Compile( )
+You can obtain an executable form of an expression tree by calling the Compile()
 method defined by Expression. It returns a reference that can be assigned to a delegate and
 then executed. You can declare your own delegate type or use one of the predefined Func
 delegate types defined within the System namespace. Two forms of the Func delegate were

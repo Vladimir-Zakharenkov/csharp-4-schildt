@@ -302,7 +302,7 @@ Tick Tock
 Tick Tock
 Clock Stopped
 
-Let’s take a close look at this program. In Main( ), a TickTock object called tt is created,
+Let’s take a close look at this program. In Main(), a TickTock object called tt is created,
 and this object is used to start two threads of execution. Inside the Run() method of
 MyThread, if the name of the thread is “Tick,” calls to Tick() are made. If the name of the
 thread is “Tock,” the Tock() method is called. Five calls that pass true as an argument are
@@ -335,8 +335,8 @@ another thread calls Pulse(). Thus, when Tick() is called, it displays one “Ti
 thread run, and then suspends.
 
 The Tock() method is an exact copy of Tick(), except that it displays “Tock.” Thus,
-when entered, it displays “Tock,” calls Pulse( ), and then waits. When viewed as a pair, a
-call to Tick() can be followed only by a call to Tock( ), which can be followed only by a call
+when entered, it displays “Tock,” calls Pulse(), and then waits. When viewed as a pair, a
+call to Tick() can be followed only by a call to Tock(), which can be followed only by a call
 to Tick(), and so on. Therefore, the two methods are mutually synchronized.
 
 The reason for the call to Pulse() when the clock is stopped is to allow a final call to Wait()

@@ -57,7 +57,7 @@ public static void PulseAll(object obj)
 
 /*
 
-Thread Communication Using Wait( ), Pulse( ), and PulseAll( )
+Thread Communication Using Wait(), Pulse(), and PulseAll()
 
 Consider the following situation. A thread called T is executing inside a lock block and needs
 access to a resource, called R, that is temporarily unavailable. What should T do? If T enters
@@ -79,7 +79,7 @@ same lock and calls Pulse() or PulseAll(). A call to Pulse() resumes the first t
 queue of threads waiting for the lock. A call to PulseAll() signals the release of the lock to
 all waiting threads.
 
-Here are two commonly used forms of Wait( ):
+Here are two commonly used forms of Wait():
 
 public static bool Wait(object obj)
 public static bool Wait(object obj, int millisecondsTimeout)
@@ -93,7 +93,7 @@ public static void PulseAll(object obj)
 
 Here, obj is the object being released.
 
-A SynchronizationLockException will be thrown if Wait( ), Pulse( ), or PulseAll( ) is
+A SynchronizationLockException will be thrown if Wait(), Pulse(), or PulseAll() is
 called from code that is not within synchronized code, such as a lock block.
 
 */

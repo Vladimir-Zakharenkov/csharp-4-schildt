@@ -295,11 +295,11 @@ Event Thread 2 Done!
 Main thread received second event.
 
 First, notice that MyThread is passed a ManualResetEvent in its constructor. When
-MyThread’s Run( ) method finishes, it calls Set() on that event object, which puts the
+MyThread’s Run() method finishes, it calls Set() on that event object, which puts the
 event object into a signaled state. Inside Main(), a ManualResetEvent called evtObj is
 created with an initially unsignaled state. Then, a MyThread instance is created and passed
 evtObj. Next, the main thread waits on the event object. Because the initial state of evtObj
-is not signaled, this causes the main thread to wait until the instance of MyThread calls Set( ),
+is not signaled, this causes the main thread to wait until the instance of MyThread calls Set(),
 which puts evtObj into a signaled state. This allows the main thread to run again. Then the
 event is reset and the process is repeated for the second thread. Without the use of the event
 object, all threads would have run simultaneously and their output would have been jumbled.
@@ -309,7 +309,7 @@ In the preceding program, if an AutoResetEvent object rather than a ManualResetE
 object were used, then the call to Reset() in Main() would not be necessary. The reason is that
 the event is automatically set to a non-signaled state when a thread waiting on the event is
 resumed. To try this, simply change all references to ManualResetEvent to AutoResetEvent
-and remove the calls to Reset( ). This version will execute the same as before.
+and remove the calls to Reset(). This version will execute the same as before.
 
 */
 

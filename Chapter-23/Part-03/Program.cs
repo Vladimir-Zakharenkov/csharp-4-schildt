@@ -204,14 +204,14 @@ public delegate void ThreadStart()
 
 Thus, your entry point method must have a void return type and take no arguments.
 
-Once created, the new thread will not start running until you call its Start( ) method,
-which is defined by Thread. The Start( ) method has two forms. The one used here is
+Once created, the new thread will not start running until you call its Start() method,
+which is defined by Thread. The Start() method has two forms. The one used here is
 
 public void Start()
 
 Once started, the thread will run until the entry point method returns. Thus, when the
 thread’s entry point method returns, the thread automatically stops. If you try to call
-Start( ) on a thread that has already been started, a ThreadStateException will be thrown.
+Start() on a thread that has already been started, a ThreadStateException will be thrown.
 
 Here is an example that creates a new thread and starts it running:
 
@@ -280,8 +280,8 @@ Here is an example that creates a new thread and starts it running:
 /*
 
 Let’s look closely at this program. MyThread defines a class that will be used to create a
-second thread of execution. Inside its Run( ) method, a loop is established that counts from
-0 to 9. Notice the call to Sleep( ), which is a static method defined by Thread. The Sleep( )
+second thread of execution. Inside its Run() method, a loop is established that counts from
+0 to 9. Notice the call to Sleep(), which is a static method defined by Thread. The Sleep()
 method causes the thread from which it is called to suspend execution for the specified
 period of milliseconds. The form used by the program is shown here:
 
@@ -290,7 +290,7 @@ public static void Sleep(int millisecondsTimeout)
 The number of milliseconds to suspend is specified in millisecondsTimeout. If millisecondsTimeout
 is zero, the calling thread is suspended only to allow a waiting thread to execute.
 
-Inside Main( ), a new Thread object is created by the following sequence of statements:
+Inside Main(), a new Thread object is created by the following sequence of statements:
 
 // First, construct a MyThread object.
 MyThread mt = new MyThread("Child #1");
@@ -302,10 +302,10 @@ Thread newThrd = new Thread(mt.Run);
 newThrd.Start();
 
 As the comments suggest, first an object of MyThread is created. This object is then used
-to construct a Thread object by passing the mt.Run( ) method as the entry point. Finally,
-execution of the new thread is started by calling Start( ). This causes mt.Run( ) to begin
-executing in its own thread. After calling Start( ), execution of the main thread returns to
-Main( ), and it enters Main( )’s do loop. Both threads continue running, sharing the CPU,
+to construct a Thread object by passing the mt.Run() method as the entry point. Finally,
+execution of the new thread is started by calling Start(). This causes mt.Run() to begin
+executing in its own thread. After calling Start(), execution of the main thread returns to
+Main(), and it enters Main()’s do loop. Both threads continue running, sharing the CPU,
 until their loops finish. The output produced by this program is as follows. (The precise
 output that you see may vary slightly because of differences in your execution environment,
 operating system, and task load.)
@@ -330,8 +330,8 @@ to finish running. Technically, a program continues to run until all of its fore
 have finished. Thus, having the main thread finish last is not a requirement. It is, however,
 good practice to follow because it clearly defines your program’s endpoint. The preceding
 program tries to ensure that the main thread will finish last by checking the value of Count
-within Main( )’s do loop, stopping when Count equals 10, and through the use of calls to
-Sleep( ). However, this is an imperfect approach. Later in this chapter, you will see better
+within Main()’s do loop, stopping when Count equals 10, and through the use of calls to
+Sleep(). However, this is an imperfect approach. Later in this chapter, you will see better
 ways for one thread to wait until another finishes.
 
 */

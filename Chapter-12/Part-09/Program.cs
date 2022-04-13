@@ -132,7 +132,7 @@ for all the members defined within the interface inheritance chain. Here is an e
 
 /*
 
-As an experiment, you might try removing the implementation for Meth1( ) in MyClass.
+As an experiment, you might try removing the implementation for Meth1() in MyClass.
 This will cause a compile-time error. As stated earlier, any class that implements an interface
 must implement all methods defined by that interface, including any that are inherited from
 other interfaces.

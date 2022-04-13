@@ -105,7 +105,7 @@ One of the more powerful features of select is its ability to return a sequence 
 elements created during the execution of the query. For example, consider the following
 program. It defines a class called ContactInfo, which stores a name, e-mail address, and
 telephone number. It also defines the EmailAddress class used by the preceding example.
-Inside Main( ), an array of ContactInfo is created. Then, a query is declared in which the
+Inside Main(), an array of ContactInfo is created. Then, a query is declared in which the
 data source is an array of ContactInfo, but the sequence returned contains EmailAddress
 objects. Thus, the type of the sequence returned by select is not ContactInfo, but rather
 EmailAddress, and these objects are created during the execution of the query.

@@ -129,7 +129,7 @@ class ResetAbort
 Canceling Abort()
 
 A thread can override a request to abort. To do so, the thread must catch the
-ThreadAbortException and then call ResetAbort( ). This prevents the exception
+ThreadAbortException and then call ResetAbort(). This prevents the exception
 from being automatically rethrown when the thread’s exception handler ends.
 ResetAbort() is declared like this:
 
@@ -234,7 +234,7 @@ Thread aborting, code is 100
 Main thread terminating.
 
 In this example, if Abort() is called with an argument that equals zero, then the abort
-request is cancelled by the thread by calling ResetAbort( ), and the thread’s execution
+request is cancelled by the thread by calling ResetAbort(), and the thread’s execution
 continues. Any other value causes the thread to stop.
 
 

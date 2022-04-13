@@ -144,7 +144,7 @@ select new Temp(item.Name, entry.InStock);
 
 This query produces a sequence that contains objects that encapsulate the name and the instock
 status of an inventory item. This information is synthesized from joining the two lists
-items and statusList. The following version reworks this query so that it uses the Join( )
+items and statusList. The following version reworks this query so that it uses the Join()
 method rather than the C# query syntax:
 
 // Use Join() to produce a list of item names and status.

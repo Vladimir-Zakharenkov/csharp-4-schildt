@@ -145,7 +145,7 @@ when the thread was started because the method that serves as the entry point to
 could not have a parameter. If information needed to be passed to a thread, various
 workarounds (such as using a shared variable) were required. However, this deficiency was
 subsequently remedied, and today it is possible to pass an argument to a thread. To do so,
-you must use different forms of Start( ), the Thread constructor, and the entry point method.
+you must use different forms of Start(), the Thread constructor, and the entry point method.
 
 An argument is passed to a thread through this version of Start():
 

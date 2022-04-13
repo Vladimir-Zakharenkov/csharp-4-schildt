@@ -143,7 +143,7 @@ System.Threading.Tasks.
 Creating a Task
 
 There are various ways to create a new Task and start its execution. We will begin by first
-creating a Task using a constructor and then starting it by calling the Start( ) method. Task
+creating a Task using a constructor and then starting it by calling the Start() method. Task
 defines several constructors. Here is the one we will be using:
 
 public Task(Action action)
@@ -156,7 +156,7 @@ public delegate void Action()
 Thus, the entry point must be a method that takes no parameters and returns void. (As you
 will see later, it is possible to specify an argument to Action.)
 
-Once a task has been created, you can start it by calling Start( ). One version is shown here:
+Once a task has been created, you can start it by calling Start(). One version is shown here:
 
 public void Start()
 

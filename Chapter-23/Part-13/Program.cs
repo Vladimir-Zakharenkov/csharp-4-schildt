@@ -48,18 +48,18 @@ The Monitor Class and lock
 The C# keyword lock is really just shorthand for using the synchronization features defined
 by the Monitor class, which is defined in the System.Threading namespace. Monitor
 defines several methods that control or manage synchronization. For example, to obtain a
-lock on an object, call Enter( ). To release a lock, call Exit( ). The simplest form of Enter( ) is
-shown here, along with the Exit( ) method:
+lock on an object, call Enter(). To release a lock, call Exit(). The simplest form of Enter() is
+shown here, along with the Exit() method:
 
 public static void Enter(object obj)
 public static void Exit(object obj)
 
-Here, obj is the object being synchronized. If the object is not available when Enter( ) is called,
-the calling thread will wait until it becomes available. You will seldom use Enter( ) or Exit( ),
+Here, obj is the object being synchronized. If the object is not available when Enter() is called,
+the calling thread will wait until it becomes available. You will seldom use Enter() or Exit(),
 however, because a lock block automatically provides the equivalent. For this reason, lock is
 the preferred method of obtaining a lock on an object when programming in C#.
 
-One method in Monitor that you may find useful on occasion is TryEnter( ). One of its
+One method in Monitor that you may find useful on occasion is TryEnter(). One of its
 forms is shown here:
 
 public static bool TryEnter(object obj)
@@ -68,7 +68,7 @@ It returns true if the calling thread obtains a lock on obj and false if it does
 does the calling thread wait. You could use this method to implement an alternative if the
 desired object is unavailable.
 
-Monitor also defines these three methods: Wait( ), Pulse( ), and PulseAll( ). They are
+Monitor also defines these three methods: Wait(), Pulse(), and PulseAll(). They are
 described in the next section.
 
 */

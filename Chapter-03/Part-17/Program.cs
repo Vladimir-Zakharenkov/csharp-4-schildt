@@ -93,7 +93,7 @@ Hypotenuse of triangle with sides 4 by 5 is 6.403.
 
 Here, three local variables — s1, s2, and hypot — are declared. The first two, s1 and s2, are
 initialized by constants. However, hypot is initialized dynamically to the length of the
-hypotenuse. Notice that the initialization involves calling Math.Sqrt( ). As explained, you can
+hypotenuse. Notice that the initialization involves calling Math.Sqrt(). As explained, you can
 use any expression that is valid at the point of the initialization. Since a call to Math.Sqrt()
 (or any other library method) is valid at this point, it can be used in the initialization of
 hypot. The key point here is that the initialization expression can use any element valid

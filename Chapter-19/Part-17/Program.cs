@@ -167,7 +167,7 @@ types have been covered, an example of a simple group join can be given.
 The following example uses a group join to create a list in which various transports, such
 as cars, boats, and planes, are organized by their general transportation category, which is
 land, sea, or air. The program first creates a class called Transport that links a transport type
-with its classification. Inside Main( ), it creates two input sequences. The first is an array of
+with its classification. Inside Main(), it creates two input sequences. The first is an array of
 strings that contains the names of the general means by which one travels, which are land,
 sea, and air. The second is an array of Transport, which encapsulates various means of
 transportation. It then uses a group join to produce a list of transports that are organized

@@ -69,7 +69,7 @@ class ByTwos : ISeries
 
 It is both permissible and common for classes that implement interfaces to define
 additional members of their own. For example, the following version of ByTwos adds
-the method GetPrevious( ), which returns the previous value:
+the method GetPrevious(), which returns the previous value:
 
 */
 

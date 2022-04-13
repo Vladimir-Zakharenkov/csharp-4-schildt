@@ -92,7 +92,7 @@ class ScopeDemo
 
 The Scope and Lifetime of Variables
 
-So far, all of the variables that we have been using are declared at the start of the Main( )
+So far, all of the variables that we have been using are declared at the start of the Main()
 method. However, C# allows a local variable to be declared within any block. As explained
 in Chapter 1, a block begins with an opening curly brace and ends with a closing curly
 brace. A block defines a scope. Thus, each time you start a new block, you are creating a new
@@ -152,8 +152,8 @@ To understand the effect of nested scopes, consider the following program:
 
 /*
 
-As the comments indicate, the variable x is declared at the start of Main( )’s scope and is
-accessible to all subsequent code within Main( ). Within the if block, y is declared. Since a
+As the comments indicate, the variable x is declared at the start of Main()’s scope and is
+accessible to all subsequent code within Main(). Within the if block, y is declared. Since a
 block defines a scope, y is visible only to other code within its block. This is why outside of
 its block, the line y = 100; is commented out. If you remove the leading comment symbol,
 a compile-time error will occur because y is not visible outside of its block. Within the if

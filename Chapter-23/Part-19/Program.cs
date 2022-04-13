@@ -241,7 +241,7 @@ public int Release(int releaseCount)
 The first form releases one permit. The second form releases the number of permits
 specified by releaseCount. Both return the permit count that existed prior to the release.
 
-It is possible for a thread to call WaitOne() more than once before calling Release( ).
+It is possible for a thread to call WaitOne() more than once before calling Release().
 However, the number of calls to WaitOne() must be balanced by the same number of calls
 to Release() before the permit is released. Alternatively, you can call the Release(int) form,
 passing a number equal to the number of times that WaitOne() was called.
@@ -324,9 +324,9 @@ static Semaphore sem = new Semaphore(2, 2);
 This creates a semaphore that can grant up to two permits and that initially has both
 permits available.
 
-In MyThread.Run( ), notice that execution cannot continue until a permit is granted by
+In MyThread.Run(), notice that execution cannot continue until a permit is granted by
 the semaphore, sem. If no permits are available, then execution of that thread suspends.
-When a permit does become available, execution resumes and the thread can run. In Main( ),
+When a permit does become available, execution resumes and the thread can run. In Main(),
 three MyThread threads are created. However, only the first two get to execute. The third
 must wait until one of the other threads terminates. The output, shown here, verifies this.
 (The actual output you see may vary slightly.)

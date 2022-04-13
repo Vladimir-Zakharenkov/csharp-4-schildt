@@ -125,9 +125,9 @@ destroyed.
 The capturing of a local variable can lead to unexpected results. For example, consider
 this version of the counting program. As in the previous version, the summation of the
 count is computed. However, in this version, a CountIt object is constructed and returned
-by a static method called Counter( ). This object uses the variable sum, which is declared in
-the enclosing scope provided by Counter( ), rather than in the anonymous method, itself.
-Thus, sum is captured by the anonymous method. Inside Main( ), Counter( ) is called to
+by a static method called Counter(). This object uses the variable sum, which is declared in
+the enclosing scope provided by Counter(), rather than in the anonymous method, itself.
+Thus, sum is captured by the anonymous method. Inside Main(), Counter() is called to
 obtain a CountIt object. Thus, sum will not be destroyed until the program finishes.
 
 */

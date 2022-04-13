@@ -143,9 +143,9 @@ nature of the error. StackTrace contains a string that contains the stack of cal
 the exception. TargetSite obtains an object that specifies the method that generated the
 exception.
 
-Exception also defines several methods. One that you will often use is ToString( ),
-which returns a string that describes the exception. ToString( ) is automatically called
-when an exception is displayed via WriteLine( ), for example.
+Exception also defines several methods. One that you will often use is ToString(),
+which returns a string that describes the exception. ToString() is automatically called
+when an exception is displayed via WriteLine(), for example.
 The following program demonstrates these properties and this method:
 
 */

@@ -222,7 +222,7 @@ public event MyEventHandler SomeEvent;
 
 Notice the syntax. The keyword event tells the compiler that an event is being declared.
 
-Also declared inside MyEvent is the method OnSomeEvent( ), which is the method a
+Also declared inside MyEvent is the method OnSomeEvent(), which is the method a
 program will call to raise (or “fire”) an event. (That is, this is the method called when the
 event occurs.) It calls an event handler through the SomeEvent delegate, as shown here:
 
@@ -231,13 +231,13 @@ SomeEvent();
 
 Notice that a handler is called if and only if SomeEvent is not null. Since other parts of your
 program must register an interest in an event in order to receive event notifications, it is
-possible that OnSomeEvent( ) could be called before any event handler has been registered.
+possible that OnSomeEvent() could be called before any event handler has been registered.
 To prevent calling on a null reference, the event delegate must be tested to ensure that it is
 not null.
 
-Inside EventDemo, an event handler called Handler( ) is created. In this simple example,
+Inside EventDemo, an event handler called Handler() is created. In this simple example,
 the event handler simply displays a message, but other handlers could perform more
-meaningful actions. In Main( ), a MyEvent object is created, and Handler( ) is registered
+meaningful actions. In Main(), a MyEvent object is created, and Handler() is registered
 as a handler for this event, by adding it as shown here:
 
 MyEvent evt = new MyEvent();
@@ -246,14 +246,14 @@ MyEvent evt = new MyEvent();
 evt.SomeEvent += Handler;
 
 Notice that the handler is added using the += operator. Events support only += and – =. In
-this case, Handler( ) is a static method, but event handlers can also be instance methods.
+this case, Handler() is a static method, but event handlers can also be instance methods.
 
 Finally, the event is raised as shown here:
 
 // Raise the event.
 evt.OnSomeEvent();
 
-Calling OnSomeEvent( ) causes all registered event handlers to be called. In this case, there
+Calling OnSomeEvent() causes all registered event handlers to be called. In this case, there
 is only one registered handler, but there could be more, as the next section explains.
 
 */

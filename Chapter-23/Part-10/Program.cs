@@ -207,7 +207,7 @@ The default priority setting for a thread is ThreadPriority.Normal.
 
 To understand how priorities affect thread execution, we will use an example that
 executes two threads, one having a higher priority than the other. The threads are created as
-instances of the MyThread class. The Run( ) method contains a loop that counts the number
+instances of the MyThread class. The Run() method contains a loop that counts the number
 of iterations. The loop stops when either the count reaches 1,000,000,000 or the static variable
 stop is true. Initially, stop is set to false. The first thread to count to 1,000,000,000 sets stop
 to true. This causes the second thread to terminate with its next time slice. Each time

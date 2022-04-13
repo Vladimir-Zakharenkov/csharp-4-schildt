@@ -137,7 +137,7 @@ return x / 3;
 }
 }
 
-As you can see, when the MyMeth( ) member of IMyIF is implemented, its complete name,
+As you can see, when the MyMeth() member of IMyIF is implemented, its complete name,
 including its interface name, is specified.
 
 There are two reasons that you might need to create an explicit implementation of an
@@ -155,8 +155,8 @@ the names with their interfaces removes the ambiguity from this situation. Letâ€
 example of each.
 
 The following program contains an interface called IEven, which defines two methods,
-IsEven( ) and IsOdd( ), which determine if a number is even or odd. MyClass then implements
-IEven. When it does so, it implements IsOdd( ) explicitly.
+IsEven() and IsOdd(), which determine if a number is even or odd. MyClass then implements
+IEven. When it does so, it implements IsOdd() explicitly.
 */
 
 // Explicitly implement an interface member.
@@ -202,10 +202,10 @@ IEven. When it does so, it implements IsOdd( ) explicitly.
 
 /*
 
-Since IsOdd( ) is implemented explicitly, it is not exposed as a public member of MyClass.
-Instead, IsOdd( ) can be accessed only through an interface reference. This is why it is
+Since IsOdd() is implemented explicitly, it is not exposed as a public member of MyClass.
+Instead, IsOdd() can be accessed only through an interface reference. This is why it is
 invoked through o (which is a reference variable of type IEven) in the implementation for
-IsEven( ).
+IsEven().
 
 */
 

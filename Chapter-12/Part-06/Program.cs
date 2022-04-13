@@ -302,7 +302,7 @@ Next prime number is 11
 Next ByTwos value is 10
 Next prime number is 13
 
-In Main( ), ob is declared to be a reference to an ISeries interface. This means that it can be
+In Main(), ob is declared to be a reference to an ISeries interface. This means that it can be
 used to store references to any object that implements ISeries. In this case, it is used to refer
 to twoOb and primeOb, which are objects of type ByTwos and Primes, respectively, which
 both implement ISeries.

@@ -117,7 +117,7 @@ assigns a method to a delegate. This feature is called method group conversion, 
 you to simply assign the name of a method to a delegate, without using new or explicitly
 invoking the delegate’s constructor.
 
-For example, here is the Main( ) method of the preceding program rewritten to use
+For example, here is the Main() method of the preceding program rewritten to use
 method group conversions:
 
 */
@@ -191,7 +191,7 @@ method group conversions:
 /*
 
 Pay special attention to the way that strOp is created and assigned the method
-ReplaceSpaces( ) in this line:
+ReplaceSpaces() in this line:
 
 StrMod strOp = ReplaceSpaces; // use method group conversion
 

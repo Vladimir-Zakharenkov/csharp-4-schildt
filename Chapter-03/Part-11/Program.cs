@@ -85,7 +85,7 @@ class UseDecimal
 In the preceding examples, no formatting was applied to the values themselves. Of
 course, the purpose of using format specifiers is to control the way the data looks. The types
 of data most commonly formatted are floating-point and decimal values. One of the easiest
-ways to specify a format is to describe a template that WriteLine( ) will use. To do this,
+ways to specify a format is to describe a template that WriteLine() will use. To do this,
 show an example of the format that you want, using #s to mark the digit positions. You can
 also specify the decimal point and commas. For example, here is a better way to display 10
 divided by 3:
@@ -96,8 +96,8 @@ The output from this statement is shown here:
 
 Here is 10/3: 3.33
 
-In this example, the template is #.##, which tells WriteLine( ) to display two decimal places.
-It is important to understand, however, that WriteLine( ) will display more than one digit
+In this example, the template is #.##, which tells WriteLine() to display two decimal places.
+It is important to understand, however, that WriteLine() will display more than one digit
 to the left of the decimal point, if necessary, so as not to misrepresent the value.
 
 Here is another example. This statement

@@ -77,7 +77,7 @@ class DemoTask
 
 In the foregoing example, the task to be concurrently executed is specified by a static
 method. However, there is no requirement to this effect. For example, the following
-program reworks the previous one so that MyTask( ) is encapsulated within a class:
+program reworks the previous one so that MyTask() is encapsulated within a class:
 
 */
 
@@ -131,7 +131,7 @@ program reworks the previous one so that MyTask( ) is encapsulated within a clas
 
 /*
 
-The output is the same as before. The only difference is that MyTask( ) is now called on
+The output is the same as before. The only difference is that MyTask() is now called on
 an instance of MyClass.
 
 One other important point about tasks needs to be made now: once a task completes, it

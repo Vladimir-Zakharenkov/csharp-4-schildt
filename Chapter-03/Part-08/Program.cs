@@ -69,7 +69,7 @@ quotes. For example, this assigns X to the variable ch:
 char ch;
 ch = 'X';
 
-You can output a char value using a WriteLine( ) statement. For example, this line outputs
+You can output a char value using a WriteLine() statement. For example, this line outputs
 the value in ch:
 
 Console.WriteLine("This is ch: " + ch);

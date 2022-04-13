@@ -311,8 +311,8 @@ We will begin with this line:
 
 int v = (int) iOb.GetOb();
 
-Because the return type of GetOb( ) is now object, the cast to int is necessary to enable
-the value returned by GetOb( ) to be unboxed and stored in v. If you remove the cast, the
+Because the return type of GetOb() is now object, the cast to int is necessary to enable
+the value returned by GetOb() to be unboxed and stored in v. If you remove the cast, the
 program will not compile. In the generic version of the program, this cast was not needed
 because int was specified as a type argument when iOb was constructed. In the non-generic
 version, the cast must be employed. This is not only an inconvenience, but a potential
@@ -329,7 +329,7 @@ iOb = strOb;
 Here, strOb is assigned to iOb. However, strOb refers to an object that contains a string, not
 an integer. This assignment is syntactically valid because all NonGen references are the same,
 and any NonGen reference can refer to any other NonGen object. However, the statement is
-semantically wrong, as the commented-out line shows. In that line, the return type of GetOb( )
+semantically wrong, as the commented-out line shows. In that line, the return type of GetOb()
 is cast to int and then an attempt is made to assign this value to v. The trouble is that iOb
 now refers to an object that stores a string, not an int. Unfortunately, without generics, the
 compiler won’t catch this error. Instead, a runtime exception will occur when the cast to int
@@ -351,7 +351,7 @@ NonGen instance variable ob is obtained by ShowType():
 Console.WriteLine("Type of ob is " + ob.GetType());
 
 Recall from Chapter 11 that object defines several methods that are available to all data types.
-One of these methods is GetType( ), which returns a Type object that describes the type of
+One of these methods is GetType(), which returns a Type object that describes the type of
 the invoking object at runtime. Thus, even though the type of ob is specified as object in the
 program’s source code, at runtime, the actual type of object being referred to is known. This
 is why the CLR will generate an exception if you try an invalid cast during program execution.

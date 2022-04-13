@@ -38,49 +38,49 @@ AggregateException, генерируется в том случае, если з
 
 // Применить метод Wait().
 
-//using System;
-//using System.Threading;
-//using System.Threading.Tasks;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 
-//class DemoTask
-//{
-//    // Метод, исполняемый как задача.
-//    static void MyTask()
-//    {
-//        Console.WriteLine("MyTask() №" + Task.CurrentId + " запущен");
+class DemoTask
+{
+    // Метод, исполняемый как задача.
+    static void MyTask()
+    {
+        Console.WriteLine("MyTask() №" + Task.CurrentId + " запущен");
 
-//        for (int count = 0; count < 10; count++)
-//        {
-//            Thread.Sleep(500);
-//            Console.WriteLine("В методе MyTask() #" + Task.CurrentId + ", подсчет равен " + count);
-//        }
+        for (int count = 0; count < 10; count++)
+        {
+            Thread.Sleep(500);
+            Console.WriteLine("В методе MyTask() #" + Task.CurrentId + ", подсчет равен " + count);
+        }
 
-//        Console.WriteLine("MyTask №" + Task.CurrentId + " завершен");
-//    }
+        Console.WriteLine("MyTask №" + Task.CurrentId + " завершен");
+    }
 
-//    static void Main()
-//    {
-//        Console.WriteLine("Основной поток запущен.");
+    static void Main()
+    {
+        Console.WriteLine("Основной поток запущен.");
 
-//        // Сконструировать объекты двух задач.
-//        Task tsk = new(MyTask);
-//        Task tsk2 = new(MyTask);
+        // Сконструировать объекты двух задач.
+        Task tsk = new(MyTask);
+        Task tsk2 = new(MyTask);
 
-//        // Запустить задачи на исполнение.
-//        tsk.Start();
-//        tsk2.Start();
+        // Запустить задачи на исполнение.
+        tsk.Start();
+        tsk2.Start();
 
-//        Console.WriteLine("Идентификатор задачи tsk:" + tsk.Id);
-//        Console.WriteLine("Идентификатор задачи tsk2:" + tsk2.Id);
+        Console.WriteLine("Идентификатор задачи tsk:" + tsk.Id);
+        Console.WriteLine("Идентификатор задачи tsk2:" + tsk2.Id);
 
-//        // Приостановить выполнение метода Main() до тех пор,
-//        // пока не завершатся обе задачи tsk и tsk2
-//        tsk.Wait();
-//        tsk2.Wait();
+        // Приостановить выполнение метода Main() до тех пор,
+        // пока не завершатся обе задачи tsk и tsk2
+        tsk.Wait();
+        tsk2.Wait();
 
-//        Console.WriteLine("Основной поток завершен.");
-//    }
-//}
+        Console.WriteLine("Основной поток завершен.");
+    }
+}
 
 /*
 
@@ -229,10 +229,10 @@ In MyTask() #2, count is 9
 MyTask #2 terminating
 Main thread ending.
 
-As the output shows, Main( ) suspends execution until both tsk and tsk2 terminate. It
+As the output shows, Main() suspends execution until both tsk and tsk2 terminate. It
 is important to understand that in this program, the sequence in which tsk and tsk2 finish is
-not important relative to the calls to Wait( ). For example, if tsk2 completed first, the call to
-tsk.Wait( ) would still wait until tsk finished. Then, the call to tsk2.Wait( ) would execute
+not important relative to the calls to Wait(). For example, if tsk2 completed first, the call to
+tsk.Wait() would still wait until tsk finished. Then, the call to tsk2.Wait() would execute
 and return immediately, since tsk2 was already done.
 
 */

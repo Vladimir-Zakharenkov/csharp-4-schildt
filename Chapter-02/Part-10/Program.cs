@@ -210,7 +210,7 @@ Console.WriteLine("x contains " + x);
 
 In this statement, the plus sign causes the value of x to be displayed after the string that
 precedes it. This approach can be generalized. Using the + operator, you can chain together
-as many items as you want within a single WriteLine( ) statement.
+as many items as you want within a single WriteLine() statement.
 
 The next line of code assigns y the value of x divided by 2:
 
@@ -231,11 +231,11 @@ Here are the next two lines in the program:
 Console.Write("y contains x / 2: ");
 Console.WriteLine(y);
 
-Two new things are occurring here. First, the built-in method Write( ) is used to display the
+Two new things are occurring here. First, the built-in method Write() is used to display the
 string “y contains x / 2: ”. This string is not followed by a new line. This means that when
-the next output is generated, it will start on the same line. The Write( ) method is just like
-WriteLine( ), except that it does not output a new line after each call. Second, in the call
-toWriteLine( ), notice that y is used by itself. Both Write( ) and WriteLine( ) can be used to
+the next output is generated, it will start on the same line. The Write() method is just like
+WriteLine(), except that it does not output a new line after each call. Second, in the call
+toWriteLine(), notice that y is used by itself. Both Write() and WriteLine() can be used to
 output values of any of C#’s built-in types.
 
 One more point about declaring variables before we move on: It is possible to declare

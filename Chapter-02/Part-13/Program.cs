@@ -161,12 +161,12 @@ example:
 
 if(10 < 11) Console.WriteLine("10 is less than 11");
 
-In this case, since 10 is less than 11, the conditional expression is true, and WriteLine( ) will
+In this case, since 10 is less than 11, the conditional expression is true, and WriteLine() will
 execute. However, consider the following:
 
 if(10 < 9) Console.WriteLine("this won’t be displayed");
 
-In this case, 10 is not less than 9. Thus, the call to WriteLine( ) will not take place.
+In this case, 10 is not less than 9. Thus, the call to WriteLine() will not take place.
 
 C# defines a full complement of relational operators that can be used in a conditional
 expression. They are shown here:

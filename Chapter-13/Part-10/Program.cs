@@ -158,9 +158,9 @@ IndexOutOfRangeException.
 
 /*
 
-In this program, divide-by-zero errors are handled locally, by GenException( ), but an array
+In this program, divide-by-zero errors are handled locally, by GenException(), but an array
 boundary error is rethrown. In this case, the IndexOutOfRangeException is handled by
-Main( ).
+Main().
 
 */
 

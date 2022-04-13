@@ -358,7 +358,7 @@ Second, when an exception occurs (in this case, because of the attempt to index 
 beyond its bounds inside the for loop), the exception is thrown out of the try block and
 caught by the catch. At this point, control passes to the catch block, and the try block is
 terminated. That is, catch is not called. Rather, program execution is transferred to it. Thus,
-theWriteLine( ) statement following the out-of-bounds index will never execute. After the
+theWriteLine() statement following the out-of-bounds index will never execute. After the
 catch block executes, program control continues with the statements following the catch.
 Thus, it is the job of your exception handler to remedy the problem that caused the
 exception so program execution can continue normally.

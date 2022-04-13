@@ -225,7 +225,7 @@ Main thread is now called: Main Thread
 Priority is now: AboveNormal
 
 One word of caution: You need to be careful about what operations you perform on the
-main thread. For example, if you add this call to Join( ) to the end of Main(),
+main thread. For example, if you add this call to Join() to the end of Main(),
 
 Thrd.Join();
 
