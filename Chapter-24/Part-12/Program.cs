@@ -27,62 +27,7 @@ public delegate void Action<in T>(T obj)
 
 // Продемонстрировать продолжение задачи.
 
-using System;
-using System.Threading;
-using System.Threading.Tasks;
 
-class ContinuationDemo
-{
-    // Метод, исполняемый как задача.
-    static void MyTask()
-    {
-        Console.WriteLine("MyTask() запущен");
-
-        for (int count = 0; count < 5; count++)
-        {
-            Thread.Sleep(500);
-            Console.WriteLine("В методе MyTask() подсчет равен " + count);
-        }
-
-        Console.WriteLine("MyTask() завершен");
-    }
-
-    // Метод, исполняемый как продолжение задачи.
-    static void ContTask(Task t)
-    {
-        Console.WriteLine("Продолжение запущено");
-
-        for (int count = 0; count < 5; count++)
-        {
-            Thread.Sleep(500);
-            Console.WriteLine("В продолжении подсчет равен " + count);
-        }
-
-        Console.WriteLine("Продолжение завершено");
-    }
-
-    static void Main()
-    {
-        Console.WriteLine("Основной поток запущен.");
-
-        // Сконструировать объект первой задачи.
-        Task tsk = new(MyTask);
-
-        // А теперь создать продолжение задачи.
-        Task taskCont = tsk.ContinueWith(ContTask);
-
-        // Начать последовательность задач.
-        tsk.Start();
-
-        // Ожидать завершения продолжения.
-        taskCont.Wait();
-
-        tsk.Dispose();
-        taskCont.Dispose();
-
-        Console.WriteLine("Основной поток завершен.");
-    }
-}
 
 /*
 
