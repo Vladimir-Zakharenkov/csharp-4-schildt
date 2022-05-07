@@ -140,7 +140,6 @@ class DelegateTest
         Console.WriteLine("Результирующая строка: " + str);
 
         Console.ReadKey();
-
     }
 }
 

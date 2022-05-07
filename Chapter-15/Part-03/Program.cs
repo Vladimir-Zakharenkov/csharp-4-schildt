@@ -24,7 +24,7 @@ class StringOps
     //Заменить пробелы дефисами
     public string ReplaceSpaces(string s)
     {
-        Console.WriteLine("Замена пробелов дефисами."); ;
+        Console.WriteLine("Замена пробелов дефисами.");
         return s.Replace(' ', '-');
     }
 
