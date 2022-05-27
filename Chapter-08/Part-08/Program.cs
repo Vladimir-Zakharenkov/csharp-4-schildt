@@ -38,7 +38,6 @@ class MyClass
         {
             return false;
         }
-
     }
     // Сделать копию объекта ob.
     public void Copy(MyClass ob)
